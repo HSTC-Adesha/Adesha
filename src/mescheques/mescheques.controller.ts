@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/class-name-casing */
 import { Controller, Post, Get, Param, Patch, Delete, Body } from "@nestjs/common";
 import { meschequesservice } from "./mescheques.service";
-import { cheque } from "./mescheques.model";
+import { Cheque } from "./mescheques.model";
 
 
 @Controller('mescheques')

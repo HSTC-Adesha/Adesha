@@ -1,233 +1,218 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/class-name-casing */
 import { Injectable, Get, NotFoundException } from "@nestjs/common";
-import {cheque} from "./mescheques.model";
-import { get } from "http";
+import { Cheque } from "./mescheques.model";
 
 @Injectable()
 export class meschequesservice {
-    insertcheque(chequeNcheque: string, chequeNfacture: string, chequeNcarnet: string, chequeNombp: string, chequeDateech: string, chequeDatecre: string, chequeMt: number, chequeEmis: string, chequepEmettrice: string, chequeDest: string, chequeppReceptrice: string, chequeLieucre: string, chequeLieupai: string) {
-        throw new Error("Method not implemented.");
-    }
+    private mescheques: Cheque[] = [];
 
-      private mescheques: cheque [] = [] ;
-     Insertcheque ( 
-        id: string,
-        Ncheque: string,
-        Nfacture: string,
-        Ncarnet: string,
-        Nombp: string, 
-        Dateech: string,
-        Datecre: string,
-        Mt: number,
-        Emis:string,
-        pEmettrice:string,
-        Dest: string,
-        pReceptrice: string, 
-        Lieucre:string, 
-        Lieupai: string ) { 
+    insertcheque(chequencheque: string, chequenfacture: string, chequencarnet: string, chequenombp: string, chequedateEch: string, chequedateCre: string,
+        chequeMt: number, chequeEmis: string, chequepEmettrice: string, chequeDest: string, chequeppReceptrice: string, chequeLieucre: string, chequeLieupai: string) {
 
-const chequeid =Math.random.toString();
-        const newcheque = new cheque (
-        chequeid,
-        Ncheque, 
-        Nfacture, 
-        Ncarnet, 
-        Nombp, 
-        Dateech, 
-        Datecre, 
-        Mt, 
-        Emis, 
-        pEmettrice, 
-        Dest, 
-        pReceptrice, 
-        Lieucre, 
-        Lieupai );
+
+
+        const chequeid = new Date().toString();
+        const newcheque = new Cheque(
+            chequeid,
+            chequencheque,
+            chequenfacture,
+             chequencarnet,
+             chequenombp,
+             chequedateEch,
+             chequedateCre,
+             chequeMt,
+             chequeEmis,
+             chequepEmettrice,
+             chequeDest,
+            chequeppReceptrice,
+            chequeLieucre,
+            chequeLieupai);
         this.mescheques.push(newcheque);
-        return chequeid; 
-        }
-        getcheques(){
+        return newcheque;
+    }
+    getcheques() {
         return [...this.mescheques];
     }
-    getUncheque(chequeid: string){
-       const cheque = this.findcheque(chequeid)[0];
-        return {...cheque};
+    getUncheque(chequeid: string) {
+        const cheque = this.findcheque(chequeid)[0];
+        return { ...cheque };
     }
 
-    getUncheq(chequeNcheque: string){
-        const cheque = this.mescheques.find(cheq=> cheq.id===chequeNcheque);
-        if(!cheque){
+    getUncheq(chequencheque: string) {
+        const cheque = this.mescheques.find(cheq => cheq.id === chequencheque);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getUnch(chequeNfacture: string){
-        const cheque = this.mescheques.find(cheq=> cheq.Nfacture===chequeNfacture);
-        if(!cheque){
+
+    getUnch(chequenfacture: string) {
+        const cheque = this.mescheques.find(cheq => cheq.nfacture === chequenfacture);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getUnchq(chequeNcarnet: string){
-        const cheque = this.mescheques.find(cheq=> cheq.Ncarnet===chequeNcarnet);
-        if(!cheque){
+
+    getUnchq(chequencarnet: string) {
+        const cheque = this.mescheques.find(cheq => cheq.ncarnet === chequencarnet);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getCheques(chequeNombp: string){
-        const cheque = this.mescheques.find(cheq=> cheq.Nombp===chequeNombp);
-        if(!cheque){
+
+    getCheques(chequenombp: string) {
+        const cheque = this.mescheques.find(cheq => cheq.nombp === chequenombp);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getdeschequeS(chequeDateech: string){
-        const cheque = this.mescheques.find(cheq=> cheq.Dateech===chequeDateech);
-        if(!cheque){
+
+    getdeschequeS(chequedateEch: string) {
+        const cheque = this.mescheques.find(cheq => cheq.dateEch === chequedateEch);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getleschEques(chequeDatecre: string){
-        const cheque = this.mescheques.find(cheq=> cheq.Datecre===chequeDatecre);
-        if(!cheque){
+
+    getleschEques(chequedateCre: string) {
+        const cheque = this.mescheques.find(cheq => cheq.dateCre === chequedateCre);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getmeschequeS(chequeMt: number){
-        const cheque = this.mescheques.find(cheq=> cheq.Mt===chequeMt);
-        if(!cheque){
+
+    getmeschequeS(chequeMt: number) {
+        const cheque = this.mescheques.find(cheq => cheq.mt === chequeMt);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getMeschequeS(chequeEmis: string){
-        const cheque = this.mescheques.find(cheq=> cheq.Emis===chequeEmis);
-        if(!cheque){
+
+    getMeschequeS(chequeEmis: string) {
+        const cheque = this.mescheques.find(cheq => cheq.emis === chequeEmis);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getmesChequE(chequepEmettrice: string){
-        const cheque = this.mescheques.find(cheq=> cheq.pEmettrice===chequepEmettrice);
-        if(!cheque){
+
+    getmesChequE(chequepEmettrice: string) {
+        const cheque = this.mescheques.find(cheq => cheq.pEmettrice === chequepEmettrice);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getMesCheQue(chequeDest: string){
-        const cheque = this.mescheques.find(cheq=> cheq.Dest===chequeDest);
-        if(!cheque){
+
+    getMesCheQue(chequeDest: string) {
+        const cheque = this.mescheques.find(cheq => cheq.dest === chequeDest);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getLeschequeS(chequepReceptrice: string){
-        const cheque = this.mescheques.find(cheq=> cheq.pReceptrice===chequepReceptrice);
-        if(!cheque){
+
+    getLeschequeS(chequepReceptrice: string) {
+        const cheque = this.mescheques.find(cheq => cheq.pReceptrice === chequepReceptrice);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getlesChequeS(chequeLieucre: string){
-        const cheque = this.mescheques.find(cheq=> cheq.Lieucre===chequeLieucre);
-        if(!cheque){
+
+    getlesChequeS(chequeLieucre: string) {
+        const cheque = this.mescheques.find(cheq => cheq.lieucre === chequeLieucre);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
-    
-    getLesChequeS(chequeLieupai: string){
-        const cheque = this.mescheques.find(cheq=> cheq.Lieupai===chequeLieupai);
-        if(!cheque){
+
+    getLesChequeS(chequeLieupai: string) {
+        const cheque = this.mescheques.find(cheq => cheq.lieupai === chequeLieupai);
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
-        return {...cheque};
+        return { ...cheque };
     }
 
     updatecheque(
-    chequeid:string,
-    Ncheque:string, 
-    Nfacture:string, 
-    Ncarnet:string, 
-    Nombp:string, 
-    Dateech:string, 
-    Datecre:string, 
-    Mt:number, 
-    Emis:string, 
-    pEmettrice:string, 
-    Dest:string, 
-    pReceptrice:string, 
-    Lieucre:string, 
-    Lieupai:string )
-    {
-    const [cheque, index] = this.findcheque(chequeid);
-    const updatecheque = {...cheque};
-    if (Ncheque) {
-        updatecheque.Ncheque=Ncheque;
-    }
-    if (Nfacture) {
-        updatecheque.Nfacture=Nfacture;
-    }
-    if (Ncarnet) {
-        updatecheque.Ncarnet=Ncarnet;
-    }
-    if (Nombp) {
-        updatecheque.Nombp=Nombp;
-    }
-    if (Dateech) {
-        updatecheque.Dateech=Dateech;
-    }
-    if (Datecre) {
-        updatecheque.Datecre=Datecre;
-    }
-    if (Emis) {
-        updatecheque.Emis=Emis;
-    }
-    if (pEmettrice) {
-        updatecheque.pEmettrice=pEmettrice;
-    }
-    if (Dest) {
-        updatecheque.Dest=Dest;
-    }
-    if (pReceptrice) {
-        updatecheque.pReceptrice=pReceptrice;
-    }
-    if (Lieucre) {
-        updatecheque.Lieucre=Lieucre;
-    }
-    if (Lieupai) {
-        updatecheque.Lieupai=Lieupai;
-    }
-   
-    this.mescheques[index] = updatecheque;
-    }
-
-    deletecheque(chequeid: string){ 
+        chequeid: string,
+        ncheque: string,
+        nfacture: string,
+        ncarnet: string,
+        nombp: string,
+        dateEch: string,
+        dateCre: string,
+        // elle est mt en bas ??
+        mt: number,
+        emis: string,
+        pEmettrice: string,
+        dest: string,
+        pReceptrice: string,
+        lieucre: string,
+        lieupai: string) {
         const [cheque, index] = this.findcheque(chequeid);
-        this.mescheques.splice(index, );  
+        const updatecheque = { ...cheque };
+        if (ncheque) {
+            updatecheque.ncheque = ncheque;
+        }
+        if (nfacture) {
+            updatecheque.nfacture = nfacture;
+        }
+        if (ncarnet) {
+            updatecheque.ncarnet = ncarnet;
+        }
+        if (nombp) {
+            updatecheque.nombp = nombp;
+        }
+        if (dateEch) {
+            updatecheque.dateEch = dateEch;
+        }
+        if (dateCre) {
+            updatecheque.dateCre = dateCre;
+        }
+        if (emis) {
+            updatecheque.emis = emis;
+        }
+        if (pEmettrice) {
+            updatecheque.pEmettrice = pEmettrice;
+        }
+        if (dest) {
+            updatecheque.dest = dest;
+        }
+        if (pReceptrice) {
+            updatecheque.pReceptrice = pReceptrice;
+        }
+        if (lieucre) {
+            updatecheque.lieucre = lieucre;
+        }
+        if (lieupai) {
+            updatecheque.lieupai = lieupai;
+        }
+
+        this.mescheques[index] = updatecheque;
+    }
+
+    deletecheque(chequeid: string) {
+        const [cheque, index] = this.findcheque(chequeid);
+        this.mescheques.splice(index);
     }
 
 
 
 
-    private findcheque (id:string): [cheque, number]{
-    const chequeIndex = this.mescheques.findIndex(cheq=> cheq.id===id);
-    const cheque = this.mescheques[chequeIndex];
-        if(!cheque){
+    private findcheque(id: string): [Cheque, number] {
+        const chequeIndex = this.mescheques.findIndex(cheq => cheq.id === id);
+        const cheque = this.mescheques[chequeIndex];
+        if (!cheque) {
             throw new NotFoundException("erreur!!");
         }
         return [cheque, chequeIndex];
@@ -237,4 +222,4 @@ const chequeid =Math.random.toString();
 
 
 
-    
+
