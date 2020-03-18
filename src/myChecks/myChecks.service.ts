@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/class-name-casing */
+
 import { Injectable, NotFoundException } from "@nestjs/common";
 import {check} from "./myChecks.model";
 import {InjectModel} from "@nestjs/mongoose";
@@ -8,14 +6,15 @@ import {Model} from "mongoose";
 
 @Injectable()
 export class mychecksservice {
-    insertcheck(checkcheckNum: string, checkbillNum: string, checkcheckbookNum: string, checkbankName: string, checkDueDate: string, checkCreationDate: string, checkAmountToBePaid: string, checkEmittedCheck: string, checkpersonTransmitterOfCheck: string, checkcheckDestination: string, checkppersonReceiverOfCheck: string, checkplaceOfCreation: string, checkplaceOfPayment: string) {
-        throw new Error("Method not implemented.");
-    }
+   
 
       private mychecks: check [] = [] ;
       constructor (@InjectModel('check') private readonly checkModel: Model<check> ) {}
-     async Insertcheck ( 
-        id: string,
+    
+     async insertcheck(checkcheckNum: string, checkbillNum: string, checkcheckbookNum: string, checkbankName: string, checkDueDate: string, checkCreationDate: string, checkAmountToBePaid: string, checkEmittedCheck: string, checkpersonTransmitterOfCheck: string, checkcheckDestination: string, checkppersonReceiverOfCheck: string, checkplaceOfCreation: string, checkplaceOfPayment: string) {
+        this.addcheck(checkcheckNum, checkbillNum, checkcheckbookNum, checkbankName, checkDueDate, checkCreationDate, checkAmountToBePaid, checkEmittedCheck, checkpersonTransmitterOfCheck, checkcheckDestination, checkppersonReceiverOfCheck, checkplaceOfCreation, checkplaceOfPayment)
+    }
+      async addcheck ( 
         checkNum: string,
         billNum: string,
         checkbookNum: string,
@@ -401,7 +400,7 @@ export class mychecksservice {
     if (placeOfPayment) {
         updatecheck.placeOfPayment=placeOfPayment;
     }
-    const result = await updatecheck.save();
+    //const result = await updatecheck.save();
     }
 
     async deletecheck(checkid: string){
