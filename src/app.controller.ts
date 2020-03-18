@@ -19,4 +19,8 @@ export class AppController {
   getProfile(@Request() req) {
     return req.user;
   }
+  @Get('/')
+  getProfile(@Request() req) {
+    return {message:'hello world'};
+  }
 }
