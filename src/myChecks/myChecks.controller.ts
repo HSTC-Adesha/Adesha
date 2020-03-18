@@ -40,6 +40,7 @@ export class mycheckscontroller {
             checkplaceOfPayment );
     console.log(generateid);
             return {id: generateid}; 
+
     }
     @Get()
     async getAllchecks(){
