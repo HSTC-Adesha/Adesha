@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/class-name-casing */
 import { Module } from "@nestjs/common";
 import {MongooseModule} from "@nestjs/mongoose";
 import { mycheckscontroller} from "./myChecks.controller";

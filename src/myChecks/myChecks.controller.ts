@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/class-name-casing */
 import { Controller, Post, Get, Param, Patch, Delete, Body } from "@nestjs/common";
 import { mychecksservice } from "./myChecks.service";
 
@@ -40,7 +38,6 @@ export class mycheckscontroller {
             checkplaceOfPayment );
     console.log(generateid);
             return {id: generateid}; 
-
     }
     @Get()
     async getAllchecks(){

@@ -2,24 +2,22 @@
 import *as mongoose from 'mongoose';
  
 export const checkshema = new mongoose.Schema ({
-    checkNumum: {type: String, required:true}, 
-    billNum:{type: String, required:true},
-    checkbookNum: {type: String, required:true}, 
-    bankName: {type: String, required:true},
-    DueDate: {type: String, required:true}, 
-    CreationDate: {type: String, required:true}, 
-    AmountToBePaid: {type:String, required:true}, 
-    EmittedCheck: {type: String, required:true}, 
-    personTransmitterOfCheck: {type: String, required:true}, 
-    checkDestination: {type: String, required:true}, 
-    personReceiverOfCheck: {type: String, required:true}, 
-    placeOfCreation: {type: String, required:true}, 
-    placeOfPayment: {type: String, required:true}, 
+    checkNumum: {type: String}, 
+    billNum:{type: String/*, required:true */},
+    checkbookNum: {type: String/*, required:true */}, 
+    bankName: {type: String/*, required:true */},
+    DueDate: {type: String/*, required:true */}, 
+    CreationDate: {type: String/*, required:true */}, 
+    AmountToBePaid: {type:String/*, required:true */}, 
+    EmittedCheck: {type: String/*, required:true */}, 
+    personTransmitterOfCheck: {type: String/*, required:true */}, 
+    checkDestination: {type: String/*, required:true */}, 
+    personReceiverOfCheck: {type: String/*, required:true */}, 
+    placeOfCreation: {type: String/*, required:true */}, 
+    placeOfPayment: {type: String/*, required:true */}, 
  
 })
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/class-name-casing */
 export class check extends mongoose.Document {
   
     id: string;
