@@ -1,10 +1,10 @@
 import { Controller, Post, Get, Param, Patch, Delete, Body } from "@nestjs/common";
-import { mychecksservice } from "./myChecks.service";
+import { Mychecksservice } from "./myChecks.service";
 
 
 @Controller('mychecks')
-export class mycheckscontroller {
-    constructor ( private readonly mycheckservice: mychecksservice) {
+export class Mycheckscontroller {
+    constructor ( private readonly mycheckservice: Mychecksservice) {
 
     }
     @Post()
