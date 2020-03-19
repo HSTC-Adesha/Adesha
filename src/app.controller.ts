@@ -20,7 +20,7 @@ export class AppController {
     return req.user;
   }
   @Get('/')
-  getProfile(@Request() req) {
+  getProfil() {
     return {message:'hello world'};
   }
 }
