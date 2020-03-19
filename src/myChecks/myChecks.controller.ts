@@ -2,7 +2,7 @@ import { Controller, Post, Get, Param, Patch, Delete, Body } from "@nestjs/commo
 import { Mychecksservice } from "./myChecks.service";
 
 
-@Controller('mychecks')
+@Controller('checks')
 export class Mycheckscontroller {
     constructor ( private readonly mycheckservice: Mychecksservice) {
 
