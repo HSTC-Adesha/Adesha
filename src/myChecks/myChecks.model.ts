@@ -2,7 +2,7 @@
 import *as mongoose from 'mongoose';
  
 export const checkshema = new mongoose.Schema ({
-    checkNumum: {type: String}, 
+    checkNum: {type: String}, 
     billNum:{type: String, required:true },
     checkbookNum: {type: String, required:true }, 
     bankName: {type: String, required:true },
@@ -20,7 +20,7 @@ export const checkshema = new mongoose.Schema ({
 
 export class Check extends mongoose.Document {
     id: string;
-    checkNumum: string; 
+    checkNum: string; 
     billNum: string; 
     checkbookNum: string; 
     bankName: string; 
@@ -33,7 +33,7 @@ export class Check extends mongoose.Document {
     personReceiverOfCheck: string; 
     placeOfCreation: string; 
     placeOfPayment: string; 
-    checkNum: any;
+    
 
 }
 

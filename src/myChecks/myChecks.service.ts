@@ -45,9 +45,10 @@ export class Mychecksservice {
         placeOfPayment,  });
         const result = await newcheck.save();
        return result.id as string;
+       console.log(newcheck);
         }
         async getchecks(){
-            const checks = await this.checkModel.find().exec(); 
+            const checks = await this.checkModel.find().exec() 
         return checks.map(check=> ({
             id: check.id,
             checkNum: check.checkNum,
@@ -87,7 +88,7 @@ export class Mychecksservice {
     }
 
     async getUncheq(checkcheckNum: string){
-        const check = await this.findcheck(checkcheckNum);
+        const check = await this.findcheckNum(checkcheckNum);
         return {
             id: check.id,
             checkNum: check.checkNum,
@@ -106,10 +107,8 @@ export class Mychecksservice {
         };
     }
 
-       
-    
     async getUnch(checkbillNum: string){
-        const check = await this.findcheck(checkbillNum);
+        const check = await this.findbillNum(checkbillNum);
         return {
             id: check.id,
             checkNum: check.checkNum,
@@ -129,7 +128,7 @@ export class Mychecksservice {
     }
     
      async getUnchq(checkcheckbookNum: string){
-        const check = await this.findcheck(checkcheckbookNum);
+        const check = await this.findcheckbookNum(checkcheckbookNum);
         return {
             id: check.id,
             checkNum: check.checkNum,
@@ -149,7 +148,7 @@ export class Mychecksservice {
     }
     
      async getChecks(checkbankName: string){
-        const check = await this.findcheck(checkbankName);
+        const check = await this.findbankName(checkbankName);
         return {
             id: check.id,
             checkNum: check.checkNum,
@@ -169,7 +168,7 @@ export class Mychecksservice {
     }
     
     async getdescheckS(checkDueDate: string){
-        const check = await this.findcheck(checkDueDate);
+        const check = await this.findDueDate(checkDueDate);
         return {
             id: check.id,
             checkNum: check.checkNum,
@@ -189,7 +188,7 @@ export class Mychecksservice {
     }
     
     async getleschEques(checkCreationDate: string){
-        const check = await this.findcheck(checkCreationDate);
+        const check = await this.findCreationDate(checkCreationDate);
         return {
             id: check.id,
             checkNum: check.checkNum,
@@ -209,7 +208,7 @@ export class Mychecksservice {
 }
     
     async getmescheckS( checkAmountToBePaid: string){
-        const check = await this.findcheck(checkAmountToBePaid);
+        const check = await this.findAmountToBePaid (checkAmountToBePaid);
         return {
             id: check.id,
             checkNum: check.checkNum,
@@ -229,7 +228,7 @@ export class Mychecksservice {
 }
     
     async getMescheckS(checkEmittedCheck: string){
-        const check = await this.findcheck(checkEmittedCheck);
+        const check = await this.findEmittedCheck(checkEmittedCheck);
         return {
             id: check.id,
             checkNum: check.checkNum,
@@ -249,7 +248,7 @@ export class Mychecksservice {
 }
     
     async getmesChequE(checkpersonTransmitterOfCheck: string){
-        const check = await this.findcheck(checkpersonTransmitterOfCheck);
+        const check = await this.findpersonTransmitterOfCheck(checkpersonTransmitterOfCheck);
         return {
             id: check.id,
             checkNum: check.checkNum,
@@ -269,7 +268,7 @@ export class Mychecksservice {
 }
     
     async getMesCheQue(checkcheckDestination: string){
-        const check = await this.findcheck(checkcheckDestination);
+        const check = await this.findcheckDestination(checkcheckDestination);
         return { 
         id: check.id,
         checkNum: check.checkNum,
@@ -289,7 +288,7 @@ export class Mychecksservice {
 }
     
     async getLescheckS(checkpersonReceiverOfCheck: string){
-        const check = await this.findcheck(checkpersonReceiverOfCheck);
+        const check = await this.findpersonReceiverOfCheck(checkpersonReceiverOfCheck);
         return { 
             id: check.id,
             checkNum: check.checkNum,
@@ -309,7 +308,7 @@ export class Mychecksservice {
 }
     
     async getlesCheckS(checkplaceOfCreation: string){
-        const check = await this.findcheck(checkplaceOfCreation);
+        const check = await this.findplaceOfCreation(checkplaceOfCreation);
         return { 
             id: check.id,
             checkNum: check.checkNum,
@@ -329,7 +328,7 @@ export class Mychecksservice {
 }
     
     async getLesCheckS(checkplaceOfPayment: string){
-        const check = await this.findcheck(checkplaceOfPayment);
+        const check = await this.findplaceOfPayment(checkplaceOfPayment);
         return { 
             id: check.id,
             checkNum: check.checkNum,
@@ -380,8 +379,12 @@ export class Mychecksservice {
     if (DueDate) {
         updatecheck.DueDate=DueDate;
     }
+   
     if (CreationDate) {
         updatecheck.CreationDate=CreationDate;
+    }
+    if(AmountToBePaid){
+        updatecheck.AmountToBePaid=AmountToBePaid;
     }
     if (EmittedCheck) {
         updatecheck.EmittedCheck=EmittedCheck;
@@ -406,7 +409,8 @@ export class Mychecksservice {
     }
 
     async deletecheck(checkid: string){
-        await  this.checkModel.deleteOne ({id:checkid}).exec();
+    await  this.checkModel.findByIdAndDelete(checkid);
+    
     }
         
     private async findcheck (id:string): Promise <Check> {
@@ -422,6 +426,193 @@ export class Mychecksservice {
     
         return check;
     }
+    private async findcheckNum (checkNum:string): Promise <Check> {
+        let check;
+        try {
+    
+     check = await this.checkModel.findOne({checkNum:checkNum});
+        } catch(error) {
+            throw new NotFoundException("erreur!!");
+        }
+        if(!check){
+            throw new NotFoundException("erreur!!");
+        }
+    
+        return check;
+}
+private async findbillNum (billNum:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.findOne({billNum:billNum});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+
+    return check;
+}
+private async findcheckbookNum (checkbookNum:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.find({checkbookNum:checkbookNum});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+
+    return check;
+}
+private async findbankName (bankName:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.find({bankName:bankName});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+
+    return check;
+}
+private async findDueDate (DueDate:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.find({DueDate:DueDate});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+
+    return check;
+}
+private async findCreationDate (CreationDate:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.find({CreationDate:CreationDate});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+
+    return check;
+}
+
+private async findAmountToBePaid(AmountToBePaid:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.find({AmountToBePaid:AmountToBePaid});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+    return check;
+}
+
+
+private async findEmittedCheck (EmittedCheck:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.find({EmittedCheck:EmittedCheck});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+    return check;
+}
+
+private async findpersonTransmitterOfCheck (personTransmitterOfCheck:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.find({personTransmitterOfCheck:personTransmitterOfCheck});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+    return check;
+}
+
+private async findcheckDestination (checkDestination:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.find({checkDestination:checkDestination});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+    return check;
+}
+
+private async findpersonReceiverOfCheck (personReceiverOfCheck:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.find({personReceiverOfCheck:personReceiverOfCheck});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+    return check;
+}
+
+private async findplaceOfCreation (placeOfCreation:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.find({placeOfCreation:placeOfCreation});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+    return check;
+}
+
+private async findplaceOfPayment (placeOfPayment:string): Promise <Check> {
+    let check;
+    try {
+
+ check = await this.checkModel.findOne({placeOfPayment:placeOfPayment});
+    } catch(error) {
+        throw new NotFoundException("erreur!!");
+    }
+    if(!check){
+        throw new NotFoundException("erreur!!");
+    }
+    return check;
+}
+
+
+
+
 }
 
 
