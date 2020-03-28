@@ -73,7 +73,7 @@ private async saveForgotPassword(req: Request, createForgotPasswordDto: CreateFo
   const forgotPassword = await this.forgotPasswordModel.create({
       email: createForgotPasswordDto.email,
       verification: v4(),
-      expires: addHours(new Date(), +process.env.REGISTRATION_HOURS_TO_VERIFY),
+      expires: addHours(new Date(), 8),
       ip: this.getIp(req),
       browser: this.getBrowserInfo(req),
       country: this.getCountry(req),
@@ -102,7 +102,7 @@ async forgotPasswordVerify(req: Request, verifyUuidDto: VerifyUuidDto) {
   };
 }
 private async blockUser(user) {
-  user.blockExpires = addHours(new Date(), +process.env.HOURS_TO_BLOCK);
+  user.blockExpires = addHours(new Date(), 5);
   await user.save();
 }
 
@@ -129,13 +129,14 @@ private buildRegistrationInfo(user): any {
   const userRegistrationInfo = {
       fullName: user.fullName,
       email: user.email,
-      verified: user.verified,
+      verified:true
+     // verified: user.verified,
   };
   return userRegistrationInfo;
 }
 private setRegistrationInfo(user): any {
   user.verification = v4();
-  user.verificationExpires = addHours(new Date(), +process.env.REGISTRATION_HOURS_TO_VERIFY);
+  user.verificationExpires = addHours(new Date(), 4);
 }
 async login(req: Request, loginUserDto: LoginUserDto) {
   const user = await this.findUserByEmail(loginUserDto.email);
@@ -159,7 +160,7 @@ private isUserBlocked(user) {
 private async passwordsDoNotMatch(user) {
   user.loginAttempts += 1;
   await user.save();
-  if (user.loginAttempts >= +process.env.LOGIN_ATTEMPTS_TO_BLOCK) {
+  if (user.loginAttempts >= 6) {
       await this.blockUser(user);
       throw new ConflictException('User blocked.');
   }
@@ -222,7 +223,7 @@ private async setUserAsVerified(user) {
 
   async createAccessToken(userId: string) {
     // const accessToken = this.jwtService.sign({userId});
-    const accessToken = sign({userId}, process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRATION });
+    const accessToken = sign({userId}, 'adesha', { expiresIn: '180m' });
     return this.encryptText(accessToken);
   }
 
