@@ -1,9 +1,8 @@
 import { Controller, Post, Get, Param, Patch, Delete, Body, HttpException, HttpStatus, UseFilters} from '@nestjs/common';
-import {HttpExceptionFilter} from '../filters/http-exception.filter';
 import { BillService } from './bill.service';
 
 @Controller('bill')
-@UseFilters(HttpExceptionFilter)
+
 
 export class BillController {
     constructor ( private readonly billsService: BillService) {
@@ -35,7 +34,7 @@ export class BillController {
         return this.billsService. gettheBill(billcomment);
     }
     @Patch(':id')
-    async updatebank(
+    async updatebILL(
      @Param('id') billid: string,
      @Body('number') billnumber: string,
      @Body('comment') billcomment: string,)
