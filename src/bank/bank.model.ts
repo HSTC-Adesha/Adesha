@@ -1,10 +1,10 @@
-import *as mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 
 export const bankSchema = new mongoose.Schema ({
     name: {type: String},
     city: {type: String},
     address: {type: String},
-    comment: {type: String, required:false },
+    comment: {type: String },
 })
 
 export class Bank extends mongoose.Document {

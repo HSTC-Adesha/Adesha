@@ -163,30 +163,30 @@ export class ChequeService {
         creationDate: string,
         placeOfCreation: string,
         comment: string) {
-        const updatecheque = await this.findcheque(chequeid);
+        const updateCheque = await this.findcheque(chequeid);
         if (number) {
-            updatecheque.number = number;
+            updateCheque.number = number;
         }
         if (billNumber) {
-            updatecheque.billNumber = billNumber;
+            updateCheque.billNumber = billNumber;
         }
          if (amount) {
-            updatecheque.amount = amount;
+            updateCheque.amount = amount;
         }
         if (dueDate) {
-            updatecheque.dueDate = dueDate;
+            updateCheque.dueDate = dueDate;
         }
         if (creationDate) {
-            updatecheque.creationDate = creationDate;
+            updateCheque.creationDate = creationDate;
         }
         if (placeOfCreation) {
-            updatecheque.placeOfCreation = placeOfCreation;
+            updateCheque.placeOfCreation = placeOfCreation;
         }
         if (comment) {
-            updatecheque.comment = comment;
+            updateCheque.comment = comment;
         }
     
-        const result = await updatecheque.save();
+        const result = await updateCheque.save();
         return result;
     }
 
@@ -206,7 +206,7 @@ export class ChequeService {
             throw new NotFoundException('erreur!!');
         }
 
-        return cheque;
+        return cheque.schema;
     }
     private async findnumber (number: string): Promise<Cheque> {
         let cheque;

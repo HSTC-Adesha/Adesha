@@ -1,10 +1,10 @@
-import { Controller, Post, Get, Param, Patch, Delete, Body, HttpException, HttpStatus, UseFilters} from '@nestjs/common';
-import {HttpExceptionFilter} from '../filters/http-exception.filter';
+import { Controller, Post, Get, Param, Patch, Delete, Body} from '@nestjs/common';
+// import {HttpExceptionFilter} from '../filters/http-exception.filter';
 import { EmployeeService } from './employee.service';
+import { ApiUseTags } from '@nestjs/swagger';
 
+@ApiUseTags('Employee')
 @Controller('employee')
-@UseFilters(HttpExceptionFilter)
-
 export class EmployeeController {
     constructor ( private readonly employeesService: EmployeeService) {
     }
@@ -28,13 +28,13 @@ export class EmployeeController {
     }
     @Get('id/:employeeid')
     getEMPLOYEE(@Param('employeeid') employeeid: string){
-        return this.employeesService.getEMPLOYEE(employeeid);
+        return this.employeesService.getEmployeeById(employeeid);
     }
-    @Get('First name/:First name')
+    @Get('Firstname/:Firstname')
     gettheemployee(@Param('First name') employeefirstName: string){
         return this.employeesService.gettheemployee(employeefirstName);
     }
-    @Get('Last name/:Last name')
+    @Get('Lastname/:Lastname')
     getTheEmployee(@Param('Last name') employeelastName: string){
         return this.employeesService.getTheEmployee(employeelastName);
     }
@@ -44,7 +44,7 @@ export class EmployeeController {
     }   
     @Get('comment/:comment')
     gettheEmployee(@Param('comment') employeecomment:string,){
-        return this.employeesService. gettheEmployee(employeecomment);
+        return this.employeesService.gettheEmployee(employeecomment);
     }
     @Patch(':id')
     async updatecompany(

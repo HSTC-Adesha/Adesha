@@ -39,15 +39,9 @@ export class EmployeeService {
         }));
     }
 
-    async getEMPLOYEE(employeeid: string) {
-        const employee = await this.findemployee(employeeid);
-        return {
-            id: employee.id,
-            firstName: employee.firstName,
-            lastName: employee.lastName,
-            role: employee.role,
-            comment:employee.comment,
-        };
+    async getEmployeeById(employeeid: string) {
+        return await this.findemployee(employeeid);
+
     }
 
     async gettheemployee(employeefirstName: string) {

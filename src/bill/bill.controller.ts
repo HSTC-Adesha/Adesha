@@ -1,9 +1,9 @@
 import { Controller, Post, Get, Param, Patch, Delete, Body, HttpException, HttpStatus, UseFilters} from '@nestjs/common';
 import { BillService } from './bill.service';
+import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller('bill')
-
-
+@ApiUseTags('Bill')
 export class BillController {
     constructor ( private readonly billsService: BillService) {
     }

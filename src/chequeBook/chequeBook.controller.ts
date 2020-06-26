@@ -1,22 +1,25 @@
-import { Controller, Post, Get, Param, Patch, Delete, Body, HttpException, HttpStatus, UseFilters} from '@nestjs/common';
+import { Controller, Post, Get, Param, Patch, Delete, Body} from '@nestjs/common';
 import { ChequeBookService } from './chequeBook.service';
+import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller('chequeBook')
-
-
+@ApiUseTags('ChequeBook')
 export class ChequeBookController {
     constructor ( private readonly chequeBooksService: ChequeBookService) {
     }
     @Post()
     async  addchequeBook(
-    @Body('number') chequeBooknumber :string,
-    @Body('numberOfCheques') chequeBooknumberOfCheques :string,
-    @Body ('comment') chequeBookcomment :string,) {
-     const generateid = await this.chequeBooksService.insertchequeBook (
-        chequeBooknumber,
-        chequeBooknumberOfCheques,
-        chequeBookcomment);
-        return {id: generateid};
+    @Body('number') number :string,
+    @Body('delivredTo') delivredTo :string,
+    @Body('company') company :string,
+    @Body('bank') bank :string,) {
+     const theChequeBook = await this.chequeBooksService.insertchequeBook (
+        number,
+        delivredTo,
+        company,
+        bank,
+        );
+        return theChequeBook;
     }
     @Get()
     async getAllchequeBooks(){
@@ -27,31 +30,25 @@ export class ChequeBookController {
     getCHEQUEBOOK(@Param('chequeBookid') chequeBookid: string){
         return this.chequeBooksService.getCHEQUEBOOK(chequeBookid);
     }
-    @Get('Number/:Number')
+    @Get('number/:number')
     getthechequeBook(@Param('number') chequeBooknumber: string){
         return this.chequeBooksService.getthechequeBook(chequeBooknumber);
     }
-    @Get('Number of cheques/:Number of cheques')
-    getthechequeBOOK(@Param('numberOfCheques') chequeBooknumberOfCheques: string){
-        return this.chequeBooksService.getthechequeBOOK(chequeBooknumberOfCheques);
-    }
-    @Get('comment/:comment')
-    gettheChequeBook(@Param('comment') chequeBookcomment:string,){
-        return this.chequeBooksService. gettheChequeBook(chequeBookcomment);
-    }
+  
     @Patch(':id')
     async updatechequeBook(
-     @Param('id') chequeBookid: string,
-     @Body('number') chequeBooknumber: string,
-     @Body('numberOfCheques') chequeBooknumberOfCheques: string,
-     @Body('comment') chequeBookcomment: string,)
+     @Param('id') id: string,
+     @Body('number') number: string,
+     @Body('company') company: string,
+     @Body('delivredTo') delivredTo: string,
+     @Body('bank') bank: string,)
      {
-        await this.chequeBooksService.updatechequeBook(
-        chequeBookid,
-        chequeBooknumber,
-        chequeBooknumberOfCheques,
-        chequeBookcomment);
-        return null;
+        return await this.chequeBooksService.updatechequeBook(
+        id,
+        number,
+        company,
+        bank,
+        delivredTo);
      }
      @Delete(':id')
      async removechequeBook( @Param('id')  chequeBookid: string,){

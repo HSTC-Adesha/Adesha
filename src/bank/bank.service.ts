@@ -37,15 +37,8 @@ export class BankService {
         }));
     }
 
-    async getBANK(bankid: string) {
-        const bank = await this.findbank(bankid);
-        return {
-            id: bank.id,
-            name: bank.name,
-            city: bank.city,
-            address: bank.address,
-            comment:bank.comment,
-        };
+    async getBankById(bankid: string) {
+        return await this.findbank(bankid);
     }
 
     async getthebank(bankname: string) {

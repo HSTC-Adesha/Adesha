@@ -1,15 +1,19 @@
-import *as mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 
 export const chequeBookSchema = new mongoose.Schema ({
     number: {type: String},
-    numberOfCheques:{type: String},
-    comment: {type: String, required:false },
+    cheques:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Cheque' }],
+    bank:{ type: mongoose.Schema.Types.ObjectId, ref: 'Bank' },
+    company:{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
+    delivredTo:{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
 })
 
 export class ChequeBook extends mongoose.Document {
     id: string;
     number: string;
-    numberOfCheques: string;
-    comment: string
+    cheques: [string];
+    bank: string;
+    delivredTo: string;
+    company:string;
 }
 

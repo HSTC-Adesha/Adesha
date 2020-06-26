@@ -1,4 +1,5 @@
-import *as mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
+
 
 export const chequeSchema = new mongoose.Schema ({
     number: {type: String},
@@ -13,11 +14,11 @@ export const chequeSchema = new mongoose.Schema ({
 export class Cheque extends mongoose.Document {
     id: string;
     number: string;
-    billNumber: String;
-    amount: String;
-    dueDate: String;
-    creationDate: String;
-    placeOfCreation: String;
+    billNumber: string;
+    amount: string;
+    dueDate: string;
+    creationDate: string;
+    placeOfCreation: string;
     comment: string
 }
 

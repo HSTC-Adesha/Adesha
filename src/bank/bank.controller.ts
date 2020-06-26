@@ -1,9 +1,9 @@
 import { Controller, Post, Get, Param, Patch, Delete, Body, HttpException, HttpStatus, UseFilters} from '@nestjs/common';
 import { BankService } from './bank.service';
+import { ApiUseTags } from '@nestjs/swagger';
 
 @Controller('bank')
-
-
+@ApiUseTags('Bank')
 export class BankController {
     constructor ( private readonly banksService: BankService) {
     }
@@ -27,7 +27,7 @@ export class BankController {
     }
     @Get('id/:bankid')
     getBANK(@Param('bankid') bankid: string){
-        return this.banksService.getBANK(bankid);
+        return this.banksService.getBankById(bankid);
     }
     @Get('Name/:Name')
     getthebank(@Param('Name') bankname: string){
