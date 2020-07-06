@@ -16,9 +16,9 @@ import {
     ApiConflictResponse,
     ApiUnauthorizedResponse,
     ApiOkResponse,
-    ApiUseTags,
+    // ApiUseTags,
 } from '@nestjs/swagger';
-@ApiUseTags('APP')
+//@ApiUseTags('APP')
 @Controller('app')
 @UseGuards(RolesGuard)
 export class AuthController {
