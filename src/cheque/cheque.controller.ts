@@ -9,81 +9,138 @@ export class ChequeController {
     }
     @Post()
     async  addcheque(
-    @Body('number') chequenumber :string,
-    @Body('billnumber') chequebillNumber :string,
-    @Body('amount') chequeamount:string,
-    @Body('dueDate') chequedueDate :string,
-    @Body('creationDate') chequecreationDate :string,
-    @Body('placeOfCreation') chequeplaceOfCreation :string,
-    @Body ('comment') chequecomment :string,) {
+        @Param('id') chequeid: string,
+        @Body('number') chequenumber: string,
+        @Body('amount') chequeamount: string,
+        @Body('dueDate') chequedueDate: string,
+        @Body('creationDate') chequecreationDate: string,
+        @Body('chequeplaceOfCreation') chequeplaceOfCreation: string,
+        @Body('bank') chequebank: string,
+        @Body('company') chequecompany: string,
+        @Body('delivredTo') chequedelivredTo: string,
+        @Body('chequeBook') chequechequeBook: string,
+        @Body('bankaccount') chequebankaccount: string,
+        @Body('comment') chequecomment: string,) {
      const generateid = await this.chequesService.insertcheque (
         chequenumber,
-        chequebillNumber,
         chequeamount,
         chequedueDate,
         chequecreationDate,
         chequeplaceOfCreation,
-        chequecomment);
+        chequebank,
+        chequecompany,
+        chequedelivredTo,
+        chequechequeBook,
+        chequebankaccount,
+        chequecomment,);
         return {id: generateid};
     }
     @Get()
-    async getAllcheques(){
-        const cheques = await this.chequesService.getcheques();
+    async getAllCheques(){
+        const cheques = await this.chequesService.getAllCheques();
         return cheques;
     }
     @Get('id/:bankid')
-    getCHEQUE(@Param('chequeid') chequeid: string){
-        return this.chequesService.getCHEQUE(chequeid);
+    getChequeById(@Param('chequeid') chequeid: string){
+        return this.chequesService.getChequeById(chequeid);
     }
     @Get('Number/:Number')
-    getthecheque(@Param('Number') chequenumber: string){
-        return this.chequesService.getthecheque(chequenumber);
-    }
-    @Get('Bill Number/:Bill Number')
-    gettheCHEQUE(@Param('Bill Number') chequebillNumber:string,){
-        return this.chequesService. gettheCHEQUE(chequebillNumber);
+    getChequeByNumber(@Param('Number') chequenumber: string){
+        return this.chequesService.getChequeByNumber(chequenumber);
     }
     @Get('Amount/:Amount')
-    getTHECHEQUE(@Param('Amount') chequeamount:string,){
-        return this.chequesService. getTHECHEQUE(chequeamount);
+    getChequeByAmount(@Param('Amount') chequeamount:string,){
+        return this.chequesService. getChequeByAmount(chequeamount);
     }
     @Get('Due Date/:Due Date')
-    getThecheque(@Param(':Due Date') chequedueDate:string,){
-        return this.chequesService. getThecheque(chequedueDate);
+    getChequeByDueDate(@Param(':Due Date') chequedueDate:string,){
+        return this.chequesService. getChequeByDueDate(chequedueDate);
     }
     @Get('Creation Date/:Creation Date')
-    getTheCheque(@Param('Amount') chequecreationDate:string,){
-        return this.chequesService. getTheCheque(chequecreationDate);
+    getChequeByCreationDate(@Param('Amount') chequecreationDate:string,){
+        return this.chequesService. getChequeByCreationDate(chequecreationDate);
     }
     @Get('Place Of Creation/:Place Of Creation')
-    getTHeCHeque(@Param('Place Of Creation') chequeplaceOfCreation:string,){
-        return this.chequesService. getTHeCHeque(chequeplaceOfCreation);
+    getChequeByPlaceOfCreation(@Param('Place Of Creation') chequeplaceOfCreation:string,){
+        return this.chequesService. getChequeByPlaceOfCreation(chequeplaceOfCreation);
+        
+    }
+    @Get('Place Of Creation/:Place Of Creation')
+    getChequeBybank(@Param('Place Of Creation') chequeplaceOfCreation:string,){
+        return this.chequesService. getChequeBybank(chequeplaceOfCreation);
+        
+    }
+    @Get('Place Of Creation/:Place Of Creation')
+    getChequeBycompany(@Param('Place Of Creation') chequeplaceOfCreation:string,){
+        return this.chequesService. getChequeBycompany(chequeplaceOfCreation);
+        
+    }
+    @Get('Place Of Creation/:Place Of Creation')
+    getChequeByReceiver(@Param('Place Of Creation') chequeplaceOfCreation:string,){
+        return this.chequesService. getChequeByReceiver(chequeplaceOfCreation);
+        
+    }
+    @Get('Place Of Creation/:Place Of Creation')
+    getChequeBychequeBook(@Param('Place Of Creation') chequeplaceOfCreation:string,){
+        return this.chequesService. getChequeBychequeBook(chequeplaceOfCreation);
+        
+    }
+    @Get('Place Of Creation/:Place Of Creation')
+    getChequeBybankaccount(@Param('Place Of Creation') chequeplaceOfCreation:string,){
+        return this.chequesService. getChequeBybankAccount(chequeplaceOfCreation);
+        
+    }
+    @Get('Place Of Creation/:Place Of Creation')
+    getChequeBybill(@Param('Place Of Creation') chequeplaceOfCreation:string,){
+        return this.chequesService. getChequeByBill(chequeplaceOfCreation);
+        
     }
     @Get('Commment/:Commment')
-    getTHECHEque(@Param('Commment')  chequecomment:string,){
-        return this. chequesService. getTHECHEque( chequecomment);
+    getChequeByComment(@Param('Commment')  chequecomment:string,){
+        return this. chequesService. getChequeByComment( chequecomment);
+    }
+    @Post('bill/:chequeid')
+    addBill(@Param('chequeid') chequeid: string,
+        @Body('bill') bill: string
+    ) {
+        return this.chequesService.addBillToCheque(chequeid, bill);
+    }
+    @Patch('bill/:chequeid')
+    removeBill(@Param('chequeid') chequeid: string,
+        @Body('bill') bill: string
+    ) {
+        return this.chequesService.removeBillFromcheque(chequeid, bill);
     }
     @Patch(':id')
-    async updatebank(
+    async updatecheque(
      @Param('id') chequeid: string,
      @Body('number') chequenumber: string,
-     @Body('billNumber') chequebillNumber: string,
      @Body('amount') chequeamount: string,
      @Body('dueDate') chequedueDate: string,
      @Body('creationDate') chequecreationDate: string,
      @Body('chequeplaceOfCreation') chequeplaceOfCreation: string,
+     @Body('bank') chequebank: string,
+     @Body('company') chequecompany: string,
+     @Body('delivredTo') chequedelivredTo: string,
+     @Body('chequeBook') chequechequeBook: string,
+     @Body('bankaccount') chequebankaccount: string,
      @Body('comment') chequecomment: string,)
      
      {
         await this.chequesService.updatecheque(
         chequeid,
         chequenumber,
-        chequebillNumber,
         chequeamount,
         chequedueDate,
         chequecreationDate,
         chequeplaceOfCreation,
-        chequecomment);
+        chequebank,
+        chequecompany,
+        chequedelivredTo,
+        chequechequeBook,
+        chequebankaccount,
+        chequecomment,
+        );
         return null;
      }
      @Delete(':id')
