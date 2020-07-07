@@ -23,28 +23,28 @@ export class EmployeeController {
     }
     @Get()
     async getAllemployees(){
-        const employees = await this.employeesService.getemployees();
+        const employees = await this.employeesService.getAllemployees();
         return employees;
     }
     @Get('id/:employeeid')
-    getEMPLOYEE(@Param('employeeid') employeeid: string){
+    getEmployeeById(@Param('employeeid') employeeid: string){
         return this.employeesService.getEmployeeById(employeeid);
     }
     @Get('Firstname/:Firstname')
-    gettheemployee(@Param('First name') employeefirstName: string){
-        return this.employeesService.gettheemployee(employeefirstName);
+    getEmployeeByFirstName(@Param('First name') employeefirstName: string){
+        return this.employeesService.getEmployeeByFirstName(employeefirstName);
     }
     @Get('Lastname/:Lastname')
-    getTheEmployee(@Param('Last name') employeelastName: string){
-        return this.employeesService.getTheEmployee(employeelastName);
+    getEmployeeByLastName(@Param('Last name') employeelastName: string){
+        return this.employeesService.getEmployeeByLastName(employeelastName);
     }
     @Get('role/:role')
-    getemployee(@Param('role') employeerole: string){
-        return this.employeesService.getemployee(employeerole);
+    getEmployeeByRole(@Param('role') employeerole: string){
+        return this.employeesService.getEmployeeByRole(employeerole);
     }   
     @Get('comment/:comment')
-    gettheEmployee(@Param('comment') employeecomment:string,){
-        return this.employeesService.gettheEmployee(employeecomment);
+    getEmployeeByComment(@Param('comment') employeecomment:string,){
+        return this.employeesService.getEmployeeByComment(employeecomment);
     }
     @Patch(':id')
     async updatecompany(

@@ -28,7 +28,7 @@ export class EmployeeService {
         const result = await newemployee.save();
         return result.id as string;
     }
-    async getemployees() {
+    async getAllemployees() {
         const employees = await this.employeeModel.find().exec()
         return employees.map(employee => ({
             id: employee.id,
@@ -40,12 +40,12 @@ export class EmployeeService {
     }
 
     async getEmployeeById(employeeid: string) {
-        return await this.findemployee(employeeid);
+        return await this.findEmployeeById(employeeid);
 
     }
 
-    async gettheemployee(employeefirstName: string) {
-        const employee = await this.findfirstName(employeefirstName);
+    async getEmployeeByFirstName(employeefirstName: string) {
+        const employee = await this.findEmployeeByFirstName(employeefirstName);
         return {
             id: employee.id,
             firstName: employee.firstName,
@@ -55,8 +55,8 @@ export class EmployeeService {
         };
     }
 
-    async getTheEmployee( employeelastName : string) {
-        const employee = await this.findlastName (employeelastName);
+    async getEmployeeByLastName( employeelastName : string) {
+        const employee = await this.findEmployeeByLastName (employeelastName);
         return {
             id: employee.id,
             firstName: employee.firstName,
@@ -67,8 +67,8 @@ export class EmployeeService {
     }
 
 
-    async getemployee(employeerole: string) {
-        const employee = await this.findrole(employeerole);
+    async getEmployeeByRole(employeerole: string) {
+        const employee = await this.findEmployeeByRole(employeerole);
         return {
             id: employee.id,
             firstName: employee.firstName,
@@ -77,8 +77,8 @@ export class EmployeeService {
             comment:employee.comment,
         };
     }
-    async gettheEmployee(employeecomment: string) {
-        const employee = await this.findcomment(employeecomment);
+    async getEmployeeByComment(employeecomment: string) {
+        const employee = await this.findEmployeeByComment(employeecomment);
         return {
             id: employee.id,
             firstName: employee.firstName,
@@ -94,7 +94,7 @@ export class EmployeeService {
         lastName: string,
         role: string,
         comment: string) {
-        const updateemployee = await this.findemployee(employeeid);
+        const updateemployee = await this.findEmployeeById(employeeid);
         if (firstName) {
             updateemployee.firstName= firstName;
         }
@@ -117,7 +117,7 @@ export class EmployeeService {
 
     }
 
-    private async findemployee (id: string): Promise<Employee> {
+    private async findEmployeeById (id: string): Promise<Employee> {
         let employee;
         try {
             employee = await this.employeeModel.findById(id).exec();
@@ -130,7 +130,7 @@ export class EmployeeService {
 
         return employee;
     }
-    private async findfirstName (firstName: string): Promise<Employee> {
+    private async findEmployeeByFirstName (firstName: string): Promise<Employee> {
         let employee;
         try {
 
@@ -144,7 +144,7 @@ export class EmployeeService {
 
         return employee;
     }
-    private async findlastName (lastName: string): Promise<Employee> {
+    private async findEmployeeByLastName (lastName: string): Promise<Employee> {
         let employee;
         try {
 
@@ -159,7 +159,7 @@ export class EmployeeService {
         return employee;
     }
    
-    private async findrole (role: string): Promise<Employee> {
+    private async findEmployeeByRole (role: string): Promise<Employee> {
         let employee ;
         try {
 
@@ -174,7 +174,7 @@ export class EmployeeService {
         return employee;
     }
 
-    private async findcomment(comment: string): Promise<Employee> {
+    private async findEmployeeByComment(comment: string): Promise<Employee> {
         let employee;
         try {
 
