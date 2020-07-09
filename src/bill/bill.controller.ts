@@ -10,38 +10,54 @@ export class BillController {
     @Post()
     async  addbill(
     @Body('number') billnumber :string,
+    @Body('cheque') billcheque :string,
+    @Body('company') billcompany :string,
     @Body ('comment') billcomment :string,) {
      const generateid = await this.billsService.insertbill (
         billnumber,
+        billcheque,
+        billcompany,
         billcomment);
         return {id: generateid};
     }
     @Get()
     async getAllbills(){
-        const bills = await this.billsService.getbills();
+        const bills = await this.billsService.getAllbills();
         return bills;
     }
     @Get('id/:billid')
-    getBILL(@Param('billid') billid: string){
-        return this.billsService.getBILL(billid);
+    getBillById(@Param('billid') billid: string){
+        return this.billsService.getBillById(billid);
     }
     @Get('Number/:Number')
-    getthebill(@Param('number') billnumber: string){
-        return this.billsService.getthebill(billnumber);
+    getBillByNumber(@Param('number') billnumber: string){
+        return this.billsService.getBillByNumber(billnumber);
+    }
+    @Get('cheque/:cheque')
+    getBillByCheque(@Param('cheque') billcheque: string){
+        return this.billsService.getBillByCheque(billcheque);
+    }
+    @Get('company/:company')
+    getBillByCompany (@Param('company') billcompany: string){
+        return this.billsService.getBillByCompany(billcompany);
     }
     @Get('comment/:comment')
-    gettheBill(@Param('comment') billcomment:string,){
-        return this.billsService. gettheBill(billcomment);
+    getBillByComment(@Param('comment') billcomment:string,){
+        return this.billsService. getBillByComment(billcomment);
     }
     @Patch(':id')
     async updatebILL(
      @Param('id') billid: string,
      @Body('number') billnumber: string,
+     @Body('cheque') billcheque: string,
+     @Body('company') billcompany: string,
      @Body('comment') billcomment: string,)
      {
         await this.billsService.updatebill(
         billid,
         billnumber,
+        billcheque,
+        billcompany,
         billcomment);
         return null;
      }

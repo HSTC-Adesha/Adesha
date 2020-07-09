@@ -9,13 +9,16 @@ import { companySchema } from '../company/company.model';
 import { CompanyModule } from '../company/company.module';
 import { employeeSchema } from '../employee/employee.model';
 import { EmployeeModule } from '../employee/employee.module';
+import { chequeSchema } from '../cheque/cheque.model';
+import { ChequeModule } from '../cheque/cheque.module';
 @Module({
     imports:[
         MongooseModule.forFeature([{name:'ChequeBook', schema: chequeBookSchema}]),
         MongooseModule.forFeature([{name:'Bank', schema: bankSchema}]),
         MongooseModule.forFeature([{name:'Company', schema: companySchema}]),
         MongooseModule.forFeature([{name:'Employee', schema: employeeSchema}]),
-        BankModule,  CompanyModule, EmployeeModule,
+        MongooseModule.forFeature([{name:'Cheque', schema: chequeSchema}]),
+        BankModule,  CompanyModule, EmployeeModule, ChequeModule,
     ],
     controllers: [ChequeBookController],
     providers: [ChequeBookService],

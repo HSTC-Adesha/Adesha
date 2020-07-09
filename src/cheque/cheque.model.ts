@@ -12,7 +12,7 @@ export const chequeSchema = new mongoose.Schema ({
     delivredTo:{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
     chequeBook:{ type: mongoose.Schema.Types.ObjectId, ref: 'ChequeBook' },
     bankAccount:{ type: mongoose.Schema.Types.ObjectId, ref: 'BankAccount' },
-    bill:{ type: mongoose.Schema.Types.ObjectId, ref: 'Bill' },
+    bills:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Bill' }],
     comment: {type: String, required:false },
 })
 
@@ -28,7 +28,7 @@ export class Cheque extends mongoose.Document {
     delivredTo: string;
     chequeBook: string;
     bankAccount: string;
-    bill: string;
+    bills: [string];
     comment: string
 }
 

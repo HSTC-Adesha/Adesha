@@ -10,45 +10,70 @@ export class ChequeBookController {
     @Post()
     async  addchequeBook(
     @Body('number') number :string,
+    @Body('bank') bank :string,
     @Body('delivredTo') delivredTo :string,
-    @Body('company') company :string,
-    @Body('bank') bank :string,) {
+    @Body('company') company :string,) {
      const theChequeBook = await this.chequeBooksService.insertchequeBook (
         number,
+        bank,
         delivredTo,
         company,
-        bank,
         );
         return theChequeBook;
     }
     @Get()
     async getAllchequeBooks(){
-        const chequeBooks = await this.chequeBooksService.getchequeBooks();
+        const chequeBooks = await this.chequeBooksService.getAllchequeBooks();
         return chequeBooks;
     }
     @Get('id/:chequeBookid')
-    getCHEQUEBOOK(@Param('chequeBookid') chequeBookid: string){
-        return this.chequeBooksService.getCHEQUEBOOK(chequeBookid);
+    getchequeBooksById(@Param('chequeBookid') chequeBookid: string){
+        return this.chequeBooksService.getchequeBooksById(chequeBookid);
     }
     @Get('number/:number')
-    getthechequeBook(@Param('number') chequeBooknumber: string){
-        return this.chequeBooksService.getthechequeBook(chequeBooknumber);
+    getchequeBooksByNumber(@Param('number') chequeBooknumber: string){
+        return this.chequeBooksService.getchequeBooksByNumber(chequeBooknumber);
+    }
+    @Get('bank/:bank')
+    getchequeBooksByBank(@Param('Bank') chequeBookbank: string){
+        return this.chequeBooksService.getchequeBooksByBank(chequeBookbank);
+    }
+    @Get('Receiver/:Receiver')
+    getchequeBooksByReceiver(@Param('Receiver') chequeBookdelivredTo: string){
+        return this.chequeBooksService.getchequeBooksByReceiver(chequeBookdelivredTo);
+    }
+    @Get('company/:company')
+    getchequeBooksByCompany(@Param('Company') chequeBookcompany: string){
+        return this.chequeBooksService.getchequeBooksByCompany(chequeBookcompany);
+    }
+    @Post('cheque/:chequeBookid')
+    addBank(@Param('chequeBookid') chequeBookid: string,
+        @Body('cheque') cheque: string
+    ) {
+        return this.chequeBooksService.addChequeTochequeBook(chequeBookid, cheque);
+    }
+    @Patch('cheque/:chequeBookid')
+    removeBank(@Param('companyid') chequeBookid: string,
+        @Body('cheque') cheque: string
+    ) {
+        return this.chequeBooksService.removeChequeFromchequeBook(chequeBookid, cheque);
     }
   
     @Patch(':id')
     async updatechequeBook(
      @Param('id') id: string,
      @Body('number') number: string,
-     @Body('company') company: string,
+     @Body('bank') bank: string,
      @Body('delivredTo') delivredTo: string,
-     @Body('bank') bank: string,)
+     @Body('company') company: string,)
      {
         return await this.chequeBooksService.updatechequeBook(
         id,
         number,
-        company,
         bank,
-        delivredTo);
+        delivredTo,
+        company,
+        );
      }
      @Delete(':id')
      async removechequeBook( @Param('id')  chequeBookid: string,){

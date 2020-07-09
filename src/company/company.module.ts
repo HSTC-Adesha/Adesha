@@ -8,14 +8,17 @@ import { bankSchema } from '../bank/bank.model';
 import { employeeSchema } from '../employee/employee.model';
 import { BankModule } from '../bank/bank.module';
 import { BankAccountModule } from '../bankaccount/bankaccount.module';
-import { EmployeeModule } from 'src/employee/employee.module';
+import { EmployeeModule } from '../employee/employee.module';
+import { billSchema } from '../bill/bill.model';
+import { BillModule } from '../bill/bill.module';
 @Module({
     imports:[
         MongooseModule.forFeature([{name:'Company', schema: companySchema}]),
         MongooseModule.forFeature([{name:'Bank', schema: bankSchema}]),
         MongooseModule.forFeature([{name:'BankAccount', schema: bankAccountSchema}]),
         MongooseModule.forFeature([{name:'Employee', schema: employeeSchema}]),
-        BankModule,BankAccountModule,EmployeeModule
+        MongooseModule.forFeature([{name:'Bills', schema: billSchema}]),
+        BankModule, BankAccountModule, EmployeeModule, BillModule
     ],
     controllers: [CompanyController],
     providers: [CompanyService],

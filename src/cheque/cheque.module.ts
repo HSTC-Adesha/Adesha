@@ -22,9 +22,8 @@ import { BankAccountModule } from '../bankaccount/bankaccount.module';
         MongooseModule.forFeature([{name:'Bank', schema: bankSchema}]),
         MongooseModule.forFeature([{name:'Company', schema: companySchema}]),
         MongooseModule.forFeature([{name:'Employee', schema: employeeSchema}]),
-        MongooseModule.forFeature([{name:'Bill', schema: billSchema}]),
+        MongooseModule.forFeature([{name:'Bills', schema: billSchema}]),
         MongooseModule.forFeature([{name:'bankaccount', schema: bankAccountSchema}]),
-
         BankModule,  CompanyModule, EmployeeModule, BillModule, BankAccountModule,
     ],
     controllers: [ChequeController],

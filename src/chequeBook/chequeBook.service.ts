@@ -8,6 +8,8 @@ import { Employee } from '../employee/employee.model';
 import { CompanyService } from '../company/company.service';
 import { EmployeeService } from '../employee/employee.service';
 import { BankService } from '../bank/bank.service';
+import { chequeSchema, Cheque } from '../cheque/cheque.model';
+import { ChequeService } from '../cheque/cheque.service';
 
 @Injectable()
 export class  ChequeBookService {
@@ -19,11 +21,14 @@ export class  ChequeBookService {
         @InjectModel('Company') private readonly companyModel: Model<Company>,
         @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
         @InjectModel('Bank') private readonly bankModel: Model<Bank>,
+        @InjectModel('Cheque') private readonly chequeModel: Model<Cheque>,
         private readonly companyService:CompanyService,
         private readonly employeeService:EmployeeService,
-        private readonly bankService:BankService) { }
-    async insertchequeBook (number:string, delivredTo:string, company:string,bank:string) {
-       return this.addchequeBook(number, delivredTo, company,bank)
+        private readonly bankService:BankService,
+        private readonly ChequeService:ChequeService,
+        ) { }
+    async insertchequeBook (number:string, bank:string, delivredTo:string, company:string) {
+       return this.addchequeBook(number, bank, delivredTo, company)
     }
     async addchequeBook(
         number: string,
@@ -52,7 +57,7 @@ export class  ChequeBookService {
         const result = await newchequeBook.save();
         return result as ChequeBook;
     }
-    async getchequeBooks() {
+    async getAllchequeBooks() {
         const chequeBooks = await this.chequeBookModel.find().exec()
         return chequeBooks.map(chequeBook => ({
             id: chequeBook.id,
@@ -61,50 +66,47 @@ export class  ChequeBookService {
         }));
     }
 
-    async getCHEQUEBOOK(chequeBookid: string) {
-        const chequeBook = await this.findchequeBook(chequeBookid);
+    async getchequeBooksById(chequeBookid: string) {
+        const chequeBook = await this.findchequeBooksById(chequeBookid);
         return {
             id: chequeBook.id,
             number: chequeBook.number,
+            bank:chequeBook.bank,
             delivredTo: chequeBook.delivredTo,
+            company:chequeBook.company,
         };
     }
 
-    async getthechequeBook(chequeBooknumber: string) {
-        return await this.findnumber(chequeBooknumber);
+    async getchequeBooksByNumber(chequeBooknumber: string) {
+        return await this.findchequeBooksByNumber(chequeBooknumber);
 
     }
-    async getthechequeBOOK (chequeBookdelivredTo: string) {
-        const chequeBook = await this.findnumberOfCheque(chequeBookdelivredTo);
-        return {
-            id: chequeBook.id,
-            number: chequeBook.number,
-            delivredTo: chequeBook.delivredTo,
-        };
+    async getchequeBooksByBank(chequeBookbank: string) {
+        return await this.findchequeBooksByBank(chequeBookbank);
+
     }
-    async gettheChequeBook(chequeBookcomment: string) {
-        const chequeBook = await this.findcomment(chequeBookcomment);
+    async getchequeBooksByReceiver(chequeBookdelivredTo: string) {
+        return await this.getchequeBooksByReceiver(chequeBookdelivredTo);
+
+    }
+    async getchequeBooksByCompany(chequeBookcompany: string) {
+        const chequeBook = await this.findchequeBooksByCompany(chequeBookcompany);
         return {
             id: chequeBook.id,
             number: chequeBook.number,
             delivredTo: chequeBook.delivredTo,
-        };
+        }
     }
 
     async updatechequeBook(
-        id: string,
+        chequeBookid: string,
         number: string,
         company: string,
         bank: string,
-        delivredTo:string
-        ) {
-        const updatechequeBook = await this.findchequeBook(id);
+        delivredTo:string ) {
+        const updatechequeBook = await this.getchequeBooksById(chequeBookid);
         if (number) {
             updatechequeBook.number = number;
-        }
-        if (company) {
-            var theCompany = await this.companyService.getCompanyById(company);
-            updatechequeBook.company = theCompany.id ;
         }
         if (bank) {
             var thebank = await this.bankService.getBankById(bank);
@@ -114,9 +116,43 @@ export class  ChequeBookService {
             var thedelivredTo = await this.employeeService.getEmployeeById(delivredTo);
             updatechequeBook.delivredTo = thedelivredTo.id ;
         }
-    
+        if (company) {
+            var theCompany = await this.companyService.getCompanyById(company);
+            updatechequeBook.company = theCompany.id ;
+        }
+      
+       
         const result = await updatechequeBook.save();
         return result;
+    }
+
+    async addChequeTochequeBook(
+        chequeBookid : string,
+        cheque: string,
+        ) {
+        let updatechequeBook:ChequeBook = await this.getchequeBooksById(chequeBookid);
+        let theCheque:Cheque = await this.ChequeService.getChequeById(cheque);
+        if (theCheque && updatechequeBook) {
+            updatechequeBook.cheques.push(theCheque.id) ;
+            updatechequeBook.save();
+        }
+        return updatechequeBook;
+    }
+    async removeChequeFromchequeBook(
+        chequeBookid : string,
+        cheque: string,
+        ) {
+        let updatechequeBook :Company = await this.getchequeBooksById(chequeBookid);
+        let theCheque:Bank = await this.ChequeService.getChequeById(cheque);
+        if (theCheque && updatechequeBook) {
+            for ( let i = 0; i < updatechequeBook.cheques.length; i++) {
+                if ( updatechequeBook.cheques[i] === theBank.id) {
+                    updatechequeBook.cheques.splice(i, 1);
+                }
+             }
+             updatechequeBook.save();
+        }
+        return updatechequeBook;
     }
 
     async deletechequeBook(chequeBookid: string) {
@@ -124,7 +160,7 @@ export class  ChequeBookService {
 
     }
 
-    private async findchequeBook (id: string): Promise<ChequeBook> {
+    private async findchequeBooksById (id: string): Promise<ChequeBook> {
         let chequeBook;
         try {
             chequeBook = await this.chequeBookModel.findById(id).exec();
@@ -137,7 +173,7 @@ export class  ChequeBookService {
 
         return chequeBook;
     }
-    private async findnumber (number: string): Promise<ChequeBook> {
+    private async findchequeBooksByNumber (number: string): Promise<ChequeBook> {
         let chequeBook;
         try {
 
@@ -151,25 +187,25 @@ export class  ChequeBookService {
 
         return chequeBook;
     }
-    private async findnumberOfCheque (number: string): Promise<ChequeBook> {
+    
+     private async findchequeBooksByBank(bank: string): Promise<ChequeBook> {
         let chequeBook;
         try {
 
-            chequeBook = await this.chequeBookModel.find({ number });
+            chequeBook = await this.chequeBookModel.find({ bank });
         } catch (error) {
             throw new NotFoundException('erreur!!');
         }
         if (!chequeBook) {
             throw new NotFoundException('erreur!!');
         }
-
         return chequeBook;
     }
-    private async findcomment(comment: string): Promise<ChequeBook> {
+    private async findchequeBooksByCompany(company: string): Promise<ChequeBook> {
         let chequeBook;
         try {
 
-            chequeBook = await this.chequeBookModel.find({ comment });
+            chequeBook = await this.chequeBookModel.find({ company });
         } catch (error) {
             throw new NotFoundException('erreur!!');
         }

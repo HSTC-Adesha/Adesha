@@ -65,33 +65,33 @@ export class ChequeController {
         return this.chequesService. getChequeByPlaceOfCreation(chequeplaceOfCreation);
         
     }
-    @Get('Place Of Creation/:Place Of Creation')
-    getChequeBybank(@Param('Place Of Creation') chequeplaceOfCreation:string,){
+    @Get('bank/:bank')
+    getChequeBybank(@Param('bank') chequeplaceOfCreation:string,){
         return this.chequesService. getChequeBybank(chequeplaceOfCreation);
         
     }
-    @Get('Place Of Creation/:Place Of Creation')
-    getChequeBycompany(@Param('Place Of Creation') chequeplaceOfCreation:string,){
+    @Get('company/:company')
+    getChequeBycompany(@Param('company') chequeplaceOfCreation:string,){
         return this.chequesService. getChequeBycompany(chequeplaceOfCreation);
         
     }
-    @Get('Place Of Creation/:Place Of Creation')
+    @Get('Receiver/:Receiver')
     getChequeByReceiver(@Param('Place Of Creation') chequeplaceOfCreation:string,){
         return this.chequesService. getChequeByReceiver(chequeplaceOfCreation);
         
     }
-    @Get('Place Of Creation/:Place Of Creation')
+    @Get('chequeBook/:chequeBook')
     getChequeBychequeBook(@Param('Place Of Creation') chequeplaceOfCreation:string,){
         return this.chequesService. getChequeBychequeBook(chequeplaceOfCreation);
         
     }
-    @Get('Place Of Creation/:Place Of Creation')
+    @Get('bankaccount/:bankaccount')
     getChequeBybankaccount(@Param('Place Of Creation') chequeplaceOfCreation:string,){
         return this.chequesService. getChequeBybankAccount(chequeplaceOfCreation);
         
     }
-    @Get('Place Of Creation/:Place Of Creation')
-    getChequeBybill(@Param('Place Of Creation') chequeplaceOfCreation:string,){
+    @Get('bill/:bill')
+    getChequeBybill(@Param('bill') chequeplaceOfCreation:string,){
         return this.chequesService. getChequeByBill(chequeplaceOfCreation);
         
     }

@@ -3,7 +3,7 @@ import { Cheque } from './cheque.model';
 import { Company } from '../company/company.model';
 import { Bank } from '../bank/bank.model';
 import { ChequeBook, chequeBookSchema } from '../chequeBook/chequeBook.model';
-import { BankAccount, bankAccountSchema } from '../bankaccount/bankaccount.model';
+import { BankAccount } from '../bankaccount/bankaccount.model';
 import { Bill } from '../bill/bill.model';
 import { Employee } from '../employee/employee.model';
 import { CompanyService } from '../company/company.service';
@@ -22,18 +22,18 @@ export class ChequeService {
     private mycheques: Cheque[] = [];
     constructor(
     @InjectModel('Cheque') private readonly chequeModel: Model<Cheque>,
-    @InjectModel('Bank') private readonly bankModel: Model<Cheque>,
-    @InjectModel('Company') private readonly companyModel: Model<Cheque>,
-    @InjectModel('Employee') private readonly employeeModel: Model<Cheque>,
-    @InjectModel('ChequeBook') private readonly chequeBookModel: Model<Cheque>,
-    @InjectModel('BankAccount') private readonly bankAccountModel: Model<Cheque>,
-    @InjectModel('Bill') private readonly billModel: Model<Cheque>,
+    @InjectModel('Bank') private readonly bankModel: Model<Bank>,
+    @InjectModel('Company') private readonly companyModel: Model<Company>,
+    @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
+    @InjectModel('ChequeBook') private readonly chequeBookModel: Model<ChequeBook>,
+    @InjectModel('ChequeBook') private readonly bankAccountModel: Model<ChequeBook>,
+    @InjectModel('Bill') private readonly billModel: Model<Bill>,
     private readonly bankService:BankService,
     private readonly companyService:CompanyService,
     private readonly employeeService:EmployeeService,
-    private readonly chequeBookService:EmployeeService,
-    private readonly bankAccountService:EmployeeService,
-    private readonly billService:EmployeeService,
+    private readonly chequeBookService:ChequeBookService,
+    private readonly BankAccountService:BankAccountService,
+    private readonly billService:BillService,
     ) { }
     async insertcheque (chequenumber: string, chequeamount: string, chequedueDate: string, chequecreationDate:string, chequeplaceOfCreation:string, 
         chequebank: string, chequecompany: string, chequedelivredTo: string, chequechequeBook: string, chequebankAccount: string, chequecomment: string) {
@@ -81,7 +81,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         }));
     }
@@ -100,7 +99,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -119,7 +117,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -139,7 +136,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -158,7 +154,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -176,7 +171,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -194,7 +188,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -212,7 +205,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -230,7 +222,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -248,7 +239,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -266,7 +256,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -284,7 +273,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -302,7 +290,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }
@@ -320,7 +307,6 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            bill: cheque.bill,
             comment:cheque.comment,
         };
     }

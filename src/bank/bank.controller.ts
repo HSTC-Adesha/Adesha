@@ -12,38 +12,46 @@ export class BankController {
     @Body('name') bankname :string,
     @Body('city') bankcity :string,
     @Body('address') bankaddress :string,
+    @Body('company') bankcompany :string,
+    @Body('bankaccount') bankbankaccount :string,
     @Body ('comment') bankcomment :string,) {
      const generateid = await this.banksService.insertbank (
         bankname,
         bankcity,
         bankaddress,
+        bankcompany,
         bankcomment);
         return {id: generateid};
     }
     @Get()
     async getAllbanks(){
-        const banks = await this.banksService.getbanks();
+        const banks = await this.banksService.getAllbanks();
         return banks;
     }
     @Get('id/:bankid')
-    getBANK(@Param('bankid') bankid: string){
+    getBankById (@Param('bankid') bankid: string){
         return this.banksService.getBankById(bankid);
     }
     @Get('Name/:Name')
-    getthebank(@Param('Name') bankname: string){
-        return this.banksService.getthebank(bankname);
+    getBankByname (@Param('Name') bankname: string){
+        return this.banksService.getBankByname(bankname);
     }
     @Get('City/:City')
-    gettheBANK(@Param('City') bankcity:string,){
-        return this.banksService. gettheBANK(bankcity);
+    getBankBycity (@Param('City') bankcity:string,){
+        return this.banksService.getBankBycity(bankcity);
     }
     @Get('Address/:Address')
-    getTHEBANK(@Param('Address') bankaddress:string,){
-        return this.banksService. getTHEBANK(bankaddress);
+    getBankByaddress (@Param('Address') bankaddress:string,){
+        return this.banksService.getBankByaddress(bankaddress);
     }
-    @Get('Commment/:Commment')
-    getTheBANK(@Param('Commment') bankcomment:string,){
-        return this.banksService. getTheBANK(bankcomment);
+    @Get('Company/:Company')
+    getBankBycompany (@Param('Company') bankcompany:string,){
+        return this.banksService.getBankBycompany(bankcompany);
+    }
+
+    @Get('Comment/:Comment')
+    getBankBycomment (@Param('Comment') bankcomment:string,){
+        return this.banksService.getBankBycomment(bankcomment);
     }
     @Patch(':id')
     async updatebank(
@@ -51,6 +59,8 @@ export class BankController {
      @Body('name') bankname: string,
      @Body('city') bankcity: string,
      @Body('address') bankaddress: string,
+     @Body('company') bankcompany: string,
+     @Body('bankaccount') bankbankaccount: string,
      @Body('comment') bankcomment: string,)
      
      {
@@ -59,6 +69,8 @@ export class BankController {
         bankname,
         bankcity,
         bankaddress,
+        bankcompany,
+        bankbankaccount,
         bankcomment);
         return null;
      }

@@ -8,6 +8,8 @@ import { Employee } from '../employee/employee.model';
 import { BankService } from '../bank/bank.service';
 import { EmployeeService } from '../employee/employee.service';
 import { BankAccountService } from '../bankaccount/bankaccount.service';
+import { billSchema, Bill } from '../bill/bill.model';
+import { BillService } from '../bill/bill.service';
 
 
 @Injectable()
@@ -18,9 +20,11 @@ export class CompanyService {
         @InjectModel('BankAccount') private readonly bankAccountModel: Model<BankAccount>,
         @InjectModel('Bank') private readonly bankModel: Model<Bank>,
         @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
+        @InjectModel('Bills') private readonly billModel: Model<Bill>,
         private readonly bankAccountService:BankAccountService,
         private readonly bankService:BankService,
         private readonly employeeService:EmployeeService,
+        private readonly BillService:BillService,
         ) { }
     async insertcompany (companyname: string, companycityOrCountry: string,
         companyaddress: string, companytype: string,
@@ -54,27 +58,30 @@ export class CompanyService {
         const result = await newcompany.save();
         return result as Company;
     }
-    async getcompanies() {
+    async getAllcompanies() {
         return await this.companyModel.find().exec()
     }
 
     async getCompanyById(companyid: string) {
-        return await this.findcompany(companyid);
+        return await this.findCompanyById(companyid);
     }
 
     async getCompanyByName(companyname: string) {
-      return await this.findname(companyname);
+      return await this.findCompanyByName(companyname);
     }
 
     async getCompanyByCity( companycityOrCountry: string) {
-        return await this.findcityOrCountry(companycityOrCountry);
+        return await this.findCompanyByCity(companycityOrCountry);
     }
     async getCompanyByAdress(companyaddress: string) {
-        return await this.findaddress(companyaddress);
+        return await this.findCompanyByAdress(companyaddress);
     }
 
     async getCompanyByType(companytype: string) {
-        return await this.findtype(companytype);
+        return await this.findCompanyByType(companytype);
+    }
+    async getCompanyBybank(companybank: string) {
+        return await this.findCompanyBybank(companybank);
     }
     async updateCompany(
         companyid: string,
@@ -83,7 +90,7 @@ export class CompanyService {
         address: string,
         type: string,
         comment: string) {
-        const updatecompany = await this.findcompany(companyid);
+        const updatecompany = await this.findCompanyById(companyid);
         if (name) {
             updatecompany.name= name;
         }
@@ -107,7 +114,7 @@ export class CompanyService {
         companyid: string,
         employee: string,
         ) {
-        let updatecompany :Company = await this.findcompany(companyid);
+        let updatecompany :Company = await this.findCompanyById(companyid);
         let theEmployee:Employee = await this.employeeService.getEmployeeById(employee);
         if (theEmployee && updatecompany) {
             updatecompany.employees.push(theEmployee.id) ;
@@ -121,7 +128,7 @@ export class CompanyService {
         companyid: string,
         bank: string,
         ) {
-        let updatecompany :Company = await this.findcompany(companyid);
+        let updatecompany :Company = await this.findCompanyById(companyid);
         let theBank:Bank = await this.bankService.getBankById(bank);
         if (theBank && updatecompany) {
             updatecompany.banks.push(theBank.id) ;
@@ -133,10 +140,22 @@ export class CompanyService {
         companyid: string,
         bankAccount: string,
         ) {
-        let updatecompany :Company = await this.findcompany(companyid);
+        let updatecompany :Company = await this.findCompanyById(companyid);
         let theBankAccount:BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
         if (theBankAccount && updatecompany) {
             updatecompany.bankAccounts.push(theBankAccount.id) ;
+            updatecompany.save();
+        }
+        return updatecompany;
+    }
+    async addBillToCompany(
+        companyid: string,
+        bill: string,
+        ) {
+        let updatecompany :Company = await this.findCompanyById(companyid);
+        let thebill:Bill = await this.BillService.getBillById(bill);
+        if (thebill && updatecompany) {
+            updatecompany.bills.push(thebill.id) ;
             updatecompany.save();
         }
         return updatecompany;
@@ -145,7 +164,7 @@ export class CompanyService {
         companyid: string,
         employee: string,
         ) {
-        let updatecompany :Company = await this.findcompany(companyid);
+        let updatecompany :Company = await this.findCompanyById(companyid);
         let theEmployee:Employee = await this.employeeService.getEmployeeById(employee);
         if (theEmployee && updatecompany) {
             for ( let i = 0; i < updatecompany.employees.length; i++) {
@@ -161,7 +180,7 @@ export class CompanyService {
         companyid: string,
         bank: string,
         ) {
-        let updatecompany :Company = await this.findcompany(companyid);
+        let updatecompany :Company = await this.findCompanyById(companyid);
         let theBank:Bank = await this.bankService.getBankById(bank);
         if (theBank && updatecompany) {
             for ( let i = 0; i < updatecompany.banks.length; i++) {
@@ -177,7 +196,7 @@ export class CompanyService {
         companyid: string,
         bankAccount: string,
         ) {
-        let updatecompany :Company = await this.findcompany(companyid);
+        let updatecompany :Company = await this.findCompanyById(companyid);
         let theBankAccount:BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
         if (theBankAccount && updatecompany) {
             for ( let i = 0; i < updatecompany.bankAccounts.length; i++) {
@@ -189,11 +208,28 @@ export class CompanyService {
         }
         return updatecompany;
     }
+
+    async removeBillFromCompany(
+        companyid: string,
+        bill: string,
+        ) {
+        let updatecompany :Company = await this.findCompanyById(companyid);
+        let thebill:Bill = await this.BillService.getBillById(bill);
+        if (thebill && updatecompany) {
+            for ( let i = 0; i < updatecompany.bills.length; i++) {
+                if ( updatecompany.bills[i] === thebill.id) {
+                    updatecompany.bills.splice(i, 1);
+                }
+             }            
+             updatecompany.save();
+        }
+        return updatecompany;
+    }
     async deleteCompany(companyid: string) {
         await this.companyModel.findByIdAndDelete(companyid);
     }
 
-    private async findcompany (id: string): Promise<Company> {
+    private async findCompanyById (id: string): Promise<Company> {
         let company;
         try {
             company = await this.companyModel.findById(id).exec();
@@ -206,7 +242,7 @@ export class CompanyService {
 
         return company;
     }
-    private async findname(name: string): Promise<Company> {
+    private async findCompanyByName (name: string): Promise<Company> {
         let company;
         try {
 
@@ -220,7 +256,7 @@ export class CompanyService {
 
         return company;
     }
-    private async findcityOrCountry (cityOrCountry: string): Promise<Company> {
+    private async findCompanyByCity (cityOrCountry: string): Promise<Company> {
         let company;
         try {
 
@@ -235,7 +271,7 @@ export class CompanyService {
         return company;
     }
    
-    private async findaddress(address: string): Promise<Company> {
+    private async findCompanyByAdress(address: string): Promise<Company> {
         let company ;
         try {
 
@@ -250,7 +286,7 @@ export class CompanyService {
         return company;
     }
 
-    private async findtype (type: string): Promise<Company> {
+    private async findCompanyByType (type: string): Promise<Company> {
         let company;
         try {
 
@@ -265,5 +301,19 @@ export class CompanyService {
         return company;
     }
 
+     private async findCompanyBybank (bank: string): Promise<Company> {
+        let company;
+        try {
+
+            company = await this.companyModel.find({ bank });
+        } catch (error) {
+            throw new NotFoundException('erreur!!');
+        }
+        if (!company) {
+            throw new NotFoundException('erreur!!');
+        }
+
+        return company;
+    }
   
 }

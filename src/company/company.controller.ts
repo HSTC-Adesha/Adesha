@@ -22,8 +22,33 @@ export class CompanyController {
     }
     @Get()
     async getAllcompanies() {
-        return await this.companiesService.getcompanies();
+        return await this.companiesService.getAllcompanies();
     }
+    @Get('id/:companyid')
+    getCompanyById(@Param('companyid') companyid: string) {
+        return this.companiesService.getCompanyById(companyid);
+    }
+    @Get('name/:name')
+    getCompanyByName(@Param('name') companyname: string) {
+        return this.companiesService.getCompanyByName(companyname);
+    }
+    @Get('city/:city')
+    getCompanyByCity(@Param('city') companycountryAndCity: string) {
+        return this.companiesService.getCompanyByCity(companycountryAndCity);
+    }
+    @Get('address/:address')
+    getCompanyByAdress(@Param('address') companyaddress: string) {
+        return this.companiesService.getCompanyByAdress(companyaddress);
+    }
+    @Get('type/:type')
+    getCompanyByType(@Param('type') companytype: string) {
+        return this.companiesService.getCompanyByType(companytype);
+    }
+    @Get('bank/:bank')
+    getCompanyBybank(@Param('bank') companybank: string) {
+        return this.companiesService.getCompanyBybank(companybank);
+    }
+
     @Post('employee/:companyid')
     addEmployee(@Param('companyid') companyid: string,
         @Body('employee') employee: string
@@ -41,6 +66,12 @@ export class CompanyController {
         @Body('bankAccount') bankAccount: string
     ) {
         return this.companiesService.addBankAccountToCompany(companyid, bankAccount);
+    }
+    @Post('bill/:companyid')
+    addBill(@Param('companyid') companyid: string,
+        @Body('bill') bill: string
+    ) {
+        return this.companiesService.addBillToCompany(companyid, bill);
     }
     @Patch('employee/:companyid')
     removeEmployee(@Param('companyid') companyid: string,
@@ -60,27 +91,13 @@ export class CompanyController {
     ) {
         return this.companiesService.removeBankAccountFromCompany(companyid, bankAccount);
     }
-    @Get('id/:companyid')
-    getCOMPANY(@Param('companyid') companyid: string) {
-        return this.companiesService.getCompanyById(companyid);
+    @Patch('bill/:companyid')
+    removeBill(@Param('companyid') companyid: string,
+        @Body('bill') bill: string
+    ) {
+        return this.companiesService.removeBillFromCompany(companyid, bill);
     }
-    @Get('name/:name')
-    getthecompany(@Param('name') companyname: string) {
-        return this.companiesService.getCompanyByName(companyname);
-    }
-    @Get('city/:city')
-    getTheCompany(@Param('city') companycountryAndCity: string) {
-        return this.companiesService.getCompanyByCity(companycountryAndCity);
-    }
-    @Get('address/:address')
-    getcompany(@Param('address') companyaddress: string) {
-        return this.companiesService.getCompanyByAdress(companyaddress);
-    }
-    @Get('type/:type')
-    getThecompany(@Param('type') companytype: string) {
-        return this.companiesService.getCompanyByType(companytype);
-    }
-
+  
 
     @Patch(':id')
     async updatecompany(
