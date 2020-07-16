@@ -5,12 +5,11 @@ export const companySchema = new mongoose.Schema ({
     cityOrCountry:{type: String },
     address: {type: String},
     type: {type:String},
-    comment: {type: String }, 
     employees:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }],
     bankAccounts:[{ type: mongoose.Schema.Types.ObjectId, ref: 'BankAccount' }],
     banks:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Bank' }],
-    bills:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Bank' }],
-
+    bills:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Bill' }],
+    comment: {type: String }, 
 })
 
 export class Company extends mongoose.Document {

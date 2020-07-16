@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, forwardRef, Inject } from '@nestjs/common';
 import {  ChequeBook } from './chequeBook.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -22,9 +22,13 @@ export class  ChequeBookService {
         @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
         @InjectModel('Bank') private readonly bankModel: Model<Bank>,
         @InjectModel('Cheque') private readonly chequeModel: Model<Cheque>,
+        @Inject(forwardRef(() => CompanyService ))
         private readonly companyService:CompanyService,
+        @Inject(forwardRef(() => EmployeeService ))
         private readonly employeeService:EmployeeService,
+        @Inject(forwardRef(() => BankService ))
         private readonly bankService:BankService,
+        @Inject(forwardRef(() => ChequeService ))
         private readonly ChequeService:ChequeService,
         ) { }
     async insertchequeBook (number:string, bank:string, delivredTo:string, company:string) {
@@ -32,37 +36,28 @@ export class  ChequeBookService {
     }
     async addchequeBook(
         number: string,
+        bank:string,
         delivredTo: string,
-        company:string,
-        bank:string
+        company:string
+     
         ) {
-        let newchequeBook = new this.chequeBookModel({
-        });
-        if(number)
-        {
-            newchequeBook.number=number;
+            const newchequeBook = new this.chequeBookModel({
+                number,
+                bank,
+                delivredTo,
+                company,
+            });
+            const result = await newchequeBook.save();
+            return result.id as string;
         }
-        if (company) {
-            var theCompany = await this.companyService.getCompanyById(company);
-            newchequeBook.company = theCompany.id ;
-        }
-        if (bank) {
-            var thebank = await this.bankService.getBankById(bank);
-            newchequeBook.bank = thebank.id ;
-        }
-        if (delivredTo) {
-            var thedelivredTo = await this.employeeService.getEmployeeById(delivredTo);
-            newchequeBook.delivredTo = thedelivredTo.id ;
-        }
-        const result = await newchequeBook.save();
-        return result as ChequeBook;
-    }
     async getAllchequeBooks() {
         const chequeBooks = await this.chequeBookModel.find().exec()
         return chequeBooks.map(chequeBook => ({
             id: chequeBook.id,
             number: chequeBook.number,
+            bank: chequeBook.bank,
             delivredTo: chequeBook.delivredTo,
+            company: chequeBook.company,
         }));
     }
 
@@ -81,6 +76,10 @@ export class  ChequeBookService {
         return await this.findchequeBooksByNumber(chequeBooknumber);
 
     }
+    async getchequeBooksByCheque(chequeBookcheques: string) {
+        return await this.findchequeBooksByCheque(chequeBookcheques);
+
+    }
     async getchequeBooksByBank(chequeBookbank: string) {
         return await this.findchequeBooksByBank(chequeBookbank);
 
@@ -94,66 +93,76 @@ export class  ChequeBookService {
         return {
             id: chequeBook.id,
             number: chequeBook.number,
+            bank:chequeBook.bank,
             delivredTo: chequeBook.delivredTo,
-        }
+            company:chequeBook.company,
+        };
     }
 
     async updatechequeBook(
         chequeBookid: string,
         number: string,
-        company: string,
         bank: string,
-        delivredTo:string ) {
-        const updatechequeBook = await this.getchequeBooksById(chequeBookid);
-        if (number) {
-            updatechequeBook.number = number;
-        }
-        if (bank) {
-            var thebank = await this.bankService.getBankById(bank);
-            updatechequeBook.bank = thebank.id ;
-        }
-        if (delivredTo) {
-            var thedelivredTo = await this.employeeService.getEmployeeById(delivredTo);
-            updatechequeBook.delivredTo = thedelivredTo.id ;
-        }
-        if (company) {
-            var theCompany = await this.companyService.getCompanyById(company);
-            updatechequeBook.company = theCompany.id ;
-        }
-      
+        delivredTo: string,
+        company: string
        
-        const result = await updatechequeBook.save();
-        return result;
-    }
+        ) {
+            const updatechequeBook  = await this.findchequeBooksById(chequeBookid);
+            if (number) {
+                updatechequeBook.number = number;
+            }
+    
+             if (bank) {
+                updatechequeBook.bank = bank;
+            }
+            if (delivredTo) {
+                updatechequeBook.delivredTo = delivredTo;
+            }
+            if (company) {
+                updatechequeBook.company = company;
+            }
+          
+            
+        
+            const result = await updatechequeBook.save();
+            return result;
+        }
+    
+        async  addChequeTochequeBook(
+            chequeBookid : string,
+            cheque: string,
 
-    async addChequeTochequeBook(
-        chequeBookid : string,
-        cheque: string,
-        ) {
-        let updatechequeBook:ChequeBook = await this.getchequeBooksById(chequeBookid);
-        let theCheque:Cheque = await this.ChequeService.getChequeById(cheque);
-        if (theCheque && updatechequeBook) {
-            updatechequeBook.cheques.push(theCheque.id) ;
-            updatechequeBook.save();
-        }
-        return updatechequeBook;
-    }
-    async removeChequeFromchequeBook(
-        chequeBookid : string,
-        cheque: string,
-        ) {
-        let updatechequeBook :Company = await this.getchequeBooksById(chequeBookid);
-        let theCheque:Bank = await this.ChequeService.getChequeById(cheque);
-        if (theCheque && updatechequeBook) {
-            for ( let i = 0; i < updatechequeBook.cheques.length; i++) {
-                if ( updatechequeBook.cheques[i] === theBank.id) {
-                    updatechequeBook.cheques.splice(i, 1);
+            ) {
+                let updatechequeBook :ChequeBook = await this.findchequeBooksById(chequeBookid);
+                let theCheque  = await this.ChequeService.getChequeById(cheque);
+                if (theCheque && updatechequeBook) {
+                    updatechequeBook.cheques.push(theCheque.id) ;
+                    theCheque.chequeBook = updatechequeBook.id;
+                    updatechequeBook.save();  
+                            
+        
+                
                 }
-             }
-             updatechequeBook.save();
-        }
-        return updatechequeBook;
-    }
+                return updatechequeBook;
+            }
+  
+     async removeChequeFromchequeBook(
+        chequeBookid : string,
+                cheque: string,
+                ) {
+                    let updatechequeBook :ChequeBook = await this.findchequeBooksById(chequeBookid);
+                    let theCheque = await this.ChequeService.getChequeById(cheque);
+               
+                    if (theCheque && updatechequeBook) {
+                        for ( let i = 0; i < updatechequeBook.cheques.length; i++) {
+                            if ( updatechequeBook.cheques[i] === theCheque.id) {
+                                updatechequeBook.cheques.splice(i, 1);
+                            }
+                         }
+                         updatechequeBook.save();
+                    }
+                    return updatechequeBook;
+                }
 
     async deletechequeBook(chequeBookid: string) {
         await this.chequeBookModel.findByIdAndDelete(chequeBookid);
@@ -185,6 +194,19 @@ export class  ChequeBookService {
             throw new NotFoundException('erreur!!');
         }
 
+        return chequeBook;
+    }
+    private async findchequeBooksByCheque (cheque: string): Promise<ChequeBook> {
+        let chequeBook;
+        try {
+
+            chequeBook = await this.chequeBookModel.find({ cheque });
+        } catch (error) {
+            throw new NotFoundException('erreur!!');
+        }
+        if (!chequeBook) {
+            throw new NotFoundException('erreur!!');
+        }
         return chequeBook;
     }
     

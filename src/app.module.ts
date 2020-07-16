@@ -13,6 +13,7 @@ import { LoggingInterceptor } from './shared/logger/logging.interceptor';
 import { HttpErrorFilter } from './shared/logger/http-error.filter';
 import { ChequeBookModule } from './chequeBook/chequeBook.module';
 import { ChequeModule } from './cheque/cheque.module';
+import { BankAccountModule } from './bankaccount/bankaccount.module';
 
 @Module({
   imports: [
@@ -22,8 +23,9 @@ import { ChequeModule } from './cheque/cheque.module';
     ChequeModule,
     BankModule,
     BillModule,
-    ChequeBookModule    ,
+    ChequeBookModule,
     CompanyModule,
+    BankAccountModule,
     EmployeeModule
   ],
   controllers: [

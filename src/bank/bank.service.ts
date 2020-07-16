@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/common';
 import { Bank } from './bank.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -17,7 +17,9 @@ export class BankService {
     @InjectModel('Bank') private readonly bankModel: Model<Bank>,
     @InjectModel('Company') private readonly companyModel: Model<Company>,
     @InjectModel('bankaccount') private readonly bankaccountModel: Model<BankAccount>,
+    @Inject(forwardRef(() => CompanyService))
     private readonly companyService:CompanyService,
+    @Inject(forwardRef(() => BankAccountService))
     private readonly BankAccountService:BankAccountService,
     ){ }
     async insertbank (bankname: string, bankcity: string, bankaddress: string,  bankcompany: string, bankcomment: string) {
@@ -101,6 +103,17 @@ export class BankService {
             comment:bank.comment,
         };
     }
+    async getBankByBankAccount (bankAccounts: string) {
+        const bank = await this.findBankByBankAccount (bankAccounts);
+        return {
+            id: bank.id,
+            name: bank.name,
+            city: bank.city,
+            address: bank.address,
+            company: bank.company,
+            comment:bank.comment,
+        };
+    }
 
    
     async getBankBycomment (bankcomment: string) {
@@ -111,7 +124,6 @@ export class BankService {
             city: bank.city,
             address: bank.address,
             company: bank.company,
-          
             comment:bank.comment,
         };
     }
@@ -122,7 +134,6 @@ export class BankService {
         city: string,
         address: string,
         company: string,
-        bankAccount: string,
         comment: string) {
         const updatebank = await this.findBankById(bankid);
         if (name) {
@@ -143,6 +154,39 @@ export class BankService {
     
         const result = await updatebank.save();
         return result;
+    }
+
+    async addBankAccountToBank(
+        bankid: string,
+        bankAccount: string,
+        ) {
+        let updatebank :Bank = await this.findBankById(bankid);
+        let thebankAccount:BankAccount = await this.BankAccountService.getBankAccountById(bankAccount);
+        if (thebankAccount && updatebank) {
+            updatebank.bankAccounts.push(thebankAccount.id) ;
+            thebankAccount.bank = updatebank.id;
+            updatebank.save();
+            thebankAccount.save();
+        }
+        return updatebank;
+    }
+
+    async removeBankAccountFromBank(
+        bankid: string,
+        bankAccount: string,
+        ) {
+            let updatebank :Bank = await this.findBankById(bankid);
+            let thebankAccount:BankAccount = await this.BankAccountService.getBankAccountById(bankAccount);
+       
+        if (thebankAccount && updatebank) {
+            for ( let i = 0; i < updatebank.bankAccounts.length; i++) {
+                if ( updatebank.bankAccounts[i] === thebankAccount.id) {
+                    updatebank.bankAccounts.splice(i, 1);
+                }
+             }
+             updatebank.save();
+        }
+        return updatebank;
     }
 
     async deletebank(bankid: string) {
@@ -219,11 +263,12 @@ export class BankService {
         return bank;
     }
 
-     private async findbankAccountsBybank (bankAccountbank: string): Promise<Bank> {
+    
+    private async findBankByBankAccount (bankBankAccount: string): Promise<Bank> {
         let bank;
         try {
 
-            bank = await this.bankModel.find({ bankAccountbank });
+            bank = await this.bankModel.find({ bankBankAccount });
         } catch (error) {
             throw new NotFoundException('erreur!!');
         }

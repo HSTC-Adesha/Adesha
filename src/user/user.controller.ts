@@ -76,7 +76,7 @@ export class UserController {
     @ApiForbiddenResponse({ description: 'User has not permitted to this api.' })
     @Patch(':id')
     updateUser(
-        @Param('id') userId: string,
+        @Param('id: recherche par ID') userId: string,
         @Body('login') userName: string,
         @Body('mail') userMail: string,
         @Body('password') userPwd: string) {

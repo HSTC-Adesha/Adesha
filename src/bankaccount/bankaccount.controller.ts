@@ -6,7 +6,7 @@ import { Employee } from 'src/employee/employee.model';
 @Controller('bankaccount')
 @ApiUseTags('BankAccount')
 export class BankAccountController {
-    constructor ( private readonly banksService: BankAccountService) {
+    constructor ( private readonly BankAccountService: BankAccountService) {
     }
     @Post()
     async  addbank(
@@ -15,7 +15,7 @@ export class BankAccountController {
     @Body('company') company :string,
     @Body('employee') employee :string,
 ) {
-     return await this.banksService.insertbankAccount (
+     return await this.BankAccountService.insertbankAccount (
         number,
         bank,
         company,
@@ -23,39 +23,39 @@ export class BankAccountController {
     }
     @Get()
     async getAllBankAccounts(){
-        return await this.banksService.getAllBankAccounts();
+        return await this.BankAccountService.getAllBankAccounts();
     }
     @Get('id/:bankAccountid')
     getBankAccountById(@Param('bankid') bankid: string){
-        return this.banksService.getBankAccountById(bankid);
+        return this.BankAccountService.getBankAccountById(bankid);
     }
     @Get('Name/:Number')
     getBankAccountByNumber(@Param('Number') number: string){
-        return this.banksService.getBankAccountByNumber(number);
+        return this.BankAccountService.getBankAccountByNumber(number);
     }
     @Get('bank/:bank')
     getBankAccountByBank(@Param('Bank') bank: string){
-        return this.banksService.getBankAccountByBank(bank);
+        return this.BankAccountService.getBankAccountByBank(bank);
     }
     @Get('company/:company')
     getbankAccountBycompany(@Param('company') company: string){
-        return this.banksService.getBankAccountBycompany(company);
+        return this.BankAccountService.getBankAccountBycompany(company);
     }
     @Get('employee/:employee')
     getBankAccountByemployee(@Param('employee') employee: string){
-        return this.banksService.getBankAccountByemployee(employee);
+        return this.BankAccountService.getBankAccountByemployee(employee);
     }
     @Post('cheque/:bankAccountid')
     addcheque(@Param('bankAccountid') bankAccountid: string,
         @Body('cheque') cheque: string
     ) {
-        return this.banksService.addchequeTobankaccount(bankAccountid, cheque);
+        return this.BankAccountService.addchequeTobankaccount(bankAccountid, cheque);
     }
     @Patch('cheque/:bankAccountid')
     removeEmployee(@Param('bankAccountid') bankAccountid: string,
         @Body('cheque') cheque: string
     ) {
-        return this.banksService.removechequeFrombankaccount(bankAccountid, cheque);
+        return this.BankAccountService.removechequeFrombankaccount(bankAccountid, cheque);
     }
   
     @Patch(':id')
@@ -63,10 +63,10 @@ export class BankAccountController {
      @Param('id') bankid: string,
      @Body('number') number: string,
      @Body('bank') bank: string,
-     @Body('company') company: string
+     @Body('company') company: string,
      @Body('employee') employee: string)
      {
-        await this.banksService.updatebankAccount(
+        await this.BankAccountService.updatebankAccount(
         bankid,
         number,
         bank,
@@ -77,7 +77,7 @@ export class BankAccountController {
      }
      @Delete(':id')
      async removebank( @Param('id') bankid: string,){
-        await this.banksService.deletebankAccount(bankid);
+        await this.BankAccountService.deletebankAccount(bankid);
          return null;
      }
     }

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import {MongooseModule} from '@nestjs/mongoose';
 import { CompanyController} from './company.controller';
 import { CompanyService } from './company.service';
@@ -17,7 +17,10 @@ import { BillModule } from '../bill/bill.module';
         MongooseModule.forFeature([{name:'Bank', schema: bankSchema}]),
         MongooseModule.forFeature([{name:'BankAccount', schema: bankAccountSchema}]),
         MongooseModule.forFeature([{name:'Employee', schema: employeeSchema}]),
-        MongooseModule.forFeature([{name:'Bills', schema: billSchema}]),
+        MongooseModule.forFeature([{name:'Bill', schema: billSchema}]),
+        forwardRef(() => BankModule ),
+        forwardRef(() => BankAccountModule ),
+        forwardRef(() => BillModule ),
         BankModule, BankAccountModule, EmployeeModule, BillModule
     ],
     controllers: [CompanyController],

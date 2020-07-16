@@ -9,7 +9,6 @@ export class ChequeController {
     }
     @Post()
     async  addcheque(
-        @Param('id') chequeid: string,
         @Body('number') chequenumber: string,
         @Body('amount') chequeamount: string,
         @Body('dueDate') chequedueDate: string,
@@ -32,7 +31,7 @@ export class ChequeController {
         chequedelivredTo,
         chequechequeBook,
         chequebankaccount,
-        chequecomment,);
+        chequecomment);
         return {id: generateid};
     }
     @Get()
@@ -88,11 +87,6 @@ export class ChequeController {
     @Get('bankaccount/:bankaccount')
     getChequeBybankaccount(@Param('Place Of Creation') chequeplaceOfCreation:string,){
         return this.chequesService. getChequeBybankAccount(chequeplaceOfCreation);
-        
-    }
-    @Get('bill/:bill')
-    getChequeBybill(@Param('bill') chequeplaceOfCreation:string,){
-        return this.chequesService. getChequeByBill(chequeplaceOfCreation);
         
     }
     @Get('Commment/:Commment')

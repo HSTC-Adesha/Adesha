@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, forwardRef, Inject } from '@nestjs/common';
 import { Cheque } from './cheque.model';
 import { Company } from '../company/company.model';
 import { Bank } from '../bank/bank.model';
@@ -21,19 +21,25 @@ export class ChequeService {
 
     private mycheques: Cheque[] = [];
     constructor(
-    @InjectModel('Cheque') private readonly chequeModel: Model<Cheque>,
+    @InjectModel('cheque') private readonly chequeModel: Model<Cheque>,
     @InjectModel('Bank') private readonly bankModel: Model<Bank>,
     @InjectModel('Company') private readonly companyModel: Model<Company>,
     @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
     @InjectModel('ChequeBook') private readonly chequeBookModel: Model<ChequeBook>,
-    @InjectModel('ChequeBook') private readonly bankAccountModel: Model<ChequeBook>,
+    @InjectModel('bankaccount') private readonly bankAccountModel: Model<BankAccount>,
     @InjectModel('Bill') private readonly billModel: Model<Bill>,
-    private readonly bankService:BankService,
-    private readonly companyService:CompanyService,
-    private readonly employeeService:EmployeeService,
-    private readonly chequeBookService:ChequeBookService,
+    @Inject(forwardRef(() => BankService))
+    private readonly bankService: BankService,
+    @Inject(forwardRef(() => CompanyService))
+    private readonly companyService: CompanyService,
+    @Inject(forwardRef(() => EmployeeService))
+    private readonly employeeService: EmployeeService,
+    @Inject(forwardRef(() => ChequeBookService))
+    private readonly chequeBookService: ChequeBookService,
+    @Inject(forwardRef(() => BankAccountService))
     private readonly BankAccountService:BankAccountService,
-    private readonly billService:BillService,
+    @Inject(forwardRef(() => BillService))
+    private readonly billService: BillService,
     ) { }
     async insertcheque (chequenumber: string, chequeamount: string, chequedueDate: string, chequecreationDate:string, chequeplaceOfCreation:string, 
         chequebank: string, chequecompany: string, chequedelivredTo: string, chequechequeBook: string, chequebankAccount: string, chequecomment: string) {
@@ -276,23 +282,7 @@ export class ChequeService {
             comment:cheque.comment,
         };
     }
-    async getChequeByBill(chequebill: string) {
-        const cheque = await this.findChequeByBill(chequebill);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
-        };
-    }
+   
     async getChequeByComment(chequecomment: string) {
         const cheque = await this.findChequeByComment(chequecomment);
         return {
@@ -368,12 +358,12 @@ export class ChequeService {
         bill: string,
         ) {
         let updateCheque :Cheque = await this.findChequeById(chequeid);
-        let theBill:Bill = await this.billService.getBillById(bill);
+        let theBill  = await this.billService.getBillById(bill);
         if (theBill && updateCheque) {
             updateCheque.bills.push(theBill.id) ;
             theBill.cheque = updateCheque.id;
             updateCheque.save();
-            theBill.save();
+        
         }
         return updateCheque;
     }
@@ -383,7 +373,7 @@ export class ChequeService {
         bill: string,
         ) {
             let updateCheque :Cheque = await this.findChequeById(chequeid);
-            let theBill:Bill = await this.billService.getBillById(bill);
+            let theBill = await this.billService.getBillById(bill);
        
         if (theBill && updateCheque) {
             for ( let i = 0; i < updateCheque.bills.length; i++) {
@@ -411,7 +401,7 @@ export class ChequeService {
             throw new NotFoundException('erreur!!');
         }
 
-        return cheque.schema;
+        return cheque;
     }
     private async findChequeByNumber (number: string): Promise<Cheque> {
         let cheque;
@@ -559,21 +549,7 @@ export class ChequeService {
         return cheque;
     }
 
-    private async findChequeByBill (bill: string): Promise<Cheque> {
-        let cheque;
-        try {
-
-            cheque = await this.chequeModel.find({ bill });
-        } catch (error) {
-            throw new NotFoundException('erreur!!');
-        }
-        if (!cheque) {
-            throw new NotFoundException('erreur!!');
-        }
-
-        return cheque;
-    }
-    
+  
     private async findChequeByComment (comment: string): Promise<Cheque> {
         let cheque;
         try {

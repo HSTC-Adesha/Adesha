@@ -44,9 +44,21 @@ export class CompanyController {
     getCompanyByType(@Param('type') companytype: string) {
         return this.companiesService.getCompanyByType(companytype);
     }
+    @Get('employees/:employees')
+    getCompanyemployee(@Param('employees') companyemployees: string) {
+        return this.companiesService.getCompanyemployee(companyemployees);
+    }
+    @Get('bankaccount/:bankaccount')
+    getCompanyBybankaccount(@Param('bankaccount') companybankAccounts: string) {
+        return this.companiesService.getCompanyBybankaccount(companybankAccounts);
+    }
     @Get('bank/:bank')
-    getCompanyBybank(@Param('bank') companybank: string) {
-        return this.companiesService.getCompanyBybank(companybank);
+    getCompanyBybank(@Param('bank') companybanks: string) {
+        return this.companiesService.getCompanyBybank(companybanks);
+    }
+    @Get('bill/:bill')
+    getCompanyBybill(@Param('bill') companybills: string) {
+        return this.companiesService.getCompanyBybill(companybills);
     }
 
     @Post('employee/:companyid')

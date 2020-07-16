@@ -2,9 +2,9 @@ import * as mongoose from 'mongoose';
 
 export const billSchema = new mongoose.Schema ({
     number: {type: String},
-    comment: {type: String, required:false },
     cheque:{ type: mongoose.Schema.Types.ObjectId, ref: 'Cheque' },
     company:{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
+    comment: {type: String, required:false },
 })
 
 export class Bill extends mongoose.Document {

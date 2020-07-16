@@ -13,7 +13,6 @@ export class BankController {
     @Body('city') bankcity :string,
     @Body('address') bankaddress :string,
     @Body('company') bankcompany :string,
-    @Body('bankaccount') bankbankaccount :string,
     @Body ('comment') bankcomment :string,) {
      const generateid = await this.banksService.insertbank (
         bankname,
@@ -48,10 +47,27 @@ export class BankController {
     getBankBycompany (@Param('Company') bankcompany:string,){
         return this.banksService.getBankBycompany(bankcompany);
     }
+    @Get('bankaccount/:bankaccount')
+    getBankByBankAccount (@Param('bankaccount') bankAccounts:string,){
+        return this.banksService.getBankByBankAccount(bankAccounts);
+    }
 
     @Get('Comment/:Comment')
     getBankBycomment (@Param('Comment') bankcomment:string,){
         return this.banksService.getBankBycomment(bankcomment);
+    }
+
+    @Post('bankAccount/:bankid')
+    addBill(@Param('bankid') bankid: string,
+        @Body('bankAccount') bankAccount: string
+    ) {
+        return this.banksService.addBankAccountToBank(bankid, bankAccount);
+    }
+    @Patch('bankAccount/:chequeid')
+    removeBill(@Param('chequeid') bankid: string,
+        @Body('bankAccount') bankAccount: string
+    ) {
+        return this.banksService.removeBankAccountFromBank(bankid, bankAccount);
     }
     @Patch(':id')
     async updatebank(
@@ -70,7 +86,6 @@ export class BankController {
         bankcity,
         bankaddress,
         bankcompany,
-        bankbankaccount,
         bankcomment);
         return null;
      }

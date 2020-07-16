@@ -34,6 +34,10 @@ export class ChequeBookController {
     getchequeBooksByNumber(@Param('number') chequeBooknumber: string){
         return this.chequeBooksService.getchequeBooksByNumber(chequeBooknumber);
     }
+    @Get('cheque/:cheque')
+    getchequeBooksByCheque(@Param('cheque') cheques: string){
+        return this.chequeBooksService.getchequeBooksByCheque(cheques);
+    }
     @Get('bank/:bank')
     getchequeBooksByBank(@Param('Bank') chequeBookbank: string){
         return this.chequeBooksService.getchequeBooksByBank(chequeBookbank);

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/common';
 import { Bill } from './bill.model';
 import { chequeSchema, Cheque } from '../cheque/cheque.model';
 import { ChequeService } from '../cheque/cheque.service';
@@ -14,10 +14,11 @@ export class BillService {
     private mybills: Bill[] = [];
     constructor(
     @InjectModel('Bill') private readonly billModel: Model<Bill>,
-    @InjectModel('Cheque') private readonly chequeModel: Model<Cheque>,
+    @InjectModel('cheque') private readonly chequeModel: Model<Cheque>,
     @InjectModel('Company') private readonly companyModel: Model<Company>,
-    
+    @Inject(forwardRef(() => ChequeService ))
     private readonly ChequeService:ChequeService,
+    @Inject(forwardRef(() => ChequeService ))
     private readonly companyService:CompanyService,
     ) { }
     async insertbill (billnumber: string, billcheque: string, billcompany: string, billcomment: string ) {

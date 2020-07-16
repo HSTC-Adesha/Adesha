@@ -1,13 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/common';
 import {Employee } from './employee.model';
 import { Company } from '../company/company.model';
 import { CompanyService } from '../company/company.service';
 import { BankAccountService } from '../bankaccount/bankaccount.service';
 import { BankAccount } from '../bankaccount/bankaccount.model';
-import { chequeSchema, Cheque } from '../cheque/cheque.model';
+import { Cheque } from '../cheque/cheque.model';
 import { ChequeService } from '../cheque/cheque.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+
 
 
 @Injectable()
@@ -19,8 +20,11 @@ export class EmployeeService {
     @InjectModel('Company') private readonly companyModel: Model<Company>,
     @InjectModel('bankAccount') private readonly bankaccoutnModel: Model<BankAccount>,
     @InjectModel('Cheque') private readonly chequeModel: Model<Cheque>,
+    @Inject(forwardRef(() => CompanyService ))
     private readonly CompanyService:CompanyService,
-    private readonly BankAccountService:BankAccountService,  
+    @Inject(forwardRef(() => BankAccountService ))
+    private readonly BankAccountService:BankAccountService,
+    @Inject(forwardRef(() => ChequeService ))  
     private readonly ChequeService:ChequeService,
     ) { }
     async insertemployee (employeefirstName: string, employeelastName: string,
@@ -175,10 +179,12 @@ export class EmployeeService {
         bankAccount: string,
         ) {
         let updateemployee :Employee = await this.getEmployeeById(employeeid);
-        let theBankAccount:BankAccount = await this.BankAccountService.getBankAccountById(bankAccount);
+        let theBankAccount :BankAccount = await this.BankAccountService.getBankAccountById(bankAccount);
         if (theBankAccount && updateemployee) {
             updateemployee.bankAccounts.push(theBankAccount.id) ;
+            theBankAccount.company = updateemployee.id;
             updateemployee.save();
+            theBankAccount.save();
         }
         return updateemployee;
     }
@@ -187,10 +193,12 @@ export class EmployeeService {
         cheque: string,
         ) {
         let updateemployee :Employee = await this.getEmployeeById(employeeid);
-        let thecheque:Cheque = await this.ChequeService.getChequeById(cheque);
-        if (thecheque && updateemployee) {
-            updateemployee.bankAccounts.push(thecheque.id) ;
+        let theCheque = await this.ChequeService.getChequeById(cheque);
+        if (theCheque && updateemployee) {
+            updateemployee.cheques.push(theCheque.id) ;
+            theCheque.delivredTo = updateemployee.id;
             updateemployee.save();
+        
         }
         return updateemployee;
     }
@@ -215,7 +223,7 @@ export class EmployeeService {
         cheque: string,
         ) {
             let updateemployee :Employee = await this.getEmployeeById(employeeid);
-            let thecheque:Cheque = await this.ChequeService.getChequeById(cheque);
+            let thecheque = await this.ChequeService.getChequeById(cheque);
         if (thecheque && updateemployee) {
             for ( let i = 0; i < updateemployee.cheques.length; i++) {
                 if ( updateemployee.cheques[i] === thecheque.id) {

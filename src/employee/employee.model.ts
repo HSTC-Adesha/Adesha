@@ -4,7 +4,7 @@ export const employeeSchema = new mongoose.Schema ({
     firstName: {type: String},
     lastName:{type: String, required:true },
     role: {type: String, required:true },
-    employees:{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
+    company:{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
     bankAccounts:[{ type: mongoose.Schema.Types.ObjectId, ref: 'bankaccount' }],
     cheques:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Cheque' }],
     comment: {type: String, required:true }, 
