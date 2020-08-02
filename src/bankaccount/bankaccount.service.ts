@@ -1,34 +1,14 @@
-import { Injectable, NotFoundException, forwardRef, Inject } from '@nestjs/common';
+import { Injectable, NotFoundException} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { BankAccount } from './bankaccount.model';
-import { Bank } from '../bank/bank.model';
-import { BankService } from '../bank/bank.service';
-import {  Cheque } from '../cheque/cheque.model';
 import { ChequeService } from '../cheque/cheque.service';
-import { Company } from '../company/company.model';
-import { CompanyService } from '../company/company.service';
-import { EmployeeService } from '../employee/employee.service';
-import { Employee } from '../employee/employee.model';
 @Injectable()
 export class BankAccountService {
 
-
-    private mybankAccounts: BankAccount[] = [];
     constructor(
     @InjectModel('BankAccount') private readonly bankAccountModel: Model<BankAccount>,
-    @InjectModel('Bank') private readonly bankModel: Model<Bank>,
-    @InjectModel('cheque') private readonly chequeModel: Model<Cheque>,
-    @InjectModel('company') private readonly companyModel: Model<Company>,
-    @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
-    @Inject(forwardRef(() => BankService ))
-    private readonly BankService:BankService,
-    @Inject(forwardRef(() => ChequeService ))
-    private readonly ChequeService:ChequeService,
-    @Inject(forwardRef(() => CompanyService ))
-    private readonly CompanyService:CompanyService,
-    @Inject(forwardRef(() => EmployeeService ))
-    private readonly employeeService:EmployeeService,
+    private readonly chequeService:ChequeService,
     ) { }
     async insertbankAccount (number: string, bank: string, company: string, employee: string) {
         this.addbankAccount(number, bank, company, employee)
@@ -46,7 +26,7 @@ export class BankAccountService {
             employee,
         });
         const result = await newbankAccount.save();
-        return result as BankAccount;
+        return result;
     }
     async getAllBankAccounts() {
         return await this.bankAccountModel.find().exec()
@@ -104,7 +84,7 @@ export class BankAccountService {
         cheque: string,
         ) {
         let updatebankAccount :BankAccount = await this.getBankAccountById(bankAccountid);
-        let theCheque  = await this.ChequeService.getChequeById(cheque);
+        let theCheque  = await this.chequeService.getChequeById(cheque);
         if (theCheque && updatebankAccount) {
             updatebankAccount.cheques.push(theCheque.id) ;
             theCheque.bankAccount = updatebankAccount.id;
@@ -120,7 +100,7 @@ export class BankAccountService {
         cheque: string,
         ) {
         let updatebankAccount :BankAccount = await this.getBankAccountById(bankAccountid);
-        let theCheque = await this.ChequeService.getChequeById(cheque);
+        let theCheque = await this.chequeService.getChequeById(cheque);
         if (theCheque && updatebankAccount) {
             for ( let i = 0; i < updatebankAccount.cheques.length; i++) {
                 if ( updatebankAccount.cheques[i] === theCheque.id) {

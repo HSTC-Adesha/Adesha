@@ -1,47 +1,16 @@
-import { Injectable, NotFoundException, forwardRef, Inject } from '@nestjs/common';
+import { Injectable, NotFoundException} from '@nestjs/common';
 import { Cheque } from './cheque.model';
-import { Company } from '../company/company.model';
-import { Bank } from '../bank/bank.model';
-import { ChequeBook, chequeBookSchema } from '../chequeBook/chequeBook.model';
-import { BankAccount } from '../bankaccount/bankaccount.model';
-import { Bill } from '../bill/bill.model';
-import { Employee } from '../employee/employee.model';
-import { CompanyService } from '../company/company.service';
-import { BankService } from '../bank/bank.service';
-import { ChequeBookService } from '../chequeBook/chequeBook.service';
-import { BankAccountService } from '../bankaccount/bankaccount.service';
 import { BillService } from '../bill/bill.service';
-import { EmployeeService } from '../employee/employee.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class ChequeService {
-
-
-    private mycheques: Cheque[] = [];
     constructor(
-    @InjectModel('cheque') private readonly chequeModel: Model<Cheque>,
-    @InjectModel('Bank') private readonly bankModel: Model<Bank>,
-    @InjectModel('Company') private readonly companyModel: Model<Company>,
-    @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
-    @InjectModel('ChequeBook') private readonly chequeBookModel: Model<ChequeBook>,
-    @InjectModel('bankaccount') private readonly bankAccountModel: Model<BankAccount>,
-    @InjectModel('Bill') private readonly billModel: Model<Bill>,
-    @Inject(forwardRef(() => BankService))
-    private readonly bankService: BankService,
-    @Inject(forwardRef(() => CompanyService))
-    private readonly companyService: CompanyService,
-    @Inject(forwardRef(() => EmployeeService))
-    private readonly employeeService: EmployeeService,
-    @Inject(forwardRef(() => ChequeBookService))
-    private readonly chequeBookService: ChequeBookService,
-    @Inject(forwardRef(() => BankAccountService))
-    private readonly BankAccountService:BankAccountService,
-    @Inject(forwardRef(() => BillService))
-    private readonly billService: BillService,
+        @InjectModel('Cheque') private readonly chequeModel: Model<Cheque>,
+        private readonly billService: BillService,
     ) { }
-    async insertcheque (chequenumber: string, chequeamount: string, chequedueDate: string, chequecreationDate:string, chequeplaceOfCreation:string, 
+    async insertcheque(chequenumber: string, chequeamount: string, chequedueDate: string, chequecreationDate: string, chequeplaceOfCreation: string,
         chequebank: string, chequecompany: string, chequedelivredTo: string, chequechequeBook: string, chequebankAccount: string, chequecomment: string) {
         this.addcheque(chequenumber, chequeamount, chequedueDate, chequecreationDate, chequeplaceOfCreation, chequebank, chequecompany, chequedelivredTo, chequechequeBook, chequebankAccount, chequecomment)
     }
@@ -71,7 +40,7 @@ export class ChequeService {
             comment,
         });
         const result = await newcheque.save();
-        return result.id as string;
+        return result;
     }
     async getAllCheques() {
         const cheques = await this.chequeModel.find().exec()
@@ -87,11 +56,11 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         }));
     }
 
-    async getChequeById (chequeid: string) {
+    async getChequeById(chequeid: string) {
         const cheque = await this.findChequeById(chequeid);
         return {
             id: cheque.id,
@@ -105,7 +74,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
 
@@ -123,7 +92,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
 
@@ -142,7 +111,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
 
@@ -160,7 +129,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
     async getChequeByCreationDate(chequecreationDate: string) {
@@ -177,7 +146,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
     async getChequeByPlaceOfCreation(chequeplaceOfCreation: string) {
@@ -194,7 +163,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
     async getChequeBybank(chequebank: string) {
@@ -211,7 +180,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
     async getChequeBycompany(chequecompany: string) {
@@ -228,7 +197,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
     async getChequeByReceiver(chequedelivredTo: string) {
@@ -245,7 +214,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
     async getChequeBychequeBook(chequechequeBook: string) {
@@ -262,7 +231,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
     async getChequeBybankAccount(chequebankaccount: string) {
@@ -279,10 +248,10 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
-   
+
     async getChequeByComment(chequecomment: string) {
         const cheque = await this.findChequeByComment(chequecomment);
         return {
@@ -297,7 +266,7 @@ export class ChequeService {
             delivredTo: cheque.delivredTo,
             chequeBook: cheque.chequeBook,
             bankAccount: cheque.bankAccount,
-            comment:cheque.comment,
+            comment: cheque.comment,
         };
     }
 
@@ -312,14 +281,14 @@ export class ChequeService {
         company: string,
         delivredTo: string,
         chequeBook: string,
-        bankAccount: string, 
+        bankAccount: string,
         comment: string) {
         const updateCheque = await this.findChequeById(chequeid);
         if (number) {
             updateCheque.number = number;
         }
 
-         if (amount) {
+        if (amount) {
             updateCheque.amount = amount;
         }
         if (dueDate) {
@@ -349,21 +318,21 @@ export class ChequeService {
         if (comment) {
             updateCheque.comment = comment;
         }
-    
+
         const result = await updateCheque.save();
         return result;
     }
     async addBillToCheque(
         chequeid: string,
         bill: string,
-        ) {
-        let updateCheque :Cheque = await this.findChequeById(chequeid);
-        let theBill  = await this.billService.getBillById(bill);
+    ) {
+        let updateCheque: Cheque = await this.findChequeById(chequeid);
+        let theBill = await this.billService.getBillById(bill);
         if (theBill && updateCheque) {
-            updateCheque.bills.push(theBill.id) ;
+            updateCheque.bills.push(theBill.id);
             theBill.cheque = updateCheque.id;
             updateCheque.save();
-        
+
         }
         return updateCheque;
     }
@@ -371,17 +340,17 @@ export class ChequeService {
     async removeBillFromcheque(
         chequeid: string,
         bill: string,
-        ) {
-            let updateCheque :Cheque = await this.findChequeById(chequeid);
-            let theBill = await this.billService.getBillById(bill);
-       
+    ) {
+        let updateCheque: Cheque = await this.findChequeById(chequeid);
+        let theBill = await this.billService.getBillById(bill);
+
         if (theBill && updateCheque) {
-            for ( let i = 0; i < updateCheque.bills.length; i++) {
-                if ( updateCheque.bills[i] === theBill.id) {
+            for (let i = 0; i < updateCheque.bills.length; i++) {
+                if (updateCheque.bills[i] === theBill.id) {
                     updateCheque.bills.splice(i, 1);
                 }
-             }
-             updateCheque.save();
+            }
+            updateCheque.save();
         }
         return updateCheque;
     }
@@ -390,7 +359,7 @@ export class ChequeService {
 
     }
 
-    private async findChequeById (id: string): Promise<Cheque> {
+    private async findChequeById(id: string): Promise<Cheque> {
         let cheque;
         try {
             cheque = await this.chequeModel.findById(id).exec();
@@ -403,7 +372,7 @@ export class ChequeService {
 
         return cheque;
     }
-    private async findChequeByNumber (number: string): Promise<Cheque> {
+    private async findChequeByNumber(number: string): Promise<Cheque> {
         let cheque;
         try {
 
@@ -417,8 +386,8 @@ export class ChequeService {
 
         return cheque;
     }
-     
-    private async findChequeByAmount (amount: string): Promise<Cheque> {
+
+    private async findChequeByAmount(amount: string): Promise<Cheque> {
         let cheque;
         try {
 
@@ -432,7 +401,7 @@ export class ChequeService {
 
         return cheque;
     }
-    private async findChequeByDueDate (dueDate: string): Promise<Cheque> {
+    private async findChequeByDueDate(dueDate: string): Promise<Cheque> {
         let cheque;
         try {
 
@@ -446,7 +415,7 @@ export class ChequeService {
 
         return cheque;
     }
-    private async findChequeByCreationDate (creationDate: string): Promise<Cheque> {
+    private async findChequeByCreationDate(creationDate: string): Promise<Cheque> {
         let cheque;
         try {
 
@@ -460,7 +429,7 @@ export class ChequeService {
 
         return cheque;
     }
-    private async findChequeByPlaceOfCreation (placeOfCreation: string): Promise<Cheque> {
+    private async findChequeByPlaceOfCreation(placeOfCreation: string): Promise<Cheque> {
         let cheque;
         try {
 
@@ -475,7 +444,7 @@ export class ChequeService {
         return cheque;
     }
 
-    private async findChequeBycompany (company: string): Promise<Cheque> {
+    private async findChequeBycompany(company: string): Promise<Cheque> {
         let cheque;
         try {
 
@@ -489,7 +458,7 @@ export class ChequeService {
 
         return cheque;
     }
-    private async findChequeBybank (bank: string): Promise<Cheque> {
+    private async findChequeBybank(bank: string): Promise<Cheque> {
         let cheque;
         try {
 
@@ -504,7 +473,7 @@ export class ChequeService {
         return cheque;
     }
 
-    private async findChequeByReceiver (delivredTo: string): Promise<Cheque> {
+    private async findChequeByReceiver(delivredTo: string): Promise<Cheque> {
         let cheque;
         try {
 
@@ -519,7 +488,7 @@ export class ChequeService {
         return cheque;
     }
 
-    private async findChequeBychequeBook (chequeBook: string): Promise<Cheque> {
+    private async findChequeBychequeBook(chequeBook: string): Promise<Cheque> {
         let cheque;
         try {
 
@@ -534,7 +503,7 @@ export class ChequeService {
         return cheque;
     }
 
-    private async findChequeBybankAccount (bankaccount: string): Promise<Cheque> {
+    private async findChequeBybankAccount(bankaccount: string): Promise<Cheque> {
         let cheque;
         try {
 
@@ -549,8 +518,8 @@ export class ChequeService {
         return cheque;
     }
 
-  
-    private async findChequeByComment (comment: string): Promise<Cheque> {
+
+    private async findChequeByComment(comment: string): Promise<Cheque> {
         let cheque;
         try {
 

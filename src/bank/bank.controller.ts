@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Param, Patch, Delete, Body, HttpException, HttpStatus, UseFilters} from '@nestjs/common';
+import { Controller, Post, Get, Param, Patch, Delete, Body} from '@nestjs/common';
 import { BankService } from './bank.service';
 import { ApiUseTags } from '@nestjs/swagger';
 
@@ -20,7 +20,7 @@ export class BankController {
         bankaddress,
         bankcompany,
         bankcomment);
-        return {id: generateid};
+        return generateid;
     }
     @Get()
     async getAllbanks(){

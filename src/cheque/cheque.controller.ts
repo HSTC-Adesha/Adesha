@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Param, Patch, Delete, Body, HttpException, HttpStatus, UseFilters} from '@nestjs/common';
+import { Controller, Post, Get, Param, Patch, Delete, Body} from '@nestjs/common';
 import { ChequeService } from './cheque.service';
 import { ApiUseTags } from '@nestjs/swagger';
 
@@ -32,7 +32,7 @@ export class ChequeController {
         chequechequeBook,
         chequebankaccount,
         chequecomment);
-        return {id: generateid};
+        return generateid;
     }
     @Get()
     async getAllCheques(){

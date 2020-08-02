@@ -1,26 +1,15 @@
-import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/common';
+import { Injectable, NotFoundException} from '@nestjs/common';
 import { Bank } from './bank.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { bankSchema } from './bank.model';
-import { CompanyService } from '../company/company.service';
-import { Company } from 'src/company/company.model';
 import { BankAccountService } from '../bankaccount/bankaccount.service';
 import { BankAccount } from '../bankaccount/bankaccount.model';
 
 @Injectable()
 export class BankService {
-
-
-    private mybanks: Bank[] = [];
     constructor(
     @InjectModel('Bank') private readonly bankModel: Model<Bank>,
-    @InjectModel('Company') private readonly companyModel: Model<Company>,
-    @InjectModel('bankaccount') private readonly bankaccountModel: Model<BankAccount>,
-    @Inject(forwardRef(() => CompanyService))
-    private readonly companyService:CompanyService,
-    @Inject(forwardRef(() => BankAccountService))
-    private readonly BankAccountService:BankAccountService,
+    private readonly bankAccountService : BankAccountService,
     ){ }
     async insertbank (bankname: string, bankcity: string, bankaddress: string,  bankcompany: string, bankcomment: string) {
         this.addbank(bankname, bankcity, bankaddress, bankcompany, bankcomment)
@@ -39,7 +28,7 @@ export class BankService {
             comment,
         });
         const result = await newbank.save();
-        return result.id as string;
+        return result;
     }
     async getAllbanks() {
         const banks = await this.bankModel.find().exec()
@@ -161,7 +150,7 @@ export class BankService {
         bankAccount: string,
         ) {
         let updatebank :Bank = await this.findBankById(bankid);
-        let thebankAccount:BankAccount = await this.BankAccountService.getBankAccountById(bankAccount);
+        let thebankAccount:BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
         if (thebankAccount && updatebank) {
             updatebank.bankAccounts.push(thebankAccount.id) ;
             thebankAccount.bank = updatebank.id;
@@ -176,7 +165,7 @@ export class BankService {
         bankAccount: string,
         ) {
             let updatebank :Bank = await this.findBankById(bankid);
-            let thebankAccount:BankAccount = await this.BankAccountService.getBankAccountById(bankAccount);
+            let thebankAccount:BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
        
         if (thebankAccount && updatebank) {
             for ( let i = 0; i < updatebank.bankAccounts.length; i++) {

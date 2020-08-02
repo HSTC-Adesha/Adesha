@@ -1,10 +1,7 @@
 import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/common';
 import {Employee } from './employee.model';
-import { Company } from '../company/company.model';
-import { CompanyService } from '../company/company.service';
 import { BankAccountService } from '../bankaccount/bankaccount.service';
 import { BankAccount } from '../bankaccount/bankaccount.model';
-import { Cheque } from '../cheque/cheque.model';
 import { ChequeService } from '../cheque/cheque.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -17,15 +14,11 @@ export class EmployeeService {
     private myemployees: Employee[] = [];
     constructor(
     @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
-    @InjectModel('Company') private readonly companyModel: Model<Company>,
-    @InjectModel('bankAccount') private readonly bankaccoutnModel: Model<BankAccount>,
-    @InjectModel('Cheque') private readonly chequeModel: Model<Cheque>,
-    @Inject(forwardRef(() => CompanyService ))
-    private readonly CompanyService:CompanyService,
+
     @Inject(forwardRef(() => BankAccountService ))
-    private readonly BankAccountService:BankAccountService,
+    private readonly bankAccountService:BankAccountService,
     @Inject(forwardRef(() => ChequeService ))  
-    private readonly ChequeService:ChequeService,
+    private readonly chequeService:ChequeService,
     ) { }
     async insertemployee (employeefirstName: string, employeelastName: string,
         employeeaddress: string, employeerole: string,  employeecompany: string, employeecomment: string) {
@@ -48,7 +41,7 @@ export class EmployeeService {
             comment,
         });
         const result = await newemployee.save();
-        return result.id as string;
+        return result;
     }
     async getAllemployees() {
         const employees = await this.employeeModel.find().exec()
@@ -179,7 +172,7 @@ export class EmployeeService {
         bankAccount: string,
         ) {
         let updateemployee :Employee = await this.getEmployeeById(employeeid);
-        let theBankAccount :BankAccount = await this.BankAccountService.getBankAccountById(bankAccount);
+        let theBankAccount :BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
         if (theBankAccount && updateemployee) {
             updateemployee.bankAccounts.push(theBankAccount.id) ;
             theBankAccount.company = updateemployee.id;
@@ -193,7 +186,7 @@ export class EmployeeService {
         cheque: string,
         ) {
         let updateemployee :Employee = await this.getEmployeeById(employeeid);
-        let theCheque = await this.ChequeService.getChequeById(cheque);
+        let theCheque = await this.chequeService.getChequeById(cheque);
         if (theCheque && updateemployee) {
             updateemployee.cheques.push(theCheque.id) ;
             theCheque.delivredTo = updateemployee.id;
@@ -207,7 +200,7 @@ export class EmployeeService {
         bankAccount: string,
         ) {
             let updateemployee :Employee = await this.getEmployeeById(employeeid);
-            let theBankAccount:BankAccount = await this.BankAccountService.getBankAccountById(bankAccount);
+            let theBankAccount:BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
         if (theBankAccount && updateemployee) {
             for ( let i = 0; i < updateemployee.bankAccounts.length; i++) {
                 if ( updateemployee.bankAccounts[i] === theBankAccount.id) {
@@ -223,7 +216,7 @@ export class EmployeeService {
         cheque: string,
         ) {
             let updateemployee :Employee = await this.getEmployeeById(employeeid);
-            let thecheque = await this.ChequeService.getChequeById(cheque);
+            let thecheque = await this.chequeService.getChequeById(cheque);
         if (thecheque && updateemployee) {
             for ( let i = 0; i < updateemployee.cheques.length; i++) {
                 if ( updateemployee.cheques[i] === thecheque.id) {
@@ -335,7 +328,7 @@ export class EmployeeService {
             throw new NotFoundException('erreur!!');
         }
         if (!employee) {
-            throw new NotFoundException('erreur!!');1
+            throw new NotFoundException('erreur!!');
         }
         return employee;
     }

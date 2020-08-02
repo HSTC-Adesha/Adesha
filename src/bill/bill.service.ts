@@ -1,25 +1,12 @@
-import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Bill } from './bill.model';
-import { chequeSchema, Cheque } from '../cheque/cheque.model';
-import { ChequeService } from '../cheque/cheque.service';
-import { CompanyService } from '../company/company.service';
-import { Company } from '../company/company.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class BillService {
-
-
-    private mybills: Bill[] = [];
     constructor(
     @InjectModel('Bill') private readonly billModel: Model<Bill>,
-    @InjectModel('cheque') private readonly chequeModel: Model<Cheque>,
-    @InjectModel('Company') private readonly companyModel: Model<Company>,
-    @Inject(forwardRef(() => ChequeService ))
-    private readonly ChequeService:ChequeService,
-    @Inject(forwardRef(() => ChequeService ))
-    private readonly companyService:CompanyService,
     ) { }
     async insertbill (billnumber: string, billcheque: string, billcompany: string, billcomment: string ) {
         this.addbill(billnumber, billcheque, billcompany,  billcomment)
@@ -37,7 +24,7 @@ export class BillService {
             comment,
         });
         const result = await newbill.save();
-        return result.id as string;
+        return result;
     }
     async getAllbills() {
         const bills = await this.billModel.find().exec()

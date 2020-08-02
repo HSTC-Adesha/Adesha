@@ -8,20 +8,13 @@ import { Employee } from '../employee/employee.model';
 import { BankService } from '../bank/bank.service';
 import { EmployeeService } from '../employee/employee.service';
 import { BankAccountService } from '../bankaccount/bankaccount.service';
-import { billSchema, Bill } from '../bill/bill.model';
 import { BillService } from '../bill/bill.service';
-
-
-
 @Injectable()
 export class CompanyService {
 
     constructor(
         @InjectModel('Company') private readonly companyModel: Model<Company>,
-        @InjectModel('BankAccount') private readonly bankAccountModel: Model<BankAccount>,
-        @InjectModel('Bank') private readonly bankModel: Model<Bank>,
-        @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
-        @InjectModel('Bill') private readonly billModel: Model<Bill>,
+
         @Inject(forwardRef(() => BankAccountService ))
         private readonly bankAccountService:BankAccountService,
         @Inject(forwardRef(() => BankService ))
@@ -29,7 +22,7 @@ export class CompanyService {
         @Inject(forwardRef(() => EmployeeService ))
         private readonly employeeService:EmployeeService,
         @Inject(forwardRef(() => BillService ))
-        private readonly BillService:BillService,
+        private readonly billService:BillService,
         ) { }
     async insertcompany (companyname: string, companycityOrCountry: string,
         companyaddress: string, companytype: string,
@@ -171,7 +164,7 @@ export class CompanyService {
         bill: string,
         ) {
         let updatecompany :Company = await this.findCompanyById(companyid);
-        let theBill = await this.BillService.getBillById(bill);
+        let theBill = await this.billService.getBillById(bill);
         if (theBill && updatecompany) {
             updatecompany.bills.push(theBill.id);
             theBill.company = updatecompany.id;
@@ -234,7 +227,7 @@ export class CompanyService {
         bill: string,
         ) {
         let updatecompany :Company = await this.findCompanyById(companyid);
-        let theBill = await this.BillService.getBillById(bill);
+        let theBill = await this.billService.getBillById(bill);
         if (theBill && updatecompany) {
             for ( let i = 0; i < updatecompany.bills.length; i++) {
                 if ( updatecompany.bills[i] === theBill.id) {
