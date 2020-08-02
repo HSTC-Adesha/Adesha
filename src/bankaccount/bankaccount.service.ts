@@ -21,9 +21,7 @@ export class BankAccountService {
     @InjectModel('cheque') private readonly chequeModel: Model<Cheque>,
     @InjectModel('company') private readonly companyModel: Model<Company>,
     @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
-    @Inject(forwardRef(() => BankService ))
     private readonly BankService:BankService,
-    @Inject(forwardRef(() => ChequeService ))
     private readonly ChequeService:ChequeService,
     @Inject(forwardRef(() => CompanyService ))
     private readonly CompanyService:CompanyService,

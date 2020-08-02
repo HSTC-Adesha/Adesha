@@ -13,6 +13,7 @@ import { CompanyModule } from '../company/company.module';
     MongooseModule.forFeature([{name:'Bill', schema: billSchema}]),
     MongooseModule.forFeature([{name:'Cheques', schema: chequeSchema}]),
     MongooseModule.forFeature([{name:'Company', schema: companySchema}]),
+    forwardRef(() => ChequeModule ),
     ChequeModule, CompanyModule
 ],
     controllers: [BillController],

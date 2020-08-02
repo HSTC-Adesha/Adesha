@@ -26,7 +26,8 @@ import { BankAccountModule } from './bankaccount/bankaccount.module';
     ChequeBookModule,
     CompanyModule,
     BankAccountModule,
-    EmployeeModule
+    EmployeeModule,
+    forwardRef(() => ChequeModule ),
   ],
   controllers: [
     AppController],

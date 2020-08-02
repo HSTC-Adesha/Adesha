@@ -13,6 +13,8 @@ import { BankAccountModule } from '../bankaccount/bankaccount.module';
     MongooseModule.forFeature([{name:'Bank', schema: bankSchema}]),
     MongooseModule.forFeature([{name:'Company', schema: companySchema}]),
     MongooseModule.forFeature([{name:'bankaccount', schema: bankAccountSchema}]),
+    forwardRef(() => CompanyModule ),
+    forwardRef(() => BankAccountModule ),
     CompanyModule, BankAccountModule,
 ],
     controllers: [BankController],

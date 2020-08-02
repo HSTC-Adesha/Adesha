@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/common';
 import { Bill } from './bill.model';
-import { chequeSchema, Cheque } from '../cheque/cheque.model';
+import {  Cheque } from '../cheque/cheque.model';
 import { ChequeService } from '../cheque/cheque.service';
 import { CompanyService } from '../company/company.service';
 import { Company } from '../company/company.model';

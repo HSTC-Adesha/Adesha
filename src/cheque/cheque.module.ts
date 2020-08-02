@@ -15,6 +15,7 @@ import { billSchema } from '../bill/bill.model';
 import { BillModule } from '../bill/bill.module';
 import { bankAccountSchema } from '../bankaccount/bankaccount.model';
 import { BankAccountModule } from '../bankaccount/bankaccount.module';
+
 @Module({
     imports:[
         MongooseModule.forFeature([{name:'Cheque', schema: chequeSchema}]),
@@ -24,13 +25,9 @@ import { BankAccountModule } from '../bankaccount/bankaccount.module';
         MongooseModule.forFeature([{name:'ChequeBook', schema: chequeBookSchema}]),
         MongooseModule.forFeature([{name:'bankaccount', schema: bankAccountSchema}]),
         MongooseModule.forFeature([{name:'Bill', schema: billSchema}]),
-        forwardRef(() => BankModule ),
-        forwardRef(() => CompanyModule ),
-        forwardRef(() => BankAccountModule ),
-        forwardRef(() => BillModule ),
-      
         BankModule,  CompanyModule, EmployeeModule, ChequeBookModule,  BankAccountModule, BillModule,
     ],
+   
     controllers: [ChequeController],
     providers: [ChequeService],
     exports: [ChequeService],

@@ -20,7 +20,6 @@ export class EmployeeService {
     @InjectModel('Company') private readonly companyModel: Model<Company>,
     @InjectModel('bankAccount') private readonly bankaccoutnModel: Model<BankAccount>,
     @InjectModel('Cheque') private readonly chequeModel: Model<Cheque>,
-    @Inject(forwardRef(() => CompanyService ))
     private readonly CompanyService:CompanyService,
     @Inject(forwardRef(() => BankAccountService ))
     private readonly BankAccountService:BankAccountService,

@@ -19,12 +19,12 @@ import { EmployeeModule } from 'src/employee/employee.module';
     MongooseModule.forFeature([{name:'cheque', schema: chequeSchema}]),
     MongooseModule.forFeature([{name:'Company', schema: companySchema}]),
     MongooseModule.forFeature([{name:'Employee', schema: employeeSchema}]),
-    forwardRef(() => BankModule ),
     BankModule,ChequeModule,CompanyModule,EmployeeModule,
 ],
     controllers: [BankAccountController],
     providers: [BankAccountService],
     exports:[BankAccountService]
+    
 })
 
 export class BankAccountModule {}

@@ -12,6 +12,7 @@ import { ChequeBookService } from '../chequeBook/chequeBook.service';
 import { BankAccountService } from '../bankaccount/bankaccount.service';
 import { BillService } from '../bill/bill.service';
 import { EmployeeService } from '../employee/employee.service';
+import { AppService } from '../app.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -28,17 +29,11 @@ export class ChequeService {
     @InjectModel('ChequeBook') private readonly chequeBookModel: Model<ChequeBook>,
     @InjectModel('bankaccount') private readonly bankAccountModel: Model<BankAccount>,
     @InjectModel('Bill') private readonly billModel: Model<Bill>,
-    @Inject(forwardRef(() => BankService))
     private readonly bankService: BankService,
-    @Inject(forwardRef(() => CompanyService))
     private readonly companyService: CompanyService,
-    @Inject(forwardRef(() => EmployeeService))
     private readonly employeeService: EmployeeService,
-    @Inject(forwardRef(() => ChequeBookService))
     private readonly chequeBookService: ChequeBookService,
-    @Inject(forwardRef(() => BankAccountService))
     private readonly BankAccountService:BankAccountService,
-    @Inject(forwardRef(() => BillService))
     private readonly billService: BillService,
     ) { }
     async insertcheque (chequenumber: string, chequeamount: string, chequedueDate: string, chequecreationDate:string, chequeplaceOfCreation:string, 

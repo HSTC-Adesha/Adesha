@@ -15,7 +15,6 @@ import { ChequeModule } from '../cheque/cheque.module';
         MongooseModule.forFeature([{name:'Employee', schema: employeeSchema}]),
         MongooseModule.forFeature([{name:'bankaccount', schema: bankAccountSchema}]),
         MongooseModule.forFeature([{name:'Cheque', schema: chequeSchema}]),
-        forwardRef(() => CompanyModule ),
         forwardRef(() => BankAccountModule ),
         CompanyModule,BankAccountModule, ChequeModule,
     ],

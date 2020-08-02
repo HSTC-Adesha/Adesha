@@ -18,8 +18,7 @@ import { BillModule } from '../bill/bill.module';
         MongooseModule.forFeature([{name:'BankAccount', schema: bankAccountSchema}]),
         MongooseModule.forFeature([{name:'Employee', schema: employeeSchema}]),
         MongooseModule.forFeature([{name:'Bill', schema: billSchema}]),
-        forwardRef(() => BankModule ),
-        forwardRef(() => BankAccountModule ),
+        forwardRef(() => EmployeeModule ),
         forwardRef(() => BillModule ),
         BankModule, BankAccountModule, EmployeeModule, BillModule
     ],
