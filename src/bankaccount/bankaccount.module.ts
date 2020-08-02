@@ -18,11 +18,11 @@ import { employeeSchema } from '../employee/employee.model';
     MongooseModule.forFeature([{name:'Employee', schema: employeeSchema}]),
    ChequeModule ,
 
-
 ],
     controllers: [BankAccountController],
     providers: [BankAccountService],
     exports:[BankAccountService]
+    
 })
 
 export class BankAccountModule {}

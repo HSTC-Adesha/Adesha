@@ -17,7 +17,6 @@ export class CompanyService {
 
         @Inject(forwardRef(() => BankAccountService ))
         private readonly bankAccountService:BankAccountService,
-        @Inject(forwardRef(() => BankService ))
         private readonly bankService:BankService,
         @Inject(forwardRef(() => EmployeeService ))
         private readonly employeeService:EmployeeService,

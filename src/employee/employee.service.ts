@@ -14,7 +14,6 @@ export class EmployeeService {
     private myemployees: Employee[] = [];
     constructor(
     @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
-
     @Inject(forwardRef(() => BankAccountService ))
     private readonly bankAccountService:BankAccountService,
     @Inject(forwardRef(() => ChequeService ))  
