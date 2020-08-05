@@ -7,7 +7,7 @@ export const employeeSchema = new mongoose.Schema ({
     company:{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
     bankAccounts:[{ type: mongoose.Schema.Types.ObjectId, ref: 'bankaccount' }],
     cheques:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Cheque' }],
-    comment: {type: String, required:true }, 
+    comment: {type: String, required:false }, 
 })
 
 export class Employee extends mongoose.Document {
