@@ -11,6 +11,9 @@ import { CompanyModule } from "./company/company.module";
 import { warn } from "console";
 import { ChequeBookModule } from "./chequeBook/chequeBook.module";
 import { ChequeModule } from "./cheque/cheque.module";
+import { join } from "path";
+import { ServeStaticModule } from '@nestjs/serve-static';
+
 
 
 async function bootstrap() {

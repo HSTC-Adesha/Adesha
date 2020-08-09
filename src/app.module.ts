@@ -14,9 +14,16 @@ import { HttpErrorFilter } from './shared/logger/http-error.filter';
 import { ChequeBookModule } from './chequeBook/chequeBook.module';
 import { ChequeModule } from './cheque/cheque.module';
 import { BankAccountModule } from './bankaccount/bankaccount.module';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
+
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      exclude: ['/api*'],
+    }),
     MongooseModule.forRoot("mongodb://localhost/adeshaDB"),
     AuthModule,
     UserModule,
