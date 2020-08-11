@@ -10,9 +10,6 @@ export const chequeSchema = new mongoose.Schema ({
     bank:{ type: mongoose.Schema.Types.ObjectId, ref: 'Bank' },
     company:{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
     delivredTo:{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
-
-
-    
     chequeBook:{ type: mongoose.Schema.Types.ObjectId, ref: 'ChequeBook' },
     bankAccount:{ type: mongoose.Schema.Types.ObjectId, ref: 'BankAccount' },
     bills:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Bill' }],
