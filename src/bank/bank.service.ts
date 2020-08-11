@@ -12,7 +12,7 @@ export class BankService {
     private readonly bankAccountService : BankAccountService,
     ){ }
     async insertbank (bankname: string, bankcity: string, bankaddress: string,  bankcompany: string, bankcomment: string) {
-        this.addbank(bankname, bankcity, bankaddress, bankcompany, bankcomment)
+       return this.addbank(bankname, bankcity, bankaddress, bankcompany, bankcomment)
     }
     async addbank(
         name: string,
@@ -27,8 +27,7 @@ export class BankService {
             company,
             comment,
         });
-        const result = await newbank.save();
-        return result;
+        return await newbank.save();
     }
     async getAllbanks() {
         const banks = await this.bankModel.find().exec()

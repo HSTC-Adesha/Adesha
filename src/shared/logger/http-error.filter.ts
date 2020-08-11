@@ -24,7 +24,7 @@ import { logger } from './adeshaLogger.service';
         method: request.method,
         message:
           status !== HttpStatus.INTERNAL_SERVER_ERROR
-            ? exception.message.error || exception.message || null
+            ? exception.message || null
             : 'Internal server error',
       };
 

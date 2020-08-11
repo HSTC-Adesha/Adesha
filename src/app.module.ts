@@ -16,8 +16,7 @@ import { ChequeModule } from './cheque/cheque.module';
 import { BankAccountModule } from './bankaccount/bankaccount.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
-
-
+import { EventsModule } from './events/events.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -34,6 +33,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     CompanyModule,
     BankAccountModule,
     EmployeeModule,
+    EventsModule,
   ],
   controllers: [
     AppController],

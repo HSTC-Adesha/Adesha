@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Adesha | Login</title>
+  <link rel="icon" type="image/png" href="assets/images/logo-inverse.png" />
+
+  <!-- Bootstrap -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/css/animate.css/animate.min.css" rel="stylesheet">
+
+
+  <!-- Custom Theme Style -->
+    <link href="assets/css/loginstyle.css" rel="stylesheet"> 
+
+  </head>
+
+<body class="login">
+  <div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+      
+      
+      <div class="animate form login_form">
+        <div class="logoKadataLogin">
+          <img src="assets/images/logo-inverse.png" alt="Adesha" >
+        </div>
+        <section class="login_content">
+              <form>
+            <h1>Login Form</h1>
+            <div>
+              <input id="username" type="text" class="form-control" placeholder="Username" required="" />
+            </div>
+            <div>
+              <input  id="userid"  type="password" class="form-control" placeholder="Password" required="" />
+            </div>
+            <div>
+              <a  id="loginBtn"  class="btn btn-default submit">Log in</a>
+              <a class="reset_pass" href="#">Lost your password?</a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="separator">
+              <p class="change_link">New to Adesha ?
+                <a href="#signup" class="to_register"> Create Account </a>
+              </p>
+
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <div id="register" class="animate form registration_form">
+          <div class="logoKadataLogin">
+              <img src="assets/images/logo-inverse.png" alt="Adesha" >
+            </div>
+        <section class="login_content">
+          <form>
+            <h1>Create Account</h1>
+            <div>
+              <input id="createUsername"  type="text" class="form-control" placeholder="Username" required="" />
+            </div>
+
+            <div>
+              <input id="createEmail"  type="email" class="form-control" placeholder="Email" required="" />
+            </div>
+            <div>
+              <input id="createPassword"  type="password" class="form-control" placeholder="Password" required="" />
+            </div>
+            <div>
+                <a  id="signupaction"  class="btn btn-default submit">Sign up</a>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="separator">
+              <p class="change_link">Already a member ?
+                <a href="#signin" class="to_register"> Log in </a>
+              </p>
+
+              <div class="clearfix"></div>
+              <br />
+
+              <div>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script
+  src="assets/scripts/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/scripts/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="assets/scripts/loginController.js"></script>
+
+
+</body>
+</html>

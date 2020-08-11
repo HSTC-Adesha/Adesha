@@ -21,7 +21,7 @@ export class EmployeeService {
     ) { }
     async insertemployee (employeefirstName: string, employeelastName: string,
         employeeaddress: string, employeerole: string,  employeecompany: string, employeecomment: string) {
-        this.addemployee(employeefirstName, employeelastName, employeeaddress, employeerole,
+       return this.addemployee(employeefirstName, employeelastName, employeeaddress, employeerole,
              employeecompany, employeecomment)
     }
     async addemployee(

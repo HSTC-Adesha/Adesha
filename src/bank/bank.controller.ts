@@ -14,13 +14,12 @@ export class BankController {
     @Body('address') bankaddress :string,
     @Body('company') bankcompany :string,
     @Body ('comment') bankcomment :string,) {
-     const generateid = await this.banksService.insertbank (
+     return await this.banksService.insertbank (
         bankname,
         bankcity,
         bankaddress,
         bankcompany,
         bankcomment);
-        return generateid;
     }
     @Get()
     async getAllbanks(){

@@ -4,6 +4,8 @@ import * as mongoose from 'mongoose';
 export const chequeSchema = new mongoose.Schema ({
     number: {type: String},
     amount: {type: String},
+    received:{type:Boolean},
+    status: {type: String},
     dueDate: {type: String},
     creationDate: {type: String},
     placeOfCreation: {type: String},
@@ -20,6 +22,8 @@ export class Cheque extends mongoose.Document {
     id: string;
     number: string;
     amount: string;
+    received:boolean;
+    status:string;
     dueDate: string;
     creationDate: string;
     placeOfCreation: string;

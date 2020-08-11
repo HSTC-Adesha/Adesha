@@ -11,6 +11,8 @@ export class ChequeController {
     async  addcheque(
         @Body('number') chequenumber: string,
         @Body('amount') chequeamount: string,
+        @Body('received') received: boolean,
+        @Body('status') status: string,
         @Body('dueDate') chequedueDate: string,
         @Body('creationDate') chequecreationDate: string,
         @Body('chequeplaceOfCreation') chequeplaceOfCreation: string,
@@ -23,6 +25,8 @@ export class ChequeController {
      const generateid = await this.chequesService.insertcheque (
         chequenumber,
         chequeamount,
+        received,
+        status,
         chequedueDate,
         chequecreationDate,
         chequeplaceOfCreation,

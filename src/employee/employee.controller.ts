@@ -12,18 +12,17 @@ export class EmployeeController {
     async  addemployee(
     @Body('firstName') employeefirstName :string,
     @Body('lastName') employeelastName :string,
-    @Body('Address') employeeaddress :string,
+    @Body('address') employeeaddress :string,
     @Body ('role') employeerole :string,
-    @Body ('Company') employeecompany :string,
+    @Body ('company') employeecompany :string,
     @Body ('comment') employeecomment :string,) {
-     const generateid = await this.employeesService.insertemployee (
+     return await this.employeesService.insertemployee (
         employeefirstName,
         employeelastName,
         employeeaddress,
         employeerole,
         employeecompany, 
         employeecomment);
-            return {id: generateid};
     }
     @Get()
     async getAllemployees(){

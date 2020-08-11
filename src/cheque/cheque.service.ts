@@ -3,20 +3,24 @@ import { Cheque } from './cheque.model';
 import { BillService } from '../bill/bill.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { EventsGateway } from '../events/events.gateway';
 
 @Injectable()
 export class ChequeService {
     constructor(
         @InjectModel('Cheque') private readonly chequeModel: Model<Cheque>,
         private readonly billService: BillService,
+        private readonly eventsGateway: EventsGateway,
     ) { }
-    async insertcheque(chequenumber: string, chequeamount: string, chequedueDate: string, chequecreationDate: string, chequeplaceOfCreation: string,
+    async insertcheque(chequenumber: string, chequeamount: string,received:boolean, status:string,chequedueDate: string, chequecreationDate: string, chequeplaceOfCreation: string,
         chequebank: string, chequecompany: string, chequedelivredTo: string, chequechequeBook: string, chequebankAccount: string, chequecomment: string) {
-        this.addcheque(chequenumber, chequeamount, chequedueDate, chequecreationDate, chequeplaceOfCreation, chequebank, chequecompany, chequedelivredTo, chequechequeBook, chequebankAccount, chequecomment)
+       return this.addcheque(chequenumber, chequeamount,received,status, chequedueDate, chequecreationDate, chequeplaceOfCreation, chequebank, chequecompany, chequedelivredTo, chequechequeBook, chequebankAccount, chequecomment)
     }
     async addcheque(
         number: string,
         amount: string,
+        received:boolean,
+        status: string,
         dueDate: string,
         creationDate: string,
         placeOfCreation: string,
@@ -29,6 +33,8 @@ export class ChequeService {
         const newcheque = new this.chequeModel({
             number,
             amount,
+            received,
+            status,
             dueDate,
             creationDate,
             placeOfCreation,
@@ -40,24 +46,11 @@ export class ChequeService {
             comment,
         });
         const result = await newcheque.save();
+        this.eventsGateway.server.emit('dbcheck',"eventDataObj");
         return result;
     }
     async getAllCheques() {
-        const cheques = await this.chequeModel.find().exec()
-        return cheques.map(cheque => ({
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        }));
+        return await this.chequeModel.find().exec()
     }
 
     async getChequeById(chequeid: string) {

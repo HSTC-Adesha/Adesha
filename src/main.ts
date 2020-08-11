@@ -11,14 +11,9 @@ import { CompanyModule } from "./company/company.module";
 import { warn } from "console";
 import { ChequeBookModule } from "./chequeBook/chequeBook.module";
 import { ChequeModule } from "./cheque/cheque.module";
-import { join } from "path";
-import { ServeStaticModule } from '@nestjs/serve-static';
-
-
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   app.useGlobalPipes(new ValidationPipe({
     // disableErrorMessages: true,
   }));
@@ -37,7 +32,7 @@ async function bootstrap() {
       BillModule,
       ChequeBookModule,
       CompanyModule,
-      EmployeeModule
+      EmployeeModule,
   ],
   });
   SwaggerModule.setup('api', app, document);
