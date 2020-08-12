@@ -39,7 +39,7 @@ export class ChequeController {
         const cheques = await this.chequesService.getAllCheques();
         return cheques;
     }
-    @Get('id/:bankid')
+    @Get('id/:chequeid')
     getChequeById(@Param('chequeid') chequeid: string){
         return this.chequesService.getChequeById(chequeid);
     }
