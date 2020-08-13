@@ -50,7 +50,7 @@ export class ChequeService {
         return result;
     }
     async getAllCheques() {
-        return await this.chequeModel.find().exec()
+        return await this.chequeModel.find().populate('company').populate('bank').exec()
     }
 
     async getChequeById(chequeid: string) {

@@ -23,8 +23,7 @@ export class BankController {
     }
     @Get()
     async getAllbanks(){
-        const banks = await this.banksService.getAllbanks();
-        return banks;
+        return await this.banksService.getAllbanks();
     }
     @Get('id/:bankid')
     getBankById (@Param('bankid') bankid: string){

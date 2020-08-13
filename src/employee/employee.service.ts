@@ -110,28 +110,12 @@ export class EmployeeService {
         };
     }
     async getEmployeeByCompany( employeecompany: string){
-        const employee = await this.findEmployeeByCompany (employeecompany);
-        return {
-        id: employee.id,
-        firstName: employee.firstName,
-        lastName: employee.lastName,
-        address: employee.address,
-        role: employee.role,
-        company: employee.company,
-        comment:employee.comment,
-    };
+        return await this.findEmployeeByCompany(employeecompany);
+      
 }
     async getEmployeeByComment(employeecomment: string) {
-        const employee = await this.findEmployeeByComment(employeecomment);
-        return {
-            id: employee.id,
-            firstName: employee.firstName,
-            lastName: employee.lastName,
-            address: employee.address,
-            role: employee.role,
-            company: employee.company,
-            comment:employee.comment,
-        };
+    return await this.findEmployeeByComment(employeecomment);
+      
     }
 
     async updateemployee(
@@ -304,7 +288,7 @@ export class EmployeeService {
         return employee;
     }
 
-    private async findEmployeeByCompany (company: string): Promise<Employee> {
+    private async findEmployeeByCompany(company: string): Promise<Employee> {
         let employee ;
         try {
 

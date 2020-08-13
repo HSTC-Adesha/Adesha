@@ -56,7 +56,7 @@ export class CompanyService {
         return result as Company;
     }
     async getAllcompanies() {
-        return await this.companyModel.find().exec()
+        return await this.companyModel.find().populate("banks").populate("bankAccounts").populate("bills").populate("employees").exec()
     }
 
     async getCompanyById(companyid: string) {

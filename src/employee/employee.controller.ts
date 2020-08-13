@@ -49,8 +49,8 @@ export class EmployeeController {
     getEmployeeByRole(@Param('role') employeerole: string){
         return this.employeesService.getEmployeeByRole(employeerole);
     } 
-    @Get('role/:role')
-    getEmployeeByCompany(@Param('role') employeerole: string){
+    @Get('company/:id')
+    getEmployeeByCompany(@Param('id') employeerole: string){
         return this.employeesService.getEmployeeByCompany(employeerole);
     } 
     @Get('comment/:comment')

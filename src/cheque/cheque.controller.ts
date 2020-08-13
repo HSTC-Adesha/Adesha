@@ -40,8 +40,8 @@ export class ChequeController {
     }
     @Get()
     async getAllCheques(){
-        const cheques = await this.chequesService.getAllCheques();
-        return cheques;
+        return await this.chequesService.getAllCheques();
+       
     }
     @Get('id/:bankid')
     getChequeById(@Param('chequeid') chequeid: string){
