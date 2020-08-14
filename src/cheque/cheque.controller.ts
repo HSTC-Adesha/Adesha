@@ -125,7 +125,7 @@ export class ChequeController {
      @Body('comment') chequecomment: string,)
      
      {
-        await this.chequesService.updatecheque(
+        return await this.chequesService.updatecheque(
         chequeid,
         chequenumber,
         chequeamount,
@@ -139,12 +139,13 @@ export class ChequeController {
         chequebankaccount,
         chequecomment,
         );
-        return null;
      }
-     @Delete(':id')
-     async removecheque( @Param('id') chequeid: string,){
+
+     @Patch('delete/:id')
+     async removecheque( @Param('id') chequeid: string){
+         console.log(chequeid,"delete started")
         await this.chequesService.deletecheque(chequeid);
-         return null;
+         return 'done';
      }
     }
 

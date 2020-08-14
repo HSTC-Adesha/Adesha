@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Dashboard</title>
+    <title>Dynamic Dashboard</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
@@ -17,8 +17,11 @@
 
     <link href="./assets/css/fixedHeader.dataTables.min.css" rel="stylesheet">
     <link href="./assets/scripts/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="./assets/scripts/javascript-calendar.css" rel="stylesheet">
+
+
     <link href="assets/css/home.css" rel="stylesheet">
-    
+
 </head>
 
 <body>
@@ -66,7 +69,7 @@
                         </div>
                         <button class="close"></button>
                     </div>
-                  
+
                 </div>
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
@@ -141,7 +144,7 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">Dashboards</li>
                             <li>
-                                <a href="index.html" class="mm-active">
+                                <a href="index.html" class="">
                                     Global view
                                 </a>
                             </li>
@@ -151,22 +154,22 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="dynamic.html" class="">
+                                <a href="dynamic.html" class="mm-active">
                                     Dynamic view
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">Cheques In</li>
-                                    <li>
-                                        <a href="cheque.html">
-                                            Create
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="cheques.html">
-                                            Manage
-                                        </a>
-                                    </li>
-                                  
+                            <li>
+                                <a href="cheque.html">
+                                    Create
+                                </a>
+                            </li>
+                            <li>
+                                <a href="cheques.html">
+                                    Manage
+                                </a>
+                            </li>
+
                             </li>
                             <li class="app-sidebar__heading">My company</li>
                             <li>
@@ -177,53 +180,53 @@
                                 <ul>
                                     <li>
                                         <a href="book.html">
-                                           Create
+                                            Create
                                         </a>
                                     </li>
                                     <li>
                                         <a href="books.html">
-                                           Manage
+                                            Manage
                                         </a>
                                     </li>
-                                   
+
                                 </ul>
                             </li>
                             <li>
                                 <a href="#">
-                                   Cheques Out
+                                    Cheques Out
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li>
                                         <a href="mycheque.html">
-                                           Create
+                                            Create
                                         </a>
                                     </li>
                                     <li>
                                         <a href="mycheques.html">
-                                           Manage
+                                            Manage
                                         </a>
                                     </li>
                                 </ul>
-                            </li>  
+                            </li>
                             <li>
                                 <a href="#">
-                                   Bills
+                                    Bills
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li>
                                         <a href="bill.html">
-                                           Create
+                                            Create
                                         </a>
                                     </li>
                                     <li>
                                         <a href="bills.html">
-                                           Manage
+                                            Manage
                                         </a>
                                     </li>
                                 </ul>
-                            </li>    
+                            </li>
                             </li>
                             <li class="app-sidebar__heading">Companies</li>
                             <li>
@@ -234,43 +237,43 @@
                                 <ul>
                                     <li>
                                         <a href="company.html">
-                                           Create
+                                            Create
                                         </a>
                                     </li>
                                     <li>
                                         <a href="companies.html">
-                                           Manage
+                                            Manage
                                         </a>
                                     </li>
                                     <li>
                                         <a href="companies.html">
-                                           Affect employee
+                                            Affect employee
                                         </a>
                                     </li>
-                                    
+
                                 </ul>
-                                <li>
-                                    <a href="#">
-                                        Employee
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul>
-                                        <li>
-                                            <a href="employee.html">
-                                               Create
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="employees.html">
-                                               Manage
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li> 
-                            </li> 
-                            
+                            <li>
+                                <a href="#">
+                                    Employee
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="employee.html">
+                                            Create
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="employees.html">
+                                            Manage
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
-                
+                            </li>
+
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -284,56 +287,51 @@
                                     <i class="pe-7s-cash icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>Analytics Dashboard
-                                   
+                                <div>Dynamic analytics
+                                    <div class="page-title-subheading">Analytics Dashboard for <span
+                                            class="todaydate"></span>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card mb-3 widget-content bg-midnight-bloom">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">Total Cheques</div>
-                                        <div class="widget-subheading">Total registred cheques</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <div class="widget-numbers cheques-total-number text-white"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card mb-3 widget-content bg-midnight-bloom">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">Received Cheques</div>
-                                        <div class="widget-subheading">Total received cheques</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <div class="widget-numbers cheques-total-received text-white"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card mb-3 widget-content bg-midnight-bloom">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">Emmitted Cheque</div>
-                                        <div class="widget-subheading ">Total emmitted cheques</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <div class="widget-numbers cheques-total-emmitted text-white"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
+                        <div class="col-md-12 col-xl-12" style="
+                        text-align: center;padding: 35px;margin-bottom: 35px;
+                    ">
 
+                            <div class="icalendar" style="
+                            display: contents;
+                        ">
+                                <div class="icalendar__month">
+                                  <div class="icalendar__prev" onclick="moveDate('prev')">
+                                    <span>&#10094</span>
+                                  </div>
+                                  <div class="icalendar__current-">
+                                    <h2 id="icalendarMonth"></h2>
+                                    <div>
+                                      <div id="icalendarDateStr"></div>
+                                    </div>
+                                  </div>
+                                  <div class="icalendar__next" onclick="moveDate('next')">
+                                    <span>&#10095</span>
+                                  </div>
+                                </div>
+                                <div class="icalendar__week-days">
+                                  <!-- Localize names of the days of the week -->
+                                  <div>Sun</div>
+                                  <div>Mon</div>
+                                  <div>Tue</div>
+                                  <div>Wed</div>
+                                  <div>Thu</div>
+                                  <div>Fri</div>
+                                  <div>Sat</div>
+                                </div>
+                                <div class="icalendar__days"></div>
+                              </div>                        </div>
+                    </div>
+              
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
                             <div class="page-title-heading">
@@ -341,8 +339,8 @@
                                     <i class="pe-7s-cash icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>This week
-                                    <div class="page-title-subheading">Statistics for the week of <span class="todaydate"></span>
+                                <div class="todaydate">
+                                    <div class="page-title-subheading">Statistics for <span class="todaydate"></span>
                                     </div>
                                 </div>
                             </div>
@@ -350,73 +348,71 @@
                         </div>
                     </div>
                     <div class="row">
-                              <!-- this week-->
-                              <div class="col-md-6 col-xl-3">
-                                <div class="card mb-3 widget-content">
-                                    <div class="widget-content-outer">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left" style="text-align: center;">
-                                                <div class="widget-heading">Cheques In for this week</div>
-                                                <div class="widget-numbers text-success w-due-received"></div>
-    
-                                                <div class="widget-subheading">All received cheques with this week's due date
-                                                    cheques</div>
-                                            </div>
-    
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Received cheques for today</div>
+                                            <div class="widget-numbers text-success today-due-received"></div>
+
+                                            <div class="widget-subheading">All received cheques with today's due date
+                                                cheques</div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card mb-3 widget-content">
-                                    <div class="widget-content-outer">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left" style="text-align: center;">
-                                                <div class="widget-heading">Receveid ammount for this week</div>
-                                                <div class="widget-numbers text-warning  w-due-ammount-received"></div>
-    
-                                                <div class="widget-subheading">total received cheque's amount with this week's
-                                                    due date</div>
-                                            </div>
-    
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Receveid ammount for today</div>
+                                            <div class="widget-numbers text-warning  today-due-ammount-received"></div>
+
+                                            <div class="widget-subheading">total received cheque's amount with today's
+                                                due date</div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card mb-3 widget-content">
-                                    <div class="widget-content-outer">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left" style="text-align: center;">
-                                                <div class="widget-heading">Emmitted cheques for this week</div>
-                                                <div class="widget-numbers text-success w-due"></div>
-    
-                                                <div class="widget-subheading">All emmitted cheques with this week's due date
-                                                    cheques</div>
-                                            </div>
-    
+                        </div>
+
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Emmitted cheques for today</div>
+                                            <div class="widget-numbers text-success today-due"></div>
+
+                                            <div class="widget-subheading">All emmitted cheques with today's due date
+                                                cheques</div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card mb-3 widget-content">
-                                    <div class="widget-content-outer">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left" style="text-align: center;">
-                                                <div class="widget-heading">Emmitted ammount for this week</div>
-                                                <div class="widget-numbers text-warning  w-due-ammount"></div>
-    
-                                                <div class="widget-subheading">total emmitted cheque's amount with this week's
-                                                    due date</div>
-                                            </div>
-    
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Emmitted ammount for today</div>
+                                            <div class="widget-numbers text-warning  today-due-ammount"></div>
+
+                                            <div class="widget-subheading">total emmitted cheque's amount with today's
+                                                due date</div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <!--    end -->
+                        </div>
                     </div>
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
@@ -425,8 +421,8 @@
                                     <i class="pe-7s-cash icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>Month
-                                    <div class="page-title-subheading">Statistics for <span id="monthdate"></span>
+                                <div  class="tomorrowdate">Tomorrow
+                                    <div class="page-title-subheading">Statistics for <span class="tomorrowdate"></span>
                                     </div>
                                 </div>
                             </div>
@@ -434,8 +430,185 @@
                         </div>
                     </div>
                     <div class="row">
-                         <!-- this month-->
-                         <div class="col-md-6 col-xl-3">
+                        <!-- tomorrow-->
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Received cheques for tomorrow</div>
+                                            <div class="widget-numbers text-success tomorrow-due-received"></div>
+
+                                            <div class="widget-subheading">All received cheques with tomorrow's due date
+                                                cheques</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Receveid ammount for tomorrow</div>
+                                            <div class="widget-numbers text-warning  tomorrow-due-ammount-received">
+                                            </div>
+
+                                            <div class="widget-subheading">total received cheque's amount with
+                                                tomorrow's
+                                                due date</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Emmitted cheques for tomorrow</div>
+                                            <div class="widget-numbers text-success tomorrow-due"></div>
+
+                                            <div class="widget-subheading">All emmitted cheques with tomorrow's due date
+                                                cheques</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Emmitted ammount for tomorrow</div>
+                                            <div class="widget-numbers text-warning  tomorrow-due-ammount"></div>
+
+                                            <div class="widget-subheading">total emmitted cheque's amount with
+                                                tomorrow's
+                                                due date</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--    end -->
+                    </div>
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-cash icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>Week of <span
+                                    class="todaydate"></span>
+                                    <div class="page-title-subheading">Statistics for the week of <span
+                                            class="todaydate"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- this week-->
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Received cheques for this week</div>
+                                            <div class="widget-numbers text-success w-due-received"></div>
+
+                                            <div class="widget-subheading">All received cheques with this week's due
+                                                date
+                                                cheques</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Receveid ammount for this week</div>
+                                            <div class="widget-numbers text-warning  w-due-ammount-received"></div>
+
+                                            <div class="widget-subheading">total received cheque's amount with this
+                                                week's
+                                                due date</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Emmitted cheques for this week</div>
+                                            <div class="widget-numbers text-success w-due"></div>
+
+                                            <div class="widget-subheading">All emmitted cheques with this week's due
+                                                date
+                                                cheques</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left" style="text-align: center;">
+                                            <div class="widget-heading">Emmitted ammount for this week</div>
+                                            <div class="widget-numbers text-warning  w-due-ammount"></div>
+
+                                            <div class="widget-subheading">total emmitted cheque's amount with this
+                                                week's
+                                                due date</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--    end -->
+                    </div>
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-cash icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div class="monthdate">
+                                    <div class="page-title-subheading">Statistics for <span class="monthdate"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- this month-->
+                        <div class="col-md-6 col-xl-3">
                             <div class="card mb-3 widget-content">
                                 <div class="widget-content-outer">
                                     <div class="widget-content-wrapper">
@@ -443,7 +616,8 @@
                                             <div class="widget-heading">Received cheques for this month</div>
                                             <div class="widget-numbers text-success m-due-received"></div>
 
-                                            <div class="widget-subheading">All received cheques with this month's due date
+                                            <div class="widget-subheading">All received cheques with this month's due
+                                                date
                                                 cheques</div>
                                         </div>
 
@@ -459,7 +633,8 @@
                                             <div class="widget-heading">Receveid ammount for this month</div>
                                             <div class="widget-numbers text-warning  m-due-ammount-received"></div>
 
-                                            <div class="widget-subheading">total received cheque's amount with this month's
+                                            <div class="widget-subheading">total received cheque's amount with this
+                                                month's
                                                 due date</div>
                                         </div>
 
@@ -467,7 +642,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6 col-xl-3">
                             <div class="card mb-3 widget-content">
                                 <div class="widget-content-outer">
@@ -476,7 +651,8 @@
                                             <div class="widget-heading">Emmitted cheques for this month</div>
                                             <div class="widget-numbers text-success m-due"></div>
 
-                                            <div class="widget-subheading">All emmitted cheques with this month's due date
+                                            <div class="widget-subheading">All emmitted cheques with this month's due
+                                                date
                                                 cheques</div>
                                         </div>
 
@@ -492,7 +668,8 @@
                                             <div class="widget-heading">Emmitted ammount for this month</div>
                                             <div class="widget-numbers text-warning  m-due-ammount"></div>
 
-                                            <div class="widget-subheading">total emmitted cheque's amount with this month's
+                                            <div class="widget-subheading">total emmitted cheque's amount with this
+                                                month's
                                                 due date</div>
                                         </div>
 
@@ -585,7 +762,7 @@
                     <div class="app-page-title">
                         <div class="page-title-wrapper">
                             <div class="page-title-heading">
-                             
+
                             </div>
 
                         </div>
@@ -597,7 +774,7 @@
                                     <div class="card-header-title">
                                         Cheques Report
                                     </div>
-                                  
+
                                 </div>
                                 <div class="card-body holdder">
                                     <canvas id="myChart" class="mi-height" width="600" height="300"></canvas>
@@ -609,46 +786,15 @@
                             <div class="mb-3 card">
                                 <div class="card-header-tab card-header">
                                     <div class="card-header-title">
-                                        This month balance
+                                        Today's balance
                                     </div>
-                                  
-                                </div>
-                                <div class="tab-content">
-                                    <canvas id="barChartm"></canvas>
 
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-lg-6">
-                            <div class="mb-3 card">
-                                <div class="card-header-tab card-header">
-                                    <div class="card-header-title">
-                                        this year balance
-                                    </div>
-                                  
-                                </div>
-                                <div class="tab-content">
-                                    <canvas id="barChartw"></canvas>
-
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-12 col-lg-6">
-                            <div class="mb-3 card">
-                                <div class="card-header-tab card-header">
-                                    <div class="card-header-title">
-                                        Next month balance
-                                    </div>
-                                  
                                 </div>
                                 <div class="tab-content">
                                     <div>
                                         <canvas id="barChart"></canvas>
-                                      </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12 col-lg-6">
@@ -656,17 +802,46 @@
                                 <div class="card-header-tab card-header">
                                     <div class="card-header-title">
                                         <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
-                                       Previous Month balance
+                                        Tomorrow's balance
                                     </div>
-                                  
+
                                 </div>
                                 <div class="tab-content">
                                     <canvas id="barChartt"></canvas>
 
-                                    </div>
+                                </div>
                             </div>
                         </div>
-                      
+                        <div class="col-md-12 col-lg-6">
+                            <div class="mb-3 card">
+                                <div class="card-header-tab card-header">
+                                    <div class="card-header-title">
+                                        this week balance
+                                    </div>
+
+                                </div>
+                                <div class="tab-content">
+                                    <canvas id="barChartw"></canvas>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <div class="mb-3 card">
+                                <div class="card-header-tab card-header">
+                                    <div class="card-header-title">
+                                        this month balance
+                                    </div>
+
+                                </div>
+                                <div class="tab-content">
+                                    <canvas id="barChartm"></canvas>
+
+
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-12 col-lg-12">
                             <div class="mb-3 card">
                                 <div class="card-header-tab card-header ">
@@ -674,14 +849,14 @@
                                         <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
                                         This week report
                                     </div>
-                                  
+
                                 </div>
                                 <div class="tab-content holdder">
-                                    <div id="canvas-holder" >
+                                    <div id="canvas-holder">
                                         <canvas id="myChartWeekly" class="mi-height" width="600" height="300"></canvas>
                                     </div>
-                                      
-                                      <div id="chartjs-tooltip"></div>
+
+                                    <div id="chartjs-tooltip"></div>
                                 </div>
                             </div>
                         </div>
@@ -692,18 +867,18 @@
                                         <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
                                         Previous week report
                                     </div>
-                                  
+
                                 </div>
                                 <div class="tab-content holdder">
-                                    <div id="canvas-holder" >
+                                    <div id="canvas-holder">
                                         <canvas id="myChartWeeklyP" width="600" height="300"></canvas>
                                     </div>
-                                      
-                                      <div id="chartjs-tooltip"></div>
+
+                                    <div id="chartjs-tooltip"></div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-12 col-lg-6">
                             <div class="mb-3 card">
                                 <div class="card-header-tab card-header">
@@ -711,29 +886,27 @@
                                         <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
                                         Next week report
                                     </div>
-                                  
+
                                 </div>
                                 <div class="tab-content holdder">
-                                    <div id="canvas-holder" >
+                                    <div id="canvas-holder">
                                         <canvas id="myChartWeeklyN" width="600" height="300"></canvas>
                                     </div>
-                                      
-                                      <div id="chartjs-tooltip"></div>
+
+                                    <div id="chartjs-tooltip"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-               
-                   
                     <div class="row">
                         <div class="col-md-12">
                             <div class="main-card mb-3 card">
-                                <div class="card-header">Cheques In
-                                   
+                                <div class="card-header">Cheques In for &nbsp;<span class="todaydate"></span>
+
                                 </div>
-                                <div class="table-responsive "style="padding:10px">
-                                    <table id="tableIn" class="table table-striped table-bordered" style="width:100%">
+                                <div class="table-responsive " style="padding:10px">
+                                    <table id="tableInt" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Number</th>
@@ -744,7 +917,7 @@
                                                 <th>Ammount</th>
                                             </tr>
                                         </thead>
-                                        <tbody>  </tbody>
+                                        <tbody> </tbody>
                                         <tfoot>
                                             <th>Number</th>
                                             <th>Company</th>
@@ -752,13 +925,13 @@
                                             <th>Due Date</th>
                                             <th>status</th>
                                             <th>Ammount</th>
-                                         
+
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </div>
                                 <div class="d-block text-center card-footer">
-                             
+
                                 </div>
                             </div>
                         </div>
@@ -766,11 +939,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="main-card mb-3 card">
-                                <div class="card-header">Cheques Out
-                                   
+                                <div class="card-header">Cheques Out for &nbsp;<span class="todaydate"></span>
+
                                 </div>
-                                <div class="table-responsive "style="padding:10px">
-                                    <table id="tableOut" class="table table-striped table-bordered" style="width:100%">
+                                <div class="table-responsive " style="padding:10px">
+                                    <table id="tableOutt" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Number</th>
@@ -781,7 +954,7 @@
                                                 <th>Ammount</th>
                                             </tr>
                                         </thead>
-                                        <tbody>  </tbody>
+                                        <tbody> </tbody>
                                         <tfoot>
                                             <th>Number</th>
                                             <th>Company</th>
@@ -789,143 +962,33 @@
                                             <th>Due Date</th>
                                             <th>status</th>
                                             <th>Ammount</th>
-                                         
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="d-block text-center card-footer">
-                             
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="main-card mb-3 card">
-                                <div class="card-header">Companies balance
-                                   
-                                </div>
-                                <div class="table-responsive "style="padding:10px">
-                                    <table id="companyAmmount" class="table table-striped table-bordered" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Cheques</th>
-                                                <th>Chqeues in</th>
-                                                <th>Ammount cheques In</th>
-                                                <th>Chqeues Out</th>
-                                                <th>Ammount cheques Out</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>  </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Cheques</th>
-                                                <th>Chqeues in</th>
-                                                <th>Ammount cheques In</th>
-                                                <th>Chqeues Out</th>
-                                                <th>Ammount cheques Out</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="d-block text-center card-footer">
-                             
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="main-card mb-3 card">
-                                <div class="card-header">Companies cheque In status
-                                   
-                                </div>
-                                <div class="table-responsive "style="padding:10px">
-                                    <table id="companyStatus" class="table table-striped table-bordered" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Cheques In</th>
-                                                <th>Pending</th>
-                                                <th>checked</th>
-                                                <th>Other</th>
-                                          
-                                            </tr>
-                                        </thead>
-                                        <tbody>  </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Cheques In</th>
-                                                <th>Pending</th>
-                                                <th>checked</th>
-                                                <th>Other</th>
-                                          
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="d-block text-center card-footer">
-                             
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="main-card mb-3 card">
-                                <div class="card-header">Companies cheque Out status
-                                   
-                                </div>
-                                <div class="table-responsive "style="padding:10px">
-                                    <table id="companyStatuse" class="table table-striped table-bordered" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Cheques In</th>
-                                                <th>Pending</th>
-                                                <th>checked</th>
-                                                <th>Other</th>
-                                          
-                                            </tr>
-                                        </thead>
-                                        <tbody>  </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Cheques In</th>
-                                                <th>Pending</th>
-                                                <th>checked</th>
-                                                <th>Other</th>
-                                          
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="d-block text-center card-footer">
-                             
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="d-block text-center card-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            
+
             </div>
         </div>
     </div>
     <script src="assets/scripts/jquery-3.5.1.js"></script>
+ 
     <script src="assets/scripts/socket.io.js"></script>
     <script src="assets/scripts/moment.js"></script>
     <script src="assets/scripts/jquery.dataTables.min.js"></script>
     <script src="assets/scripts/dataTables.fixedHeader.min.js"></script>
     <script type="text/javascript" src="./assets/scripts/Chart.bundle.js"></script>
 
-    <script type="text/javascript" src="./assets/scripts/main.js"></script>
-    <script type="text/javascript" src="./controllers/homeController.js"></script>
+   <script type="text/javascript" src="./assets/scripts/main.js"></script>
+   <script type="text/javascript" src="./assets/scripts/javascript-calendar.js"></script>
+   <script type="text/javascript" src="./controllers/dynamicController.js"></script>
 </body>
 
 </html>

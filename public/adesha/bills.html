@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Cheques</title>
+    <title>Bills</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
@@ -163,7 +163,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="cheques.html" class="mm-active">
+                                        <a href="cheques.html" >
                                             Manage
                                         </a>
                                     </li>
@@ -182,7 +182,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="books.html">
+                                        <a href="books.html" >
                                            Manage
                                         </a>
                                     </li>
@@ -219,7 +219,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="bills.html">
+                                        <a href="bills.html" class="mm-active">
                                            Manage
                                         </a>
                                     </li>
@@ -306,9 +306,6 @@
                                                 <th>#</th>
                                                 <th>Number</th>
                                                 <th>Company</th>
-                                                <th>Bank</th>
-                                                <th>Due Date</th>
-                                                <th>status</th>
                                                 <th>Ammount</th>
                                             </tr>
                                         </thead>
@@ -317,11 +314,7 @@
                                             <th>#</th>
                                             <th>Number</th>
                                             <th>Company</th>
-                                            <th>Bank</th>
-                                            <th>Due Date</th>
-                                            <th>status</th>
-                                            <th>Ammount</th>
-                                         
+                                            <th>Ammount</th>                                         
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -339,42 +332,18 @@
                             <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Cheque details</h5>
+                                        <h5 class="card-title">Cheque book details</h5>
                                             <div class="position-relative row form-group"><label for="chequenumber" class="col-sm-2 col-form-label">Number</label>
                                                 <div class="col-sm-10"><input name="chequenumber" id="chequenumber" placeholder="Cheque's number" type="text" class="form-control"></div>
                                             </div>
-                                            <div class="position-relative row form-group"><label for="ammount" class="col-sm-2 col-form-label">Ammount</label>
-                                                <div class="col-sm-10"><input name="ammount" id="ammount" placeholder="Cheque ammount" type="text" class="form-control"></div>
+                                            <div class="position-relative row form-group"><label for="ammount" class="col-sm-2 col-form-label">Number</label>
+                                                <div class="col-sm-10"><input name="ammount" id="ammount" placeholder="Cheque's number" type="text" class="form-control"></div>
                                             </div>
-                                            <div class="position-relative row form-group"><label for="duedate" class="col-sm-2 col-form-label">Due date</label>
-                                                <div class="col-sm-10">
-                                                        <div class="input-group date" id="duedate"><input class="form-control" placeholder="MM/DD/YYYY" /><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
-                                                    </div>                                                
-                                                </div>
-                                            </div>
-                                            <div class="position-relative row form-group"><label for="creationdate" class="col-sm-2 col-form-label">Creation date</label>
-                                                <div class="col-sm-10">
-                                                        <div class="input-group date" id="creationdate"><input class="form-control" placeholder="MM/DD/YYYY" /><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
-                                                    </div>                                                
-                                                </div>
-                                            </div>
-                                            <div class="position-relative row form-group"><label for="bank" class="col-sm-2 col-form-label">Bank</label>
-                                                <div class="col-sm-10"><select name="select" id="bank" class="form-control"></select></div>
-                                            </div>
+                                          
                                             <div class="position-relative row form-group"><label for="company" class="col-sm-2 col-form-label">Company</label>
                                                 <div class="col-sm-10"><select name="select" id="company" class="form-control"></select></div>
                                             </div>
-                                            <div class="position-relative row form-group"><label for="employee" class="col-sm-2 col-form-label">Delivred by</label>
-                                                <div class="col-sm-10"><select name="select" id="employee" class="form-control"></select></div>
-                                            </div>
-                                            <div class="position-relative row form-group"><label for="comment" class="col-sm-2 col-form-label">Comment</label>
-                                                <div class="col-sm-10"><textarea name="text" id="comment" class="form-control"></textarea></div>
-                                            </div>
-                                            <!-- <div class="position-relative row form-group"><label for="photo" class="col-sm-2 col-form-label">Photo</label>
-                                                <div class="col-sm-10"><input name="file" onchange="readFile(this)" id="photo" type="file" class="form-control-file">
-                                                    <small class="form-text text-muted">Upload cheque's photo</small>
-                                                </div>
-                                            </div> -->
+                                            
                                             <div class="position-relative row form-check">
                                                 <div class="col-sm-10 offset-sm-2">
                                                     <button id="updatechequebtn" attr-id="" class="actionsbtn btn btn-success">Update</button>
@@ -406,7 +375,7 @@
     <script type="text/javascript" src="./assets/scripts/Chart.bundle.js"></script>
 
     <script type="text/javascript" src="./assets/scripts/main.js"></script>
-    <script type="text/javascript" src="./controllers/chequesController.js"></script>
+    <script type="text/javascript" src="./controllers/billsController.js"></script>
 </body>
 
 </html>

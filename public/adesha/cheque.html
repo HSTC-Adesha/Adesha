@@ -12,14 +12,12 @@
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
 
-    <link href="./main.css" rel="stylesheet">
-    <link href="./assets/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="assets/css/all.min.css" rel="stylesheet">
 
-    <link href="./assets/css/fixedHeader.dataTables.min.css" rel="stylesheet">
-    <link href="./assets/scripts/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="./main.css" rel="stylesheet">
 
-    <link href="assets/css/cheques.css" rel="stylesheet">
+    <link href="assets/css/createcheque.css" rel="stylesheet">
 </head>
 
 <body>
@@ -158,12 +156,12 @@
                             </li>
                             <li class="app-sidebar__heading">Cheques In</li>
                                     <li>
-                                        <a href="cheque.html" >
+                                        <a href="cheque.html" class="mm-active">
                                             Create
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="cheques.html" class="mm-active">
+                                        <a href="cheques.html">
                                             Manage
                                         </a>
                                     </li>
@@ -285,51 +283,12 @@
                                     <i class="pe-7s-cash icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>Manage cheques
-                                    <div class="page-title-subheading">Manage cheques In
+                                <div>Cheque In
+                                    <div class="page-title-subheading">Created new cheque in
                                     </div>
                                 </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="main-card mb-3 card">
-                                <div class="card-header">Cheques In
-                                   
-                                </div>
-                                <div class="table-responsive "style="padding:10px">
-                                    <table id="tableIn" class="table table-striped table-bordered" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Number</th>
-                                                <th>Company</th>
-                                                <th>Bank</th>
-                                                <th>Due Date</th>
-                                                <th>status</th>
-                                                <th>Ammount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>  </tbody>
-                                        <tfoot>
-                                            <th>#</th>
-                                            <th>Number</th>
-                                            <th>Company</th>
-                                            <th>Bank</th>
-                                            <th>Due Date</th>
-                                            <th>status</th>
-                                            <th>Ammount</th>
-                                         
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="d-block text-center card-footer">
-                             
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -339,7 +298,7 @@
                             <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Cheque details</h5>
+                                        <h5 class="card-title">Create new cheque</h5>
                                             <div class="position-relative row form-group"><label for="chequenumber" class="col-sm-2 col-form-label">Number</label>
                                                 <div class="col-sm-10"><input name="chequenumber" id="chequenumber" placeholder="Cheque's number" type="text" class="form-control"></div>
                                             </div>
@@ -377,8 +336,7 @@
                                             </div> -->
                                             <div class="position-relative row form-check">
                                                 <div class="col-sm-10 offset-sm-2">
-                                                    <button id="updatechequebtn" attr-id="" class="actionsbtn btn btn-success">Update</button>
-                                                    <button id="deletechequebtn"  attr-id="" style="float:right" class="actionsbtn btn btn-warning">Delete</button>
+                                                    <button id="createchequebtn" class="btn btn-secondary">Create</button>
                                                 </div>
                                             </div>
                                             <div id="notificationdiv">
@@ -396,17 +354,14 @@
             <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>
-    <script src="assets/scripts/jquery-3.5.1.js"></script>
+    <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/socket.io.js"></script>
     <script src="assets/scripts/moment.js"></script>
+    <script src="assets/scripts/bootstrap4.min.js"></script>
     <script src="assets/scripts/bootstrap-datetimepicker.min.js"></script>
-
-    <script src="assets/scripts/jquery.dataTables.min.js"></script>
-    <script src="assets/scripts/dataTables.fixedHeader.min.js"></script>
-    <script type="text/javascript" src="./assets/scripts/Chart.bundle.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
     <script type="text/javascript" src="./assets/scripts/main.js"></script>
-    <script type="text/javascript" src="./controllers/chequesController.js"></script>
+    <script type="text/javascript" src="./controllers/createchequeController.js"></script>
 </body>
 
 </html>

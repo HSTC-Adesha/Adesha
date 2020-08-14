@@ -3,7 +3,11 @@
     margin-top: 50px;
     text-align: center;
   }
-  
+  #canvas-holder-t ,#canvas-holder-w{
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+  }
   #chartjs-tooltip {
     opacity: 1;
     position: absolute;
@@ -22,4 +26,29 @@
     width: 10px;
     height: 10px;
     margin-right: 10px;
+  }
+  
+
+  #chartjs-tooltip-t , #chartjs-tooltip-w{
+    opacity: 1;
+    position: absolute;
+    background: rgba(0, 0, 0, .7);
+    color: white;
+    border-radius: 3px;
+    -webkit-transition: all .1s ease;
+    transition: all .1s ease;
+    pointer-events: none;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+  }
+  
+  .chartjs-tooltip-key-t, .chartjs-tooltip-key-w {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+  }
+  .holdder{
+    padding: 30px;
+    padding-top: 0;
   }

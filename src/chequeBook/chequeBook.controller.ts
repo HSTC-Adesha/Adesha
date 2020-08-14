@@ -11,12 +11,10 @@ export class ChequeBookController {
     async  addchequeBook(
     @Body('number') number :string,
     @Body('bank') bank :string,
-    @Body('delivredTo') delivredTo :string,
     @Body('company') company :string,) {
      const theChequeBook = await this.chequeBooksService.insertchequeBook (
         number,
         bank,
-        delivredTo,
         company,
         );
         return theChequeBook;
@@ -50,19 +48,7 @@ export class ChequeBookController {
     getchequeBooksByCompany(@Param('Company') chequeBookcompany: string){
         return this.chequeBooksService.getchequeBooksByCompany(chequeBookcompany);
     }
-    @Post('cheque/:chequeBookid')
-    addBank(@Param('chequeBookid') chequeBookid: string,
-        @Body('cheque') cheque: string
-    ) {
-        return this.chequeBooksService.addChequeTochequeBook(chequeBookid, cheque);
-    }
-    @Patch('cheque/:chequeBookid')
-    removeBank(@Param('companyid') chequeBookid: string,
-        @Body('cheque') cheque: string
-    ) {
-        return this.chequeBooksService.removeChequeFromchequeBook(chequeBookid, cheque);
-    }
-  
+   
     @Patch(':id')
     async updatechequeBook(
      @Param('id') id: string,
@@ -79,10 +65,9 @@ export class ChequeBookController {
         company,
         );
      }
-     @Delete(':id')
+     @Patch('delete/:id')
      async removechequeBook( @Param('id')  chequeBookid: string,){
-        await this. chequeBooksService.deletechequeBook( chequeBookid);
-         return null;
+      return  await this. chequeBooksService.deletechequeBook( chequeBookid);
      }
     }
 

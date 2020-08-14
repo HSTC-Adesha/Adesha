@@ -50,7 +50,7 @@ export class ChequeService {
         return result;
     }
     async getAllCheques() {
-        return await this.chequeModel.find().populate('company').populate('bank').exec()
+        return await this.chequeModel.find().populate('company').populate('chequeBook').populate('bills').populate('bank').exec()
     }
 
     async getChequeById(chequeid: string) {
@@ -72,195 +72,52 @@ export class ChequeService {
     }
 
     async getChequeByNumber(chequeNumber: string) {
-        const cheque = await this.findChequeByNumber(chequeNumber);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+        return await this.findChequeByNumber(chequeNumber);
+       
     }
 
 
     async getChequeByAmount(chequeamount: string) {
-        const cheque = await this.findChequeByAmount(chequeamount);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+        return await this.findChequeByAmount(chequeamount);
+        
     }
 
     async getChequeByDueDate(chequedueDate: string) {
-        const cheque = await this.findChequeByDueDate(chequedueDate);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+        return await this.findChequeByDueDate(chequedueDate);
+       
     }
     async getChequeByCreationDate(chequecreationDate: string) {
-        const cheque = await this.findChequeByCreationDate(chequecreationDate);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+        return await this.findChequeByCreationDate(chequecreationDate);
+        
     }
     async getChequeByPlaceOfCreation(chequeplaceOfCreation: string) {
-        const cheque = await this.findChequeByPlaceOfCreation(chequeplaceOfCreation);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+        return await this.findChequeByPlaceOfCreation(chequeplaceOfCreation);
+        
     }
     async getChequeBybank(chequebank: string) {
-        const cheque = await this.findChequeBybank(chequebank);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+        return await this.findChequeBybank(chequebank);
+        
     }
     async getChequeBycompany(chequecompany: string) {
-        const cheque = await this.findChequeBycompany(chequecompany);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+        return await this.findChequeBycompany(chequecompany);
+       
     }
     async getChequeByReceiver(chequedelivredTo: string) {
-        const cheque = await this.findChequeByReceiver(chequedelivredTo);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+       return await this.findChequeByReceiver(chequedelivredTo);
+      
     }
     async getChequeBychequeBook(chequechequeBook: string) {
-        const cheque = await this.findChequeBychequeBook(chequechequeBook);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+        return await this.findChequeBychequeBook(chequechequeBook);
+        
     }
     async getChequeBybankAccount(chequebankaccount: string) {
-        const cheque = await this.findChequeBybankAccount(chequebankaccount);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+       return await this.findChequeBybankAccount(chequebankaccount);
+       
     }
 
     async getChequeByComment(chequecomment: string) {
-        const cheque = await this.findChequeByComment(chequecomment);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+        return await this.findChequeByComment(chequecomment);
+    
     }
 
     async updatecheque(
@@ -323,7 +180,6 @@ export class ChequeService {
         let theBill = await this.billService.getBillById(bill);
         if (theBill && updateCheque) {
             updateCheque.bills.push(theBill.id);
-            theBill.cheque = updateCheque.id;
             updateCheque.save();
 
         }
@@ -348,7 +204,12 @@ export class ChequeService {
         return updateCheque;
     }
     async deletecheque(chequeid: string) {
-        await this.chequeModel.findByIdAndDelete(chequeid);
+        try {
+            return  await this.chequeModel.findByIdAndDelete(chequeid);
+
+        } catch (error) {
+            return error;
+        }
 
     }
 

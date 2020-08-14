@@ -10,15 +10,14 @@ export class BillController {
     @Post()
     async  addbill(
     @Body('number') billnumber :string,
-    @Body('cheque') billcheque :string,
+    @Body('ammount') billammount :string,
     @Body('company') billcompany :string,
     @Body ('comment') billcomment :string,) {
-     const generateid = await this.billsService.insertbill (
+     return await this.billsService.insertbill (
         billnumber,
-        billcheque,
+        billammount,
         billcompany,
         billcomment);
-        return {id: generateid};
     }
     @Get()
     async getAllbills(){
@@ -33,9 +32,9 @@ export class BillController {
     getBillByNumber(@Param('number') billnumber: string){
         return this.billsService.getBillByNumber(billnumber);
     }
-    @Get('cheque/:cheque')
-    getBillByCheque(@Param('cheque') billcheque: string){
-        return this.billsService.getBillByCheque(billcheque);
+    @Get('ammount/:ammount')
+    getBillByCheque(@Param('ammount') ammount: string){
+        return this.billsService.getBillByammount(ammount);
     }
     @Get('company/:company')
     getBillByCompany (@Param('company') billcompany: string){
@@ -49,22 +48,22 @@ export class BillController {
     async updatebILL(
      @Param('id') billid: string,
      @Body('number') billnumber: string,
-     @Body('cheque') billcheque: string,
+     @Body('ammount') ammount: string,
      @Body('company') billcompany: string,
      @Body('comment') billcomment: string,)
      {
         await this.billsService.updatebill(
         billid,
         billnumber,
-        billcheque,
+        ammount,
         billcompany,
         billcomment);
         return null;
      }
-     @Delete(':id')
+     @Patch('delete/:id')
      async removebill( @Param('id') billid: string,){
         await this.billsService.deletebill(billid);
-         return null;
+         return "done";
      }
     }
 

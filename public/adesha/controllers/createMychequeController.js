@@ -55,6 +55,33 @@ $(document).ready(function () {
             }
         });
     }
+    var getChequeBooks = function (params) {
+        $('#company').html('');
+        $.ajax({
+            url: "/chequeBook",
+            type: 'GET',
+            beforeSend: function beforeSend(xhr) {
+                xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+            },
+            complete: function complete(params) {},
+            error: function error(xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            },
+            success: function success(result) {
+                console.log(result);
+                if (result.length) {
+                    for (var i = 0; i < result.length; i++) {
+                        if (i == 0) {
+                        }
+                        $('#book').append('<option id="' + result[i]._id + '" value="' + result[i]._id + '">' + result[i].number + '</option>');
+                    }
+
+                }
+            }
+        });
+    }
     var getBanks = function (params) {
         $('#bank').html('');
 
@@ -111,6 +138,7 @@ $(document).ready(function () {
     }
     getCompanies();
     getBanks();
+    getChequeBooks();
     $('#company').on('change', function () {
         getEmployee($(this).find(":selected").attr('id'));
     });
@@ -121,6 +149,7 @@ $(document).ready(function () {
         var dued = moment($('#duedate').data("DateTimePicker").date().toDate()).format("DD/MM/YYYY");
         var creat =moment($('#creationdate').data("DateTimePicker").date().toDate()).format("DD/MM/YYYY");
         var ban = $('#bank').find(":selected").attr('id');
+        var boo = $('#book').find(":selected").attr('id');
         var comp = $('#company').find(":selected").attr('id');
         var empl = $('#employee').find(":selected").attr('id');
         var comm = $('#comment').val();
@@ -130,10 +159,11 @@ $(document).ready(function () {
         if(dued) chequeObj.dueDate = dued;
         if(creat) chequeObj.creationDate = creat;
         if(ban) chequeObj.bank = ban;
+        if(boo) chequeObj.chequeBook = boo;
         if(comp) chequeObj.company = comp;
         if(empl) chequeObj.employee = empl;
         if(comm) chequeObj.comment = comm;
-        chequeObj.received = true;
+        chequeObj.received = false;
         chequeObj.status = "todo";
         chequeObj.chequeplaceOfCreation = "Tunis";
 
@@ -152,6 +182,14 @@ $(document).ready(function () {
             },
             success: function success(result) {
                 console.log(result);
+                $('#notificationdiv').html('<div class="alert alert-info alert-dismissible fade show" role="alert"> <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span></button>  Cheque with the number '+result.number+' and ammount '+result.amount+'dt has been created succesfully</div> ');
+                    $('#chequenumber').val('');
+                    $('#ammount').val('');
+                    $('#comment').val('');
+                
+                setTimeout(() => {
+                    $('#notificationdiv').html('');
+                }, 4000);
             }
         });
 

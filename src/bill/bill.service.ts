@@ -9,17 +9,17 @@ export class BillService {
     @InjectModel('Bill') private readonly billModel: Model<Bill>,
     ) { }
     async insertbill (billnumber: string, billcheque: string, billcompany: string, billcomment: string ) {
-        this.addbill(billnumber, billcheque, billcompany,  billcomment)
+       return this.addbill(billnumber, billcheque, billcompany,  billcomment)
     }
     async addbill(
         number: string,
-        cheque: string,
+        ammount: string,
         company : string,
         comment: string
        ) {
         const newbill = new this.billModel({
             number,
-            cheque,
+            ammount,
             company,
             comment,
         });
@@ -27,25 +27,11 @@ export class BillService {
         return result;
     }
     async getAllbills() {
-        const bills = await this.billModel.find().exec()
-        return bills.map(bill => ({
-            id: bill.id,
-            number: bill.number,
-            cheque: bill.cheque,
-            company: bill.company,
-            comment:bill.comment,
-        }));
+        return await this.billModel.find().populate('company').exec();
     }
 
     async getBillById(billid: string) {
-        const bill = await this.findBillById(billid);
-        return {
-            id: bill.id,
-            number: bill.number,
-            cheque: bill.cheque,
-            company: bill.company,
-            comment:bill.comment,
-        };
+        return await this.findBillById(billid);
     }
 
     async getBillByNumber(billnumber: string) {
@@ -53,54 +39,36 @@ export class BillService {
         return {
             id: bill.id,
             number: bill.number,
-            cheque: bill.cheque,
+            ammount: bill.ammount,
             company: bill.company,
             comment:bill.comment,
         };
     }
-    async getBillByCheque(billcheque: string) {
-        const bill = await this.findBillByCheque (billcheque);
-        return {
-            id: bill.id,
-            number: bill.number,
-            cheque: bill.cheque,
-            company: bill.company,
-            comment:bill.comment,
-        };
+    async getBillByammount(billcheque: string) {
+        return await this.findBillByammount (billcheque);
+      
     }
     async getBillByCompany(billcompany: string) {
-        const bill = await this.findBillByCompany (billcompany);
-        return {
-            id: bill.id,
-            number: bill.number,
-            cheque: bill.cheque,
-            company: bill.company,
-            comment:bill.comment,
-    };
+        return await this.findBillByCompany (billcompany);
+    
 }
     async getBillByComment(billcomment: string) {
-        const bill = await this.findBillByComment (billcomment);
-        return {
-            id: bill.id,
-            number: bill.number,
-            cheque: bill.cheque,
-            company: bill.company,
-            comment:bill.comment,
-    };
+        return await this.findBillByComment (billcomment);
+      
 }
 
     async updatebill(
         billid: string,
         number: string,
-        cheque: string,
+        ammount: string,
         company: string,
         comment: string) {
         const updatebill = await this.findBillById(billid);
         if (number) {
             updatebill.number = number;
         }
-        if (cheque) {
-            updatebill.cheque = cheque;
+        if (ammount) {
+            updatebill.ammount = ammount;
         }
         if (company) {
             updatebill.company = company;
@@ -146,11 +114,11 @@ export class BillService {
         return bill;
     } 
 
-    private async findBillByCheque (cheque: string): Promise<Bill> {
+    private async findBillByammount (ammount: string): Promise<Bill> {
         let bill;
         try {
 
-            bill = await this.billModel.find({ cheque });
+            bill = await this.billModel.find({ ammount });
         } catch (error) {
             throw new NotFoundException('erreur!!');
         }

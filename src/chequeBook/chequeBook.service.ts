@@ -11,34 +11,25 @@ export class ChequeBookService {
         @Inject(forwardRef(() => ChequeService))
         private readonly chequeService: ChequeService,
     ) { }
-    async insertchequeBook(number: string, bank: string, delivredTo: string, company: string) {
-        return this.addchequeBook(number, bank, delivredTo, company)
+    async insertchequeBook(number: string, bank: string,  company: string) {
+        return this.addchequeBook(number, bank,company)
     }
     async addchequeBook(
         number: string,
         bank: string,
-        delivredTo: string,
         company: string
 
     ) {
         const newchequeBook = new this.chequeBookModel({
             number,
             bank,
-            delivredTo,
             company,
         });
         const result = await newchequeBook.save();
         return result;
     }
     async getAllchequeBooks() {
-        const chequeBooks = await this.chequeBookModel.find().exec()
-        return chequeBooks.map(chequeBook => ({
-            id: chequeBook.id,
-            number: chequeBook.number,
-            bank: chequeBook.bank,
-            delivredTo: chequeBook.delivredTo,
-            company: chequeBook.company,
-        }));
+       return await this.chequeBookModel.find().populate("bank").populate('company').exec();
     }
 
     async getchequeBooksById(chequeBookid: string) {
@@ -47,7 +38,6 @@ export class ChequeBookService {
             id: chequeBook.id,
             number: chequeBook.number,
             bank: chequeBook.bank,
-            delivredTo: chequeBook.delivredTo,
             company: chequeBook.company,
         };
     }
@@ -69,14 +59,8 @@ export class ChequeBookService {
 
     }
     async getchequeBooksByCompany(chequeBookcompany: string) {
-        const chequeBook = await this.findchequeBooksByCompany(chequeBookcompany);
-        return {
-            id: chequeBook.id,
-            number: chequeBook.number,
-            bank: chequeBook.bank,
-            delivredTo: chequeBook.delivredTo,
-            company: chequeBook.company,
-        };
+        return await this.findchequeBooksByCompany(chequeBookcompany);
+       
     }
 
     async updatechequeBook(
@@ -95,9 +79,7 @@ export class ChequeBookService {
         if (bank) {
             updatechequeBook.bank = bank;
         }
-        if (delivredTo) {
-            updatechequeBook.delivredTo = delivredTo;
-        }
+ 
         if (company) {
             updatechequeBook.company = company;
         }
@@ -106,42 +88,6 @@ export class ChequeBookService {
 
         const result = await updatechequeBook.save();
         return result;
-    }
-
-    async  addChequeTochequeBook(
-        chequeBookid: string,
-        cheque: string,
-
-    ) {
-        let updatechequeBook: ChequeBook = await this.findchequeBooksById(chequeBookid);
-        let theCheque = await this.chequeService.getChequeById(cheque);
-        if (theCheque && updatechequeBook) {
-            updatechequeBook.cheques.push(theCheque.id);
-            theCheque.chequeBook = updatechequeBook.id;
-            updatechequeBook.save();
-
-
-
-        }
-        return updatechequeBook;
-    }
-
-    async removeChequeFromchequeBook(
-        chequeBookid: string,
-        cheque: string,
-    ) {
-        let updatechequeBook: ChequeBook = await this.findchequeBooksById(chequeBookid);
-        let theCheque = await this.chequeService.getChequeById(cheque);
-
-        if (theCheque && updatechequeBook) {
-            for (let i = 0; i < updatechequeBook.cheques.length; i++) {
-                if (updatechequeBook.cheques[i] === theCheque.id) {
-                    updatechequeBook.cheques.splice(i, 1);
-                }
-            }
-            updatechequeBook.save();
-        }
-        return updatechequeBook;
     }
 
     async deletechequeBook(chequeBookid: string) {
