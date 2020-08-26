@@ -87,7 +87,6 @@ export class BankAccountService {
         let theCheque  = await this.chequeService.getChequeById(cheque);
         if (theCheque && updatebankAccount) {
             updatebankAccount.cheques.push(theCheque.id) ;
-            theCheque.bankAccount = updatebankAccount.id;
             updatebankAccount.save();
             
         }

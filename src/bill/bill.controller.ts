@@ -28,7 +28,7 @@ export class BillController {
     getBillById(@Param('billid') billid: string){
         return this.billsService.getBillById(billid);
     }
-    @Get('Number/:Number')
+    @Get('number/:number')
     getBillByNumber(@Param('number') billnumber: string){
         return this.billsService.getBillByNumber(billnumber);
     }
@@ -52,13 +52,13 @@ export class BillController {
      @Body('company') billcompany: string,
      @Body('comment') billcomment: string,)
      {
-        await this.billsService.updatebill(
+       return  await this.billsService.updatebill(
         billid,
         billnumber,
         ammount,
         billcompany,
         billcomment);
-        return null;
+      
      }
      @Patch('delete/:id')
      async removebill( @Param('id') billid: string,){

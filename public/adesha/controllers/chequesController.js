@@ -70,10 +70,11 @@ $(document).ready(function () {
       success: function success(result) {
         console.log(result);
         if (result.length) {
+          $('#company').append('<option id="" value=""></option>');
+
           for (var i = 0; i < result.length; i++) {
             if (i == 0) {
               getEmployee(result[i]._id);
-
             }
             $('#company').append('<option id="' + result[i]._id + '" value="' + result[i]._id + '">' + result[i].name + '</option>');
           }
@@ -100,9 +101,38 @@ $(document).ready(function () {
       success: function success(result) {
         console.log(result);
         if (result.length) {
+          $('#bank').append('<option id="" value=""></option>');
+
           for (var i = 0; i < result.length; i++) {
 
             $('#bank').append('<option id="' + result[i].id + '" value="' + result[i].id + '">' + result[i].name + '</option>');
+          }
+
+        }
+      }
+    });
+  }
+  var getBills = function (params) {
+    $('#bill').html('');
+
+    $.ajax({
+      url: "/bill",
+      type: 'GET',
+      beforeSend: function beforeSend(xhr) {
+        xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+      },
+      complete: function complete(params) {},
+      error: function error(xhr, ajaxOptions, thrownError) {
+        console.log(xhr.status);
+        console.log(thrownError);
+      },
+      success: function success(result) {
+        console.log(result);
+        if (result.length) {
+          $('#bill').append('<option id="" value=""></option>');
+          for (var i = 0; i < result.length; i++) {
+            $('#bill').append('<option id="' + result[i]._id + '" value="' + result[i]._id + '">' + result[i].number + '</option>');
           }
 
         }
@@ -127,6 +157,8 @@ $(document).ready(function () {
       success: function success(result) {
         console.log(result);
         if (result.length) {
+          $('#employee').append('<option id="" value=""></option>');
+
           for (var i = 0; i < result.length; i++) {
 
             $('#employee').append('<option id="' + result[i]._id + '" value="' + result[i]._id + '">' + result[i].firstName + ' ' + result[i].lastName + '</option>');
@@ -154,11 +186,15 @@ $(document).ready(function () {
         if (result) {
           $('#chequenumber').val(result.number);
           $('#ammount').val(result.amount);
+          if (result.photo) {
+            $('#imageCheque').attr("src", result.photo);
+          }
+          if (result.bill) {
+            $("#bill option[id=" + result.bill + "]").attr("selected", "selected");
+          }
 
-          // $('#duedate').data(result.dueDate);
           $('#creationdate').data("DateTimePicker").date(moment(result.creationDate, 'DD/MM/YYYY').format('DD/MM/YYYY'));
           $('#duedate').data("DateTimePicker").date(moment(result.dueDate, 'DD/MM/YYYY').format('DD/MM/YYYY'));
-          // $('#creationdate').datetimepicker({"date":result.creationDate});
           $("#bank option[id=" + result.bank + "]").attr("selected", "selected");
           $("#company option[id=" + result.company + "]").attr("selected", "selected");
           $('#employee').html('');
@@ -178,12 +214,15 @@ $(document).ready(function () {
             success: function success(result) {
               console.log(result);
               if (result.length) {
+                $('#employee').append('<option id="" value=""></option>');
+
                 for (var i = 0; i < result.length; i++) {
 
                   $('#employee').append('<option id="' + result[i]._id + '" value="' + result[i]._id + '">' + result[i].firstName + ' ' + result[i].lastName + '</option>');
                 }
-                $("#employee option[id=" + result.employee + "]").attr("selected", "selected");
-
+                if (result.employee) {
+                  $("#employee option[id=" + result.employee + "]").attr("selected", "selected");
+                }
               }
             }
           });
@@ -195,6 +234,7 @@ $(document).ready(function () {
   }
   getCompanies();
   getBanks();
+  getBills();
   var getStats = function (params) {
     $.ajax({
       url: "/cheque",
@@ -226,7 +266,6 @@ $(document).ready(function () {
     tabO.destroy();
 
     var theDataIn = [];
-    var theDataOut = [];
 
     for (var i = 0; i < data.length; i++) {
       if (data[i].received == true) {
@@ -246,7 +285,7 @@ $(document).ready(function () {
       }]
     })
     $('#tableIn tbody').on('click', 'tr', function () {
-     var table = $('#tableIn').DataTable();
+      var table = $('#tableIn').DataTable();
       var data = table.row(this).data();
       getTheCheque(data[0]);
     });

@@ -35,14 +35,8 @@ export class BillService {
     }
 
     async getBillByNumber(billnumber: string) {
-        const bill = await this.findBillByNumber(billnumber);
-        return {
-            id: bill.id,
-            number: bill.number,
-            ammount: bill.ammount,
-            company: bill.company,
-            comment:bill.comment,
-        };
+        return await this.findBillByNumber(billnumber);
+       
     }
     async getBillByammount(billcheque: string) {
         return await this.findBillByammount (billcheque);

@@ -742,4 +742,5 @@ $(document).ready(function () {
   $('.todaydate').html(todayIs);
   $('#tomorrowdate').html(tomorrowIs);
   $('#monthdate').html(moment(tomorrowIs, "DD/MM/YYYY").format("MMMM-YYYY"));
+
 });

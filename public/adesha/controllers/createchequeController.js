@@ -43,7 +43,10 @@ $(document).ready(function () {
             success: function success(result) {
                 console.log(result);
                 if (result.length) {
+                    $('#company').append('<option id="" value=""></option>');
+
                     for (var i = 0; i < result.length; i++) {
+                        
                         if (i == 0) {
                             getEmployee(result[i]._id);
 
@@ -73,6 +76,8 @@ $(document).ready(function () {
             success: function success(result) {
                 console.log(result);
                 if (result.length) {
+                    $('#bank').append('<option id="" value=""></option>');
+
                     for (var i = 0; i < result.length; i++) {
 
                         $('#bank').append('<option id="' + result[i].id + '" value="' + result[i].id + '">' + result[i].name + '</option>');
@@ -100,6 +105,8 @@ $(document).ready(function () {
             success: function success(result) {
                 console.log(result);
                 if (result.length) {
+                    $('#employee').append('<option id="" value=""></option>');
+
                     for (var i = 0; i < result.length; i++) {
 
                         $('#employee').append('<option id="' + result[i]._id + '" value="' + result[i]._id + '">' + result[i].firstName + ' ' + result[i].lastName + '</option>');
@@ -109,8 +116,78 @@ $(document).ready(function () {
             }
         });
     }
+    var getBills = function (params) {
+        $('#bill').html('');
+    
+        $.ajax({
+          url: "/bill",
+          type: 'GET',
+          beforeSend: function beforeSend(xhr) {
+            xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+          },
+          complete: function complete(params) {},
+          error: function error(xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+          },
+          success: function success(result) {
+            console.log(result);
+            var listOfBills = [];
+            if (result.length) {
+               // $('#bill').append('<option id="" value=""></option>');
+
+              for (var i = 0; i < result.length; i++) {
+    
+              //  $('#bill').append('<option id="' + result[i]._id + '" value="' + result[i]._id + '">' + result[i].number + '</option>');
+              listOfBills.push({id:result[i]._id,number:result[i].number,company:result[i].company.name})
+            }
+              $('#bill').selectize({
+                plugins: ['remove_button'],
+                persist: false,
+                maxItems: null,
+                valueField: 'id',
+                labelField: 'number',
+                searchField: ['number','company'],
+                options:listOfBills,
+                render: {
+                    item: function(item, escape) {
+                        return '<div>' +
+                            (item.number ? '<span class="name">Bill :'+ escape(item.number)+ ' |company :' + escape(item.company) + '</span>' : '') +
+                        '</div>';
+                    },
+                    option: function(item, escape) {
+                        var label = item.number || item.id;
+                        return '<div>' +
+                            '<span class="label">Bill :'+ escape(item.number)+ ' |company :' + escape(item.company) + '</span>' +
+                        '</div>';
+                    }
+                },
+                createFilter: function(input) {
+                    var match, regex;
+            
+                    // email@address.com
+                    regex = new RegExp('^' + REGEX_EMAIL + '$', 'i');
+                    match = input.match(regex);
+                    if (match) return !this.options.hasOwnProperty(match[0]);
+            
+                    // name <email@address.com>
+                    regex = new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i');
+                    match = input.match(regex);
+                    if (match) return !this.options.hasOwnProperty(match[2]);
+            
+                    return false;
+                },
+            });
+            
+            }
+          }
+        });
+      }
     getCompanies();
     getBanks();
+    getBills();
+
     $('#company').on('change', function () {
         getEmployee($(this).find(":selected").attr('id'));
     });
@@ -121,23 +198,30 @@ $(document).ready(function () {
         var dued = moment($('#duedate').data("DateTimePicker").date().toDate()).format("DD/MM/YYYY");
         var creat =moment($('#creationdate').data("DateTimePicker").date().toDate()).format("DD/MM/YYYY");
         var ban = $('#bank').find(":selected").attr('id');
+        var bill = $('#bill').val();
+        var status = $('#status').find(":selected").attr('id');
         var comp = $('#company').find(":selected").attr('id');
         var empl = $('#employee').find(":selected").attr('id');
         var comm = $('#comment').val();
+        var phot =  $('#imageCheque').attr('src');
         var chequeObj = {};
         if(numb) chequeObj.number = numb;
         if(ammou) chequeObj.amount = ammou;
         if(dued) chequeObj.dueDate = dued;
-        if(creat) chequeObj.creationDate = creat;
+        if(creat) {chequeObj.creationDate = creat;}
+        else{
+            chequeObj.creationDate = moment(new Date()).format('DD/MM/YYYY');
+        }
         if(ban) chequeObj.bank = ban;
+        if(bill.length) chequeObj.bill = bill;
         if(comp) chequeObj.company = comp;
         if(empl) chequeObj.employee = empl;
         if(comm) chequeObj.comment = comm;
+        if(phot) chequeObj.photo = phot;
+        if(status) chequeObj.status = status;
         chequeObj.received = true;
-        chequeObj.status = "todo";
-        chequeObj.chequeplaceOfCreation = "Tunis";
-
-        $.ajax({
+        if(numb && ammou && dued && ban && comp && status)
+        {$.ajax({
             url: "/cheque",
             type: 'POST',
             data:chequeObj,
@@ -156,12 +240,30 @@ $(document).ready(function () {
                     $('#chequenumber').val('');
                     $('#ammount').val('');
                     $('#comment').val('');
-                
-                setTimeout(() => {
-                    $('#notificationdiv').html('');
-                }, 4000);
+                    $('#imageCheque').attr('src',"")
+              
             }
-        });
-
+        });}
+        else{
+            $('#notificationdiv').html('<div class="alert alert-error alert-dismissible fade show" role="alert"> <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span></button> Please fill all form fields succesfully</div> ');
+            setTimeout(() => {
+                $('#notificationdiv').html('');
+            }, 4000);
+        }
     });
+    $('#photo').on('change',function (e) {
+        readURL(this);
+    })
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imageCheque')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 });

@@ -15,28 +15,27 @@ export class ChequeController {
         @Body('status') status: string,
         @Body('dueDate') chequedueDate: string,
         @Body('creationDate') chequecreationDate: string,
-        @Body('chequeplaceOfCreation') chequeplaceOfCreation: string,
+        @Body('photo') photo: string,
         @Body('bank') chequebank: string,
         @Body('company') chequecompany: string,
         @Body('delivredTo') chequedelivredTo: string,
         @Body('chequeBook') chequechequeBook: string,
-        @Body('bankaccount') chequebankaccount: string,
+        @Body('bill') bill: [string],
         @Body('comment') chequecomment: string,) {
-     const generateid = await this.chequesService.insertcheque (
+     return await this.chequesService.insertcheque (
         chequenumber,
         chequeamount,
         received,
         status,
         chequedueDate,
         chequecreationDate,
-        chequeplaceOfCreation,
+        photo,
         chequebank,
         chequecompany,
         chequedelivredTo,
         chequechequeBook,
-        chequebankaccount,
+        bill,
         chequecomment);
-        return generateid;
     }
     @Get()
     async getAllCheques(){
@@ -55,44 +54,36 @@ export class ChequeController {
     getChequeByAmount(@Param('Amount') chequeamount:string,){
         return this.chequesService. getChequeByAmount(chequeamount);
     }
-    @Get('Due Date/:Due Date')
+    @Get('DueDate/:DueDate')
     getChequeByDueDate(@Param(':Due Date') chequedueDate:string,){
         return this.chequesService. getChequeByDueDate(chequedueDate);
     }
-    @Get('Creation Date/:Creation Date')
+    @Get('CreationDate/:CreationDate')
     getChequeByCreationDate(@Param('Amount') chequecreationDate:string,){
         return this.chequesService. getChequeByCreationDate(chequecreationDate);
     }
-    @Get('Place Of Creation/:Place Of Creation')
-    getChequeByPlaceOfCreation(@Param('Place Of Creation') chequeplaceOfCreation:string,){
-        return this.chequesService. getChequeByPlaceOfCreation(chequeplaceOfCreation);
-        
-    }
+ 
     @Get('bank/:bank')
-    getChequeBybank(@Param('bank') chequeplaceOfCreation:string,){
-        return this.chequesService. getChequeBybank(chequeplaceOfCreation);
+    getChequeBybank(@Param('bank') photo:string,){
+        return this.chequesService. getChequeBybank(photo);
         
     }
     @Get('company/:company')
-    getChequeBycompany(@Param('company') chequeplaceOfCreation:string,){
-        return this.chequesService. getChequeBycompany(chequeplaceOfCreation);
+    getChequeBycompany(@Param('company') photo:string,){
+        return this.chequesService. getChequeBycompany(photo);
         
     }
     @Get('Receiver/:Receiver')
-    getChequeByReceiver(@Param('Place Of Creation') chequeplaceOfCreation:string,){
-        return this.chequesService. getChequeByReceiver(chequeplaceOfCreation);
+    getChequeByReceiver(@Param('Place Of Creation') photo:string,){
+        return this.chequesService. getChequeByReceiver(photo);
         
     }
     @Get('chequeBook/:chequeBook')
-    getChequeBychequeBook(@Param('Place Of Creation') chequeplaceOfCreation:string,){
-        return this.chequesService. getChequeBychequeBook(chequeplaceOfCreation);
+    getChequeBychequeBook(@Param('Place Of Creation') photo:string,){
+        return this.chequesService. getChequeBychequeBook(photo);
         
     }
-    @Get('bankaccount/:bankaccount')
-    getChequeBybankaccount(@Param('Place Of Creation') chequeplaceOfCreation:string,){
-        return this.chequesService. getChequeBybankAccount(chequeplaceOfCreation);
-        
-    }
+ 
     @Get('Commment/:Commment')
     getChequeByComment(@Param('Commment')  chequecomment:string,){
         return this. chequesService. getChequeByComment( chequecomment);
@@ -116,7 +107,7 @@ export class ChequeController {
      @Body('amount') chequeamount: string,
      @Body('dueDate') chequedueDate: string,
      @Body('creationDate') chequecreationDate: string,
-     @Body('chequeplaceOfCreation') chequeplaceOfCreation: string,
+     @Body('photo') photo: string,
      @Body('bank') chequebank: string,
      @Body('company') chequecompany: string,
      @Body('delivredTo') chequedelivredTo: string,
@@ -131,7 +122,7 @@ export class ChequeController {
         chequeamount,
         chequedueDate,
         chequecreationDate,
-        chequeplaceOfCreation,
+        photo,
         chequebank,
         chequecompany,
         chequedelivredTo,

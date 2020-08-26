@@ -12,9 +12,9 @@ export class ChequeService {
         private readonly billService: BillService,
         private readonly eventsGateway: EventsGateway,
     ) { }
-    async insertcheque(chequenumber: string, chequeamount: string,received:boolean, status:string,chequedueDate: string, chequecreationDate: string, chequeplaceOfCreation: string,
-        chequebank: string, chequecompany: string, chequedelivredTo: string, chequechequeBook: string, chequebankAccount: string, chequecomment: string) {
-       return this.addcheque(chequenumber, chequeamount,received,status, chequedueDate, chequecreationDate, chequeplaceOfCreation, chequebank, chequecompany, chequedelivredTo, chequechequeBook, chequebankAccount, chequecomment)
+    async insertcheque(chequenumber: string, chequeamount: string,received:boolean, status:string,chequedueDate: string, chequecreationDate: string, photo: string,
+        chequebank: string, chequecompany: string, chequedelivredTo: string, chequechequeBook: string, bill: [string], chequecomment: string) {
+       return this.addcheque(chequenumber, chequeamount,received,status, chequedueDate, chequecreationDate, photo, chequebank, chequecompany, chequedelivredTo, chequechequeBook, bill, chequecomment)
     }
     async addcheque(
         number: string,
@@ -23,13 +23,20 @@ export class ChequeService {
         status: string,
         dueDate: string,
         creationDate: string,
-        placeOfCreation: string,
+        photo: string,
         bank: string,
         company: string,
         delivredTo: string,
         chequeBook: string,
-        bankAccount: string,
+        bill: [string],
         comment: string) {
+            var billsList = []
+            for(var i =0;i<bill.length;i++)
+            {
+                let theBill = await this.billService.getBillById(bill[i]);
+                billsList.push(theBill);
+            }
+
         const newcheque = new this.chequeModel({
             number,
             amount,
@@ -37,15 +44,16 @@ export class ChequeService {
             status,
             dueDate,
             creationDate,
-            placeOfCreation,
+            photo,
             bank,
             company,
             delivredTo,
             chequeBook,
-            bankAccount,
+            bills:billsList,
             comment,
         });
         const result = await newcheque.save();
+
         this.eventsGateway.server.emit('dbcheck',"eventDataObj");
         return result;
     }
@@ -54,21 +62,8 @@ export class ChequeService {
     }
 
     async getChequeById(chequeid: string) {
-        const cheque = await this.findChequeById(chequeid);
-        return {
-            id: cheque.id,
-            number: cheque.number,
-            amount: cheque.amount,
-            dueDate: cheque.dueDate,
-            creationDate: cheque.creationDate,
-            placeOfCreation: cheque.placeOfCreation,
-            bank: cheque.bank,
-            company: cheque.company,
-            delivredTo: cheque.delivredTo,
-            chequeBook: cheque.chequeBook,
-            bankAccount: cheque.bankAccount,
-            comment: cheque.comment,
-        };
+        return await this.findChequeById(chequeid);
+     
     }
 
     async getChequeByNumber(chequeNumber: string) {
@@ -90,10 +85,7 @@ export class ChequeService {
         return await this.findChequeByCreationDate(chequecreationDate);
         
     }
-    async getChequeByPlaceOfCreation(chequeplaceOfCreation: string) {
-        return await this.findChequeByPlaceOfCreation(chequeplaceOfCreation);
-        
-    }
+  
     async getChequeBybank(chequebank: string) {
         return await this.findChequeBybank(chequebank);
         
@@ -110,11 +102,6 @@ export class ChequeService {
         return await this.findChequeBychequeBook(chequechequeBook);
         
     }
-    async getChequeBybankAccount(chequebankaccount: string) {
-       return await this.findChequeBybankAccount(chequebankaccount);
-       
-    }
-
     async getChequeByComment(chequecomment: string) {
         return await this.findChequeByComment(chequecomment);
     
@@ -126,7 +113,7 @@ export class ChequeService {
         amount: string,
         dueDate: string,
         creationDate: string,
-        placeOfCreation: string,
+        photo: string,
         bank: string,
         company: string,
         delivredTo: string,
@@ -147,8 +134,8 @@ export class ChequeService {
         if (creationDate) {
             updateCheque.creationDate = creationDate;
         }
-        if (placeOfCreation) {
-            updateCheque.placeOfCreation = placeOfCreation;
+        if (photo) {
+            updateCheque.photo = photo;
         }
         if (bank) {
             updateCheque.bank = bank;
@@ -161,9 +148,6 @@ export class ChequeService {
         }
         if (chequeBook) {
             updateCheque.chequeBook = chequeBook;
-        }
-        if (bankAccount) {
-            updateCheque.bankAccount = bankAccount;
         }
         if (comment) {
             updateCheque.comment = comment;
@@ -274,20 +258,6 @@ export class ChequeService {
         try {
 
             cheque = await this.chequeModel.find({ creationDate });
-        } catch (error) {
-            throw new NotFoundException('erreur!!');
-        }
-        if (!cheque) {
-            throw new NotFoundException('erreur!!');
-        }
-
-        return cheque;
-    }
-    private async findChequeByPlaceOfCreation(placeOfCreation: string): Promise<Cheque> {
-        let cheque;
-        try {
-
-            cheque = await this.chequeModel.find({ placeOfCreation });
         } catch (error) {
             throw new NotFoundException('erreur!!');
         }

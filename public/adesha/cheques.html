@@ -344,7 +344,23 @@
                                                 <div class="col-sm-10"><input name="chequenumber" id="chequenumber" placeholder="Cheque's number" type="text" class="form-control"></div>
                                             </div>
                                             <div class="position-relative row form-group"><label for="ammount" class="col-sm-2 col-form-label">Ammount</label>
-                                                <div class="col-sm-10"><input name="ammount" id="ammount" placeholder="Cheque ammount" type="text" class="form-control"></div>
+                                                <div class="col-sm-10"><input name="ammount" id="ammount" placeholder="Cheque ammount" type="number" min="1" step="any" class="form-control"></div>
+                                            </div>
+                                            <div class="position-relative row form-group"><label for="bill" class="col-sm-2 col-form-label">Bill</label>
+                                                <div class="col-sm-10"><select name="select" id="bill" class="form-control"></select></div>
+                                            </div>
+                                            <div class="position-relative row form-group"><label for="status" class="col-sm-2 col-form-label">Status</label>
+                                                <div class="col-sm-10"><select name="select" id="status" class="form-control">
+                                                    <option id="pending">Pending</option>
+                                                    <option id="cashedin">Cashed In</option>
+                                                    <option id="returned">Returned</option>
+                                                    <option id="traded">Traded</option>
+                                                    <option id="issue">Issue</option>
+                                                    <option id="resolved">Issue resolved</option>
+                                                    <option id="canceled">Canceled</option>
+                                                    <option id="other">Other</option>
+
+                                                </select></div>
                                             </div>
                                             <div class="position-relative row form-group"><label for="duedate" class="col-sm-2 col-form-label">Due date</label>
                                                 <div class="col-sm-10">
@@ -370,11 +386,14 @@
                                             <div class="position-relative row form-group"><label for="comment" class="col-sm-2 col-form-label">Comment</label>
                                                 <div class="col-sm-10"><textarea name="text" id="comment" class="form-control"></textarea></div>
                                             </div>
-                                            <!-- <div class="position-relative row form-group"><label for="photo" class="col-sm-2 col-form-label">Photo</label>
-                                                <div class="col-sm-10"><input name="file" onchange="readFile(this)" id="photo" type="file" class="form-control-file">
+                                            <div class="position-relative row form-group"><label for="photo" class="col-sm-2 col-form-label">Photo</label>
+                                                <div class="col-sm-10"><input name="file"  id="photo" type="file" class="form-control-file">
                                                     <small class="form-text text-muted">Upload cheque's photo</small>
                                                 </div>
-                                            </div> -->
+                                            </div> 
+                                            <div class="position-relative col-sm-12 col-md-12 form-group">
+                                                <img id="imageCheque" src="" style="WIDTH: 100%;PADDING: 40px;" alt='' />
+                                            </div>
                                             <div class="position-relative row form-check">
                                                 <div class="col-sm-10 offset-sm-2">
                                                     <button id="updatechequebtn" attr-id="" class="actionsbtn btn btn-success">Update</button>

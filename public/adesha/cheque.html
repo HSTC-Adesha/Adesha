@@ -15,9 +15,8 @@
     <link href="assets/css/all.min.css" rel="stylesheet">
 
     <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="./main.css" rel="stylesheet">
-
-    <link href="assets/css/createcheque.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.3/css/selectize.default.min.css" rel="stylesheet">
+    <link href="./main.css" rel="stylesheet">   
 </head>
 
 <body>
@@ -305,35 +304,69 @@
                                             <div class="position-relative row form-group"><label for="ammount" class="col-sm-2 col-form-label">Ammount</label>
                                                 <div class="col-sm-10"><input name="ammount" id="ammount" placeholder="Cheque ammount" type="text" class="form-control"></div>
                                             </div>
-                                            <div class="position-relative row form-group"><label for="duedate" class="col-sm-2 col-form-label">Due date</label>
-                                                <div class="col-sm-10">
+                                            <div class="position-relative row form-group"><label for="status" class="col-sm-2 col-form-label">Status</label>
+                                                <div class="col-sm-10"><select name="select" id="status" class="form-control">
+                                                    <option id="pending">Pending</option>
+                                                    <option id="cashedin">Cashed In</option>
+                                                    <option id="returned">Returned</option>
+                                                    <option id="traded">Traded</option>
+                                                    <option id="issue">Issue</option>
+                                                    <option id="resolved">Issue resolved</option>
+                                                    <option id="canceled">Canceled</option>
+                                                    <option id="other">Other</option>
+
+                                                </select></div>
+                                            </div>
+                                            <div class="position-relative row form-group"><label for="bill" class="col-sm-2 col-form-label">Bill</label>
+                                                <div class="col-sm-10"><select name="select" id="bill" class=""></select></div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                            <div class="position-relative form-group col-sm-12 col-md-6">
+                                                <label for="duedate" class="col-sm-4 col-md-4 col-form-label">Due date</label>
+                                                <div class="col-sm-8 col-md-8">
                                                         <div class="input-group date" id="duedate"><input class="form-control" placeholder="MM/DD/YYYY" /><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
                                                     </div>                                                
                                                 </div>
                                             </div>
-                                            <div class="position-relative row form-group"><label for="creationdate" class="col-sm-2 col-form-label">Creation date</label>
-                                                <div class="col-sm-10">
+                                            
+                                            <div class="position-relative  form-group col-sm-12 col-md-6">
+                                                <label for="creationdate" class="col-sm-4 col-md-4 col-form-label">Creation date</label>
+                                                <div class="col-sm-8 col-md-8">
                                                         <div class="input-group date" id="creationdate"><input class="form-control" placeholder="MM/DD/YYYY" /><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
                                                     </div>                                                
                                                 </div>
                                             </div>
+                                        </div>
+                                      
+                                            <div class="row">
+
+                                            <div class="position-relative col-sm-12 col-md-6 form-group">
+                                                <label for="company" class="col-sm-4 col-md-4  col-form-label">Company</label>
+                                                <div class="col-sm-8 col-md-8"><select name="select" id="company" class="form-control"></select></div>
+                                            </div>
+                                            <div class="position-relative col-sm-12 col-md-6 form-group">
+                                                <label for="employee" class="col-sm-4 col-md-4  col-form-label">Delivred by</label>
+                                                <div class="col-sm-8 col-md-8"><select name="select" id="employee" class="form-control"></select></div>
+                                            </div>
+
+                                            </div>
                                             <div class="position-relative row form-group"><label for="bank" class="col-sm-2 col-form-label">Bank</label>
                                                 <div class="col-sm-10"><select name="select" id="bank" class="form-control"></select></div>
                                             </div>
-                                            <div class="position-relative row form-group"><label for="company" class="col-sm-2 col-form-label">Company</label>
-                                                <div class="col-sm-10"><select name="select" id="company" class="form-control"></select></div>
-                                            </div>
-                                            <div class="position-relative row form-group"><label for="employee" class="col-sm-2 col-form-label">Delivred by</label>
-                                                <div class="col-sm-10"><select name="select" id="employee" class="form-control"></select></div>
-                                            </div>
+                                           
                                             <div class="position-relative row form-group"><label for="comment" class="col-sm-2 col-form-label">Comment</label>
                                                 <div class="col-sm-10"><textarea name="text" id="comment" class="form-control"></textarea></div>
                                             </div>
-                                            <!-- <div class="position-relative row form-group"><label for="photo" class="col-sm-2 col-form-label">Photo</label>
-                                                <div class="col-sm-10"><input name="file" onchange="readFile(this)" id="photo" type="file" class="form-control-file">
+                                             <div class="position-relative row form-group"><label for="photo" class="col-sm-2 col-form-label">Photo</label>
+                                                <div class="col-sm-10"><input name="file"  id="photo" type="file" class="form-control-file">
                                                     <small class="form-text text-muted">Upload cheque's photo</small>
                                                 </div>
-                                            </div> -->
+                                            </div> 
+                                            <div class="position-relative col-sm-12 col-md-12 form-group">
+                                                <img id="imageCheque" src="" style="WIDTH: 100%;PADDING: 40px;" alt='' />
+                                            </div>
+
                                             <div class="position-relative row form-check">
                                                 <div class="col-sm-10 offset-sm-2">
                                                     <button id="createchequebtn" class="btn btn-secondary">Create</button>
@@ -360,6 +393,7 @@
     <script src="assets/scripts/bootstrap4.min.js"></script>
     <script src="assets/scripts/bootstrap-datetimepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.3/js/standalone/selectize.js" ></script>
     <script type="text/javascript" src="./assets/scripts/main.js"></script>
     <script type="text/javascript" src="./controllers/createchequeController.js"></script>
 </body>

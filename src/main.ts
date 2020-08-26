@@ -11,9 +11,12 @@ import { CompanyModule } from "./company/company.module";
 import { warn } from "console";
 import { ChequeBookModule } from "./chequeBook/chequeBook.module";
 import { ChequeModule } from "./cheque/cheque.module";
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(bodyParser.json({limit: '50mb'}));
+  app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
   app.useGlobalPipes(new ValidationPipe({
     // disableErrorMessages: true,
   }));
