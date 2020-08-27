@@ -2,14 +2,13 @@ import { Injectable, NotFoundException} from '@nestjs/common';
 import { Bank } from './bank.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { BankAccountService } from '../bankaccount/bankaccount.service';
-import { BankAccount } from '../bankaccount/bankaccount.model';
+
 
 @Injectable()
 export class BankService {
     constructor(
     @InjectModel('Bank') private readonly bankModel: Model<Bank>,
-    private readonly bankAccountService : BankAccountService,
+
     ){ }
     async insertbank (bankname: string, bankcity: string, bankaddress: string,  bankcompany: string, bankcomment: string) {
        return this.addbank(bankname, bankcity, bankaddress, bankcompany, bankcomment)
@@ -144,38 +143,7 @@ export class BankService {
         return result;
     }
 
-    async addBankAccountToBank(
-        bankid: string,
-        bankAccount: string,
-        ) {
-        let updatebank :Bank = await this.findBankById(bankid);
-        let thebankAccount:BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
-        if (thebankAccount && updatebank) {
-            updatebank.bankAccounts.push(thebankAccount.id) ;
-            thebankAccount.bank = updatebank.id;
-            updatebank.save();
-            thebankAccount.save();
-        }
-        return updatebank;
-    }
 
-    async removeBankAccountFromBank(
-        bankid: string,
-        bankAccount: string,
-        ) {
-            let updatebank :Bank = await this.findBankById(bankid);
-            let thebankAccount:BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
-       
-        if (thebankAccount && updatebank) {
-            for ( let i = 0; i < updatebank.bankAccounts.length; i++) {
-                if ( updatebank.bankAccounts[i] === thebankAccount.id) {
-                    updatebank.bankAccounts.splice(i, 1);
-                }
-             }
-             updatebank.save();
-        }
-        return updatebank;
-    }
 
     async deletebank(bankid: string) {
         await this.bankModel.findByIdAndDelete(bankid);

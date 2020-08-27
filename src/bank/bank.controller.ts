@@ -54,19 +54,6 @@ export class BankController {
     getBankBycomment (@Param('Comment') bankcomment:string,){
         return this.banksService.getBankBycomment(bankcomment);
     }
-
-    @Post('bankAccount/:bankid')
-    addBill(@Param('bankid') bankid: string,
-        @Body('bankAccount') bankAccount: string
-    ) {
-        return this.banksService.addBankAccountToBank(bankid, bankAccount);
-    }
-    @Patch('bankAccount/:chequeid')
-    removeBill(@Param('chequeid') bankid: string,
-        @Body('bankAccount') bankAccount: string
-    ) {
-        return this.banksService.removeBankAccountFromBank(bankid, bankAccount);
-    }
     @Patch(':id')
     async updatebank(
      @Param('id') bankid: string,
@@ -74,7 +61,6 @@ export class BankController {
      @Body('city') bankcity: string,
      @Body('address') bankaddress: string,
      @Body('company') bankcompany: string,
-     @Body('bankaccount') bankbankaccount: string,
      @Body('comment') bankcomment: string,)
      
      {

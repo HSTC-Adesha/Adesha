@@ -13,7 +13,6 @@ import { LoggingInterceptor } from './shared/logger/logging.interceptor';
 import { HttpErrorFilter } from './shared/logger/http-error.filter';
 import { ChequeBookModule } from './chequeBook/chequeBook.module';
 import { ChequeModule } from './cheque/cheque.module';
-import { BankAccountModule } from './bankaccount/bankaccount.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { EventsModule } from './events/events.module';
@@ -31,7 +30,6 @@ import { EventsModule } from './events/events.module';
     BillModule,
     ChequeBookModule,
     CompanyModule,
-    BankAccountModule,
     EmployeeModule,
     EventsModule,
   ],
