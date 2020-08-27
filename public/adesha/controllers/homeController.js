@@ -63,7 +63,7 @@ $(document).ready(function () {
     var barData = {
       labels: [moment(todayIs, "DD/MM/YYYY").subtract(1,"months").format('MMMM')],
       datasets: [{
-        label: 'Cheque In',
+        label: 'Income',
         backgroundColor: color(chartColors.green).alpha(0.5).rgbString(),
         borderColor: chartColors.green,
         borderWidth: 1,
@@ -72,7 +72,7 @@ $(document).ready(function () {
 
         ]
       }, {
-        label: 'Cheque Out',
+        label: 'Outcome',
         backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
         borderColor: chartColors.red,
         borderWidth: 1,
@@ -128,7 +128,7 @@ $(document).ready(function () {
     var barData = {
       labels: [moment(todayIs, "DD/MM/YYYY").add(1,"months").format('MMMM')],
       datasets: [{
-        label: 'Cheque In',
+        label: 'Income',
         backgroundColor: color(chartColors.green).alpha(0.5).rgbString(),
         borderColor: chartColors.green,
         borderWidth: 1,
@@ -137,7 +137,7 @@ $(document).ready(function () {
 
         ]
       }, {
-        label: 'Cheque Out',
+        label: 'Outcome',
         backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
         borderColor: chartColors.red,
         borderWidth: 1,
@@ -195,7 +195,7 @@ $(document).ready(function () {
     var barData = {
       labels: [moment(todayIs, "DD/MM/YYYY").format('YYYY')],
       datasets: [{
-        label: 'Cheque In',
+        label: 'Income',
         backgroundColor: color(chartColors.green).alpha(0.5).rgbString(),
         borderColor: chartColors.green,
         borderWidth: 1,
@@ -204,7 +204,7 @@ $(document).ready(function () {
 
         ]
       }, {
-        label: 'Cheque Out',
+        label: 'Outcome',
         backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
         borderColor: chartColors.red,
         borderWidth: 1,
@@ -259,7 +259,7 @@ $(document).ready(function () {
     var barData = {
       labels: [moment(todayIs, "DD/MM/YYYY").format('MMMM')],
       datasets: [{
-        label: 'Cheque In',
+        label: 'Income',
         backgroundColor: color(chartColors.green).alpha(0.5).rgbString(),
         borderColor: chartColors.green,
         borderWidth: 1,
@@ -268,7 +268,7 @@ $(document).ready(function () {
 
         ]
       }, {
-        label: 'Cheque Out',
+        label: 'Outcome',
         backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
         borderColor: chartColors.red,
         borderWidth: 1,
@@ -627,13 +627,13 @@ $(document).ready(function () {
         }
       },
       datasets: [{
-          label: "Cheque In",
+          label: "Income",
           borderColor: "rgb(0, 153, 51)",
           fill: false,
           data: recList
         },
         {
-          label: "Cheque Out",
+          label: "Outcome",
           borderColor: "#cc3300",
           fill: false, //<-- set this
           data: emisList
@@ -689,13 +689,13 @@ $(document).ready(function () {
         }
       },
       datasets: [{
-          label: "Cheque In",
+          label: "Income",
           borderColor: "rgb(0, 153, 51)",
           fill: false,
           data: recList
         },
         {
-          label: "Cheque Out",
+          label: "Outcome",
           borderColor: "#cc3300",
           fill: false, //<-- set this
           data: emisList
@@ -751,13 +751,13 @@ $(document).ready(function () {
         }
       },
       datasets: [{
-          label: "Cheque In",
+          label: "Income",
           borderColor: "rgb(0, 153, 51)",
           fill: false,
           data: recList
         },
         {
-          label: "Cheque Out",
+          label: "Outcome",
           borderColor: "#cc3300",
           fill: false, //<-- set this
           data: emisList

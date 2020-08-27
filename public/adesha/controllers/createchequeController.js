@@ -159,7 +159,7 @@ $(document).ready(function () {
                     option: function(item, escape) {
                         var label = item.number || item.id;
                         return '<div>' +
-                            '<span class="label">Bill :'+ escape(item.number)+ ' |company :' + escape(item.company) + '</span>' +
+                            '<span class="label "'+label+'">Bill :'+ escape(item.number)+ ' |company :' + escape(item.company) + '</span>' +
                         '</div>';
                     }
                 },

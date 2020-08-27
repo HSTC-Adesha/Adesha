@@ -6,8 +6,6 @@ export const companySchema = new mongoose.Schema ({
     address: {type: String},
     type: {type:String},
     employees:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }],
-    bankAccounts:[{ type: mongoose.Schema.Types.ObjectId, ref: 'BankAccount' }],
-    banks:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Bank' }],
     bills:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Bill' }],
     comment: {type: String }, 
 })
@@ -19,10 +17,7 @@ export class Company extends mongoose.Document {
     address: string;
     type: string;
     employees:[string];
-    bankAccounts:[string];
-    banks:[string];
     bills: [string];
     comment: string;
-
 }
 

@@ -5,8 +5,6 @@ $(document).ready(function () {
   }
   $('.the-user-name').html(localStorage.getItem('adesha-user-username'));
   $('.the-user-email').html(localStorage.getItem('adesha-user-email'));
- 
-
 
   const socket = io('http://localhost:3000');
   socket.on('connect', function () {

@@ -1,58 +1,50 @@
 import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/common';
 import {Employee } from './employee.model';
-import { BankAccountService } from '../bankaccount/bankaccount.service';
-import { BankAccount } from '../bankaccount/bankaccount.model';
-import { ChequeService } from '../cheque/cheque.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Company } from './../company/company.model';
 
 
 
 @Injectable()
 export class EmployeeService {
-
-    private myemployees: Employee[] = [];
     constructor(
-    @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
-    @Inject(forwardRef(() => BankAccountService ))
-    private readonly bankAccountService:BankAccountService,
-    @Inject(forwardRef(() => ChequeService ))  
-    private readonly chequeService:ChequeService,
+        @InjectModel('Employee') private readonly employeeModel: Model<Employee>,
+        @InjectModel('Company') private readonly companyModel: Model<Company>,
+
     ) { }
-    async insertemployee (employeefirstName: string, employeelastName: string,
-        employeeaddress: string, employeerole: string,  employeecompany: string, employeecomment: string) {
-       return this.addemployee(employeefirstName, employeelastName, employeeaddress, employeerole,
-             employeecompany, employeecomment)
+    async insertemployee (firstname: string, lastname: string,
+        role: string, company:string, comment: string) {
+       return this.addemployee(firstname, lastname, role,company,comment)
     }
     async addemployee(
         firstName: string,
         lastName: string,
-        address: string,
         role: string,
-        company: string,
+        company:string,
         comment: string) {
+        let companyObj = await this.findCompanyById(company);
+        console.log("1",companyObj);
         const newemployee = new this.employeeModel({
             firstName,
             lastName,
-            address,
-            role,
             company,
+            role,
             comment,
         });
-        const result = await newemployee.save();
-        return result;
+        
+        const rslt = await newemployee.save();
+        const rs = companyObj.employees.push(newemployee);
+        console.log("2",rslt);
+
+        const rss = await companyObj.save();
+        console.log("3",rss);
+
+        return rslt;
     }
     async getAllemployees() {
-        const employees = await this.employeeModel.find().exec()
-        return employees.map(employee => ({
-            id: employee.id,
-            firstName: employee.firstName,
-            lastName: employee.lastName,
-            address: employee.address,
-            role: employee.role,
-            company: employee.company,
-            comment:employee.comment,
-        }));
+        return await this.employeeModel.find().populate('company').exec()
+       
     }
 
     async getEmployeeById(employeeid: string) {
@@ -61,53 +53,23 @@ export class EmployeeService {
     }
 
     async getEmployeeByFirstName(employeefirstName: string) {
-        const employee = await this.findEmployeeByFirstName(employeefirstName);
-        return {
-            id: employee.id,
-            firstName: employee.firstName,
-            lastName: employee.lastName,
-            address: employee.address,
-            role: employee.role,
-            company: employee.company,
-            comment:employee.comment,
-        };
+        return await this.findEmployeeByFirstName(employeefirstName);
+        
     }
 
     async getEmployeeByLastName( employeelastName : string) {
-        const employee = await this.findEmployeeByLastName (employeelastName);
-        return {
-            id: employee.id,
-            firstName: employee.firstName,
-            lastName: employee.lastName,
-            address: employee.address,
-            role: employee.role,
-            company: employee.company,
-            comment:employee.comment,
-        };
+        return await this.findEmployeeByLastName (employeelastName);
+     
     }
     async getEmployeeByAddress( employeeaddress: string){
-        const employee = await this.findEmployeeByAddress (employeeaddress);
-        return {
-        id: employee.id,
-        firstName: employee.firstName,
-        lastName: employee.lastName,
-        address: employee.address,
-        role: employee.role,
-        company: employee.company,
-        comment:employee.comment,
-    };
+        return await this.findEmployeeByAddress (employeeaddress);
+    
 }
 
 
     async getEmployeeByRole(employeerole: string) {
-        const employee = await this.findEmployeeByRole(employeerole);
-        return {
-            id: employee.id,
-            firstName: employee.firstName,
-            lastName: employee.lastName,
-            role: employee.role,
-            comment:employee.comment,
-        };
+        return await this.findEmployeeByRole(employeerole);
+        
     }
     async getEmployeeByCompany( employeecompany: string){
         return await this.findEmployeeByCompany(employeecompany);
@@ -122,100 +84,95 @@ export class EmployeeService {
         employeeid: string,
         firstName: string,
         lastName: string,
-        address: string,
         role: string,
         company: string,
         comment: string) {
-        const updateemployee = await this.findEmployeeById(employeeid);
+            let updateemployee = await this.findEmployeeById(employeeid);
+
         if (firstName) {
             updateemployee.firstName= firstName;
         }
         if (lastName) {
             updateemployee.lastName= lastName;
         }
-        if (address) {
-            updateemployee.address= address;
-        }
         if (role) {
             updateemployee.role= role;
         }
-        if (company) {
-            updateemployee.company= company;
-        }
+   
         if (comment) {
             updateemployee.comment= comment;
         }
-    
-        const result = await updateemployee.save();
+        let result = await updateemployee.save();
+
+        let updateemploye = await this.findEmployeeById(employeeid);
+        let theCompany = await this.findCompanyById(company);
+
+        if(updateemploye.company !==company)
+        {
+            await this.removeEmployeeFromCompany(updateemploye.company ,updateemploye._id)
+            console.log('this',updateemploye.company)
+            console.log('company',company)
+
+            updateemploye.company=company;
+
+
+           let resut = await updateemploye.save();
+           console.log('that',resut)
+
+           theCompany.employees.push(resut);
+           console.log(resut)
+
+           await theCompany.save();
+           return resut;
+        }
         return result;
     }
 
-    async addbankAccountToEmployee(
-        employeeid: string,
-        bankAccount: string,
-        ) {
-        let updateemployee :Employee = await this.getEmployeeById(employeeid);
-        let theBankAccount :BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
-        if (theBankAccount && updateemployee) {
-            updateemployee.bankAccounts.push(theBankAccount.id) ;
-            theBankAccount.company = updateemployee.id;
-            updateemployee.save();
-            theBankAccount.save();
-        }
-        return updateemployee;
-    }
-    async addchequeToEmployee(
-        employeeid: string,
-        cheque: string,
-        ) {
-        let updateemployee :Employee = await this.getEmployeeById(employeeid);
-        let theCheque = await this.chequeService.getChequeById(cheque);
-        if (theCheque && updateemployee) {
-            updateemployee.cheques.push(theCheque.id) ;
-            theCheque.delivredTo = updateemployee.id;
-            updateemployee.save();
-        
-        }
-        return updateemployee;
-    }
-    async removebankaccountFromemployee(
-        employeeid: string,
-        bankAccount: string,
-        ) {
-            let updateemployee :Employee = await this.getEmployeeById(employeeid);
-            let theBankAccount:BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
-        if (theBankAccount && updateemployee) {
-            for ( let i = 0; i < updateemployee.bankAccounts.length; i++) {
-                if ( updateemployee.bankAccounts[i] === theBankAccount.id) {
-                    updateemployee.bankAccounts.splice(i, 1);
-                }
-             }
-             updateemployee.save();
-        }
-        return updateemployee;
-    }
-    async removechequeFromemployee(
-        employeeid: string,
-        cheque: string,
-        ) {
-            let updateemployee :Employee = await this.getEmployeeById(employeeid);
-            let thecheque = await this.chequeService.getChequeById(cheque);
-        if (thecheque && updateemployee) {
-            for ( let i = 0; i < updateemployee.cheques.length; i++) {
-                if ( updateemployee.cheques[i] === thecheque.id) {
-                    updateemployee.cheques.splice(i, 1);
-                }
-             }
-             updateemployee.save();
-        }
-        return updateemployee;
-    }
+   
+    
 
     async deleteemployee(employeeid: string) {
-        await this.employeeModel.findByIdAndDelete(employeeid);
+        console.log(employeeid)
+        let employ = await this.findEmployeeById(employeeid);
+        console.log(employeeid)
+        let company = await this.findCompanyById(employ.company)
+        console.log(employeeid)
+
+      await this.removeEmployeeFromCompany(company._id,employeeid)
+      console.log(employeeid)
+
+      return  await this.employeeModel.findByIdAndDelete(employeeid);
 
     }
+    async removeEmployeeFromCompany(
+        companyid: string,
+        employee: string,
+        ) {
+        let updatecompany :Company = await this.findCompanyById(companyid);
+        let theEmployee:Employee = await this.getEmployeeById(employee);
+        if (theEmployee && updatecompany) {
+            for ( let i = 0; i < updatecompany.employees.length; i++) {
+                if ( updatecompany.employees[i] === theEmployee.id) {
+                    updatecompany.employees.splice(i, 1);
+                }
+             }
+            updatecompany.save();
+        }
+        return updatecompany;
+    }
+    async findCompanyById (id: string) {
+        let company;
+        try {
+            company = await this.companyModel.findById(id).exec();
+        } catch (error) {
+            throw new NotFoundException('erreur!!');
+        }
+        if (!company) {
+            throw new NotFoundException('erreur!!');
+        }
 
+        return company;
+    }
     private async findEmployeeById (id: string): Promise<Employee> {
         let employee;
         try {
@@ -284,7 +241,6 @@ export class EmployeeService {
         if (!employee) {
             throw new NotFoundException(' not found!');
         }
-
         return employee;
     }
 

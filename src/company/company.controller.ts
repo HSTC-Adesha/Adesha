@@ -28,6 +28,11 @@ export class CompanyController {
     getCompanyById(@Param('companyid') companyid: string) {
         return this.companiesService.getCompanyById(companyid);
     }
+    @Get('employeesofcompany/:companyid')
+    getEmpById(@Param('companyid') companyid: string) {
+        return this.companiesService.getEmployeesByCompany(companyid);
+    }
+    
     @Get('name/:name')
     getCompanyByName(@Param('name') companyname: string) {
         return this.companiesService.getCompanyByName(companyname);
@@ -48,14 +53,7 @@ export class CompanyController {
     getCompanyemployee(@Param('employees') companyemployees: string) {
         return this.companiesService.getCompanyemployee(companyemployees);
     }
-    @Get('bankaccount/:bankaccount')
-    getCompanyBybankaccount(@Param('bankaccount') companybankAccounts: string) {
-        return this.companiesService.getCompanyBybankaccount(companybankAccounts);
-    }
-    @Get('bank/:bank')
-    getCompanyBybank(@Param('bank') companybanks: string) {
-        return this.companiesService.getCompanyBybank(companybanks);
-    }
+   
     @Get('bill/:bill')
     getCompanyBybill(@Param('bill') companybills: string) {
         return this.companiesService.getCompanyBybill(companybills);
@@ -67,18 +65,7 @@ export class CompanyController {
     ) {
         return this.companiesService.addEmployeeToCompany(companyid, employee);
     }
-    @Post('bank/:companyid')
-    addBank(@Param('companyid') companyid: string,
-        @Body('bank') bank: string
-    ) {
-        return this.companiesService.addBankToCompany(companyid, bank);
-    }
-    @Post('bankAccount/:companyid')
-    addBankAccount(@Param('companyid') companyid: string,
-        @Body('bankAccount') bankAccount: string
-    ) {
-        return this.companiesService.addBankAccountToCompany(companyid, bankAccount);
-    }
+  
     @Post('bill/:companyid')
     addBill(@Param('companyid') companyid: string,
         @Body('bill') bill: string
@@ -91,18 +78,7 @@ export class CompanyController {
     ) {
         return this.companiesService.removeEmployeeFromCompany(companyid, employee);
     }
-    @Patch('bank/:companyid')
-    removeBank(@Param('companyid') companyid: string,
-        @Body('bank') bank: string
-    ) {
-        return this.companiesService.removeBankFromCompany(companyid, bank);
-    }
-    @Patch('bankAccount/:companyid')
-    removeBankAccount(@Param('companyid') companyid: string,
-        @Body('bankAccount') bankAccount: string
-    ) {
-        return this.companiesService.removeBankAccountFromCompany(companyid, bankAccount);
-    }
+   
     @Patch('bill/:companyid')
     removeBill(@Param('companyid') companyid: string,
         @Body('bill') bill: string
@@ -115,7 +91,7 @@ export class CompanyController {
     async updatecompany(
         @Param('id') companyid: string,
         @Body('name') companyname: string,
-        @Body('countryAndCity') companycountryAndCity: string,
+        @Body('city') companycountryAndCity: string,
         @Body('address') companyaddress: string,
         @Body('type') companytype: string,
         @Body('comment') companycomment: string, ) {
@@ -128,7 +104,7 @@ export class CompanyController {
             companycomment);
 
     }
-    @Delete(':id')
+    @Patch('delete/:id')
     async removecompany(@Param('id') companyid: string, ) {
         await this.companiesService.deleteCompany(companyid);
         return { "success": true };

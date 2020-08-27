@@ -2,12 +2,8 @@ import { Injectable, NotFoundException, Inject, forwardRef } from '@nestjs/commo
 import { Company } from './company.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { BankAccount } from '../bankaccount/bankaccount.model';
-import { Bank } from '../bank/bank.model';
 import { Employee } from '../employee/employee.model';
-import { BankService } from '../bank/bank.service';
 import { EmployeeService } from '../employee/employee.service';
-import { BankAccountService } from '../bankaccount/bankaccount.service';
 import { BillService } from '../bill/bill.service';
 @Injectable()
 export class CompanyService {
@@ -15,9 +11,6 @@ export class CompanyService {
     constructor(
         @InjectModel('Company') private readonly companyModel: Model<Company>,
 
-        @Inject(forwardRef(() => BankAccountService ))
-        private readonly bankAccountService:BankAccountService,
-        private readonly bankService:BankService,
         @Inject(forwardRef(() => EmployeeService ))
         private readonly employeeService:EmployeeService,
         @Inject(forwardRef(() => BillService ))
@@ -52,11 +45,10 @@ export class CompanyService {
         if (comment) {
             newcompany.comment= comment;
         }      
-        const result = await newcompany.save();
-        return result as Company;
+        return await newcompany.save();
     }
     async getAllcompanies() {
-        return await this.companyModel.find().populate("banks").populate("bankAccounts").populate("bills").populate("employees").exec()
+        return await this.companyModel.find().populate("bills").populate("employees").exec()
     }
 
     async getCompanyById(companyid: string) {
@@ -80,13 +72,10 @@ export class CompanyService {
     async getCompanyemployee(companybankAccounts: string) {
         return await this.findCompanyemployee(companybankAccounts);
     }
-    async getCompanyBybankaccount(companybankAccounts: string) {
-        return await this.findCompanyBybankaccount(companybankAccounts);
+    async getEmployeesByCompany(companyId: string) {
+        return await this.findemployees(companyId);
     }
-    async getCompanyBybank(companybanks: string) {
-        return await this.findCompanyBybank(companybanks);
-    }
-    async getCompanyBybill(companybills: string) {
+     async getCompanyBybill(companybills: string) {
         return await this.findCompanyBybill(companybills);
     }
     async updateCompany(
@@ -124,40 +113,11 @@ export class CompanyService {
         let theEmployee:Employee = await this.employeeService.getEmployeeById(employee);
         if (theEmployee && updatecompany) {
             updatecompany.employees.push(theEmployee.id) ;
-            theEmployee.company = updatecompany.id;
             updatecompany.save();
-            theEmployee.save();
         }
         return updatecompany;
     }
-    async addBankToCompany(
-        companyid: string,
-        bank: string,
-        ) {
-        let updatecompany :Company = await this.findCompanyById(companyid);
-        let theBank:Bank = await this.bankService.getBankById(bank);
-        if (theBank && updatecompany) {
-            updatecompany.banks.push(theBank.id) ;
-            theBank.company = updatecompany.id;
-            updatecompany.save();
-            theBank.save();
-        }
-        return updatecompany;
-    }
-    async addBankAccountToCompany(
-        companyid: string,
-        bankAccount: string,
-        ) {
-        let updatecompany :Company = await this.findCompanyById(companyid);
-        let theBankAccount:BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
-        if (theBankAccount && updatecompany) {
-            updatecompany.bankAccounts.push(theBankAccount.id) ;
-            theBankAccount.company = updatecompany.id;
-            updatecompany.save();
-            theBankAccount.save();
-        }
-        return updatecompany;
-    }
+  
     async addBillToCompany(
         companyid: string,
         bill: string,
@@ -188,40 +148,7 @@ export class CompanyService {
         }
         return updatecompany;
     }
-    async removeBankFromCompany(
-        companyid: string,
-        bank: string,
-        ) {
-        let updatecompany :Company = await this.findCompanyById(companyid);
-        let theBank:Bank = await this.bankService.getBankById(bank);
-        if (theBank && updatecompany) {
-            for ( let i = 0; i < updatecompany.banks.length; i++) {
-                if ( updatecompany.banks[i] === theBank.id) {
-                    updatecompany.banks.splice(i, 1);
-                }
-             }
-            updatecompany.save();
-        }
-        return updatecompany;
-    }
-    async removeBankAccountFromCompany(
-        companyid: string,
-        bankAccount: string,
-        ) {
-        let updatecompany :Company = await this.findCompanyById(companyid);
-        let theBankAccount:BankAccount = await this.bankAccountService.getBankAccountById(bankAccount);
-        if (theBankAccount && updatecompany) {
-            for ( let i = 0; i < updatecompany.bankAccounts.length; i++) {
-                if ( updatecompany.bankAccounts[i] === theBankAccount.id) {
-                    updatecompany.bankAccounts.splice(i, 1);
-                }
-             }            
-             updatecompany.save();
-        }
-        return updatecompany;
-    }
-
-    async removeBillFromCompany(
+       async removeBillFromCompany(
         companyid: string,
         bill: string,
         ) {
@@ -240,8 +167,21 @@ export class CompanyService {
     async deleteCompany(companyid: string) {
         await this.companyModel.findByIdAndDelete(companyid);
     }
-
-    private async findCompanyById (id: string): Promise<Company> {
+    
+    private async findemployees (id: string) {
+        let company;
+        try {
+            company = await this.companyModel.findById(id).populate('employee').exec();
+        } catch (error) {
+            throw new NotFoundException('erreur!!');
+        }
+        if (!company) {
+            throw new NotFoundException('erreur!!');
+        }
+        console.log(company)
+        return company.employees;
+    }
+    async findCompanyById (id: string) {
         let company;
         try {
             company = await this.companyModel.findById(id).exec();
@@ -328,35 +268,7 @@ export class CompanyService {
         return company;
     }
 
-    private async findCompanyBybankaccount (bankAccounts: string): Promise<Company> {
-        let company;
-        try {
-
-            company = await this.companyModel.find({ bankAccounts });
-        } catch (error) {
-            throw new NotFoundException('erreur!!');
-        }
-        if (!company) {
-            throw new NotFoundException('erreur!!');
-        }
-
-        return company;
-    }
-
-     private async findCompanyBybank (bank: string): Promise<Company> {
-        let company;
-        try {
-
-            company = await this.companyModel.find({ bank });
-        } catch (error) {
-            throw new NotFoundException('erreur!!');
-        }
-        if (!company) {
-            throw new NotFoundException('erreur!!');
-        }
-
-        return company;
-    }
+   
     
     private async findCompanyBybill (bills: string): Promise<Company> {
         let company;

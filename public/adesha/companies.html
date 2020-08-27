@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Bills</title>
+    <title>Companies</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
@@ -219,7 +219,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="bills.html" class="mm-active">
+                                        <a href="bills.html" >
                                            Manage
                                         </a>
                                     </li>
@@ -227,7 +227,7 @@
                             </li>    
                             </li>
                             <li class="app-sidebar__heading">Companies</li>
-                            
+                           
                                 <ul>
                                     <li>
                                         <a href="company.html">
@@ -235,14 +235,14 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="companies.html">
+                                        <a href="companies.html" class="mm-active">
                                            Manage
                                         </a>
                                     </li>
                                     
                                     
                                 </ul>
-                            
+                           
                             
                             </li>
                 
@@ -259,8 +259,8 @@
                                     <i class="pe-7s-cash icon-gradient bg-mean-fruit">
                                     </i>
                                 </div>
-                                <div>Manage cheques
-                                    <div class="page-title-subheading">Manage income
+                                <div>Manage companies
+                                    <div class="page-title-subheading">Manage Companies
                                     </div>
                                 </div>
                             </div>
@@ -268,9 +268,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6 col-xl-6">
                             <div class="main-card mb-3 card">
-                                <div class="card-header">Income
+                                <div class="card-header">Companies
                                    
                                 </div>
                                 <div class="table-responsive "style="padding:10px">
@@ -278,17 +278,17 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Number</th>
-                                                <th>Company</th>
-                                                <th>Ammount</th>
+                                                <th>Name</th>
+                                                <th>Activity</th>
+                                                <th>Country/city</th>                                        
                                             </tr>
                                         </thead>
                                         <tbody>  </tbody>
                                         <tfoot>
                                             <th>#</th>
-                                            <th>Number</th>
-                                            <th>Company</th>
-                                            <th>Ammount</th>                                         
+                                            <th>Name</th>
+                                            <th>Activity</th>
+                                            <th>Country/city</th>                                        
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -298,33 +298,104 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-
-                        <div class="tab-content col-md-12 col-xl-12">
-
+                        <div class="tab-content col-md-6 col-xl-6">
                             <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Cheque book details</h5>
-                                            <div class="position-relative row form-group"><label for="chequenumber" class="col-sm-2 col-form-label">Number</label>
-                                                <div class="col-sm-10"><input name="chequenumber" id="chequenumber" placeholder="Cheque's number" type="text" class="form-control"></div>
+                                        <h5 class="card-title">Company details</h5>
+                                        <div class="position-relative row form-group"><label for="name" class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10"><input name="name" id="name" placeholder="Company's name" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="address" class="col-sm-2 col-form-label">Address</label>
+                                            <div class="col-sm-10"><input name="address" id="address" placeholder="Company's adress" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="country" class="col-sm-2 col-form-label">Country</label>
+                                            <div class="col-sm-10"><input name="country" id="country" placeholder="Company's country" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="type" class="col-sm-2 col-form-label">Activity</label>
+                                            <div class="col-sm-10"><select name="select" id="type" class="form-control">
+                                                <option id="export">Export</option>
+                                                <option id="import">Import</option>
+                                                <option id="trade">Trade</option>
+                                                <option id="wholesale">Wholesale</option>
+                                                <option id="other">Other</option>
+                                            </select></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="comment" class="col-sm-2 col-form-label">Comment</label>
+                                            <div class="col-sm-10"><textarea name="text" id="comment" class="form-control"></textarea></div>
+                                        </div>
+                                        <div class="position-relative row form-check">
+                                            <div class="col-sm-10 offset-sm-2">
+                                                <button id="updatechequebtn" attr-id="" class="actionsbtn btn btn-success">Update</button>
+                                                <button id="deletechequebtn"  attr-id="" style="float:right" class="actionsbtn btn btn-warning">Delete</button>
                                             </div>
-                                            <div class="position-relative row form-group"><label for="ammount" class="col-sm-2 col-form-label">Number</label>
-                                                <div class="col-sm-10"><input name="ammount" id="ammount" placeholder="Cheque's number" type="text" class="form-control"></div>
-                                            </div>
-                                          
-                                            <div class="position-relative row form-group"><label for="company" class="col-sm-2 col-form-label">Company</label>
-                                                <div class="col-sm-10"><select name="select" id="company" class="form-control"></select></div>
+                                        </div>
+                                            <div id="notificationdiv">
+                                              
                                             </div>
                                             
-                                            <div class="position-relative row form-check">
-                                                <div class="col-sm-10 offset-sm-2">
-                                                    <button id="updatechequebtn" attr-id="" class="actionsbtn btn btn-success">Update</button>
-                                                    <button id="deletechequebtn"  attr-id="" style="float:right" class="actionsbtn btn btn-warning">Delete</button>
-                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                      
+                        <div class="tab-content col-md-6 col-xl-6">
+                            <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-header">Employees
+                                   
+                                    </div>
+                                    <div class="card-body">
+                            <div class="table-responsive "style="padding:10px">
+                                <table id="tableEmp" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Role</th>                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>  </tbody>
+                                    <tfoot>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Role</th>                                        
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            </div></div></div>
+                        </div>
+                        <div class="tab-content col-md-6 col-xl-6">
+                            <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Employee details</h5>
+                                        <div class="position-relative row form-group"><label for="firstname" class="col-sm-2 col-form-label">First Name</label>
+                                            <div class="col-sm-10"><input name="firstname" id="firstname" placeholder="Employee's first name" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="lastname" class="col-sm-2 col-form-label">Last Name</label>
+                                            <div class="col-sm-10"><input name="lastname" id="lastname" placeholder="Employee's last name" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="roleemployee" class="col-sm-2 col-form-label">Role</label>
+                                            <div class="col-sm-10"><input name="roleemployee" id="roleemployee" placeholder="Employee's role" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="companyList" class="col-sm-2 col-form-label">Company</label>
+                                            <div class="col-sm-10"><select name="select" id="companyList" class="form-control"></select></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="employeecomment" class="col-sm-2 col-form-label">Comment</label>
+                                            <div class="col-sm-10"><textarea name="text" id="employeecomment" class="form-control"></textarea></div>
+                                        </div>
+                                        <div class="position-relative row form-check">
+                                            <div class="col-sm-10 offset-sm-2">
+                                                <button id="ecreate" attr-id="" class="eactionsbtn btn btn-success">Create</button>
+                                                <button id="eupdatechequebtn" attr-id="" class="eactionsbtn btn btn-success">Update</button>
+                                                <button id="edeletechequebtn"  attr-id="" style="float:right" class="eactionsbtn btn btn-warning">Delete</button>
                                             </div>
-                                            <div id="notificationdiv">
+                                        </div>
+                                            <div id="enotificationdiv">
                                               
                                             </div>
                                             
@@ -349,7 +420,7 @@
     <script type="text/javascript" src="./assets/scripts/Chart.bundle.js"></script>
 
     <script type="text/javascript" src="./assets/scripts/main.js"></script>
-    <script type="text/javascript" src="./controllers/billsController.js"></script>
+    <script type="text/javascript" src="./controllers/companiesController.js"></script>
 </body>
 
 </html>
