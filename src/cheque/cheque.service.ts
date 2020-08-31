@@ -53,7 +53,7 @@ export class ChequeService {
             comment,
         });
         const result = await newcheque.save();
-
+        console.log(result)
         this.eventsGateway.server.emit('dbcheck',"eventDataObj");
         return result;
     }
@@ -118,7 +118,6 @@ export class ChequeService {
         company: string,
         delivredTo: string,
         chequeBook: string,
-        bankAccount: string,
         comment: string) {
         const updateCheque = await this.findChequeById(chequeid);
         if (number) {
@@ -316,7 +315,7 @@ export class ChequeService {
         let cheque;
         try {
 
-            cheque = await this.chequeModel.find({ chequeBook });
+            cheque = await this.chequeModel.find({ chequeBook }).populate('company');
         } catch (error) {
             throw new NotFoundException('erreur!!');
         }

@@ -46,47 +46,46 @@ export class ChequeController {
     getChequeById(@Param('chequeid') chequeid: string){
         return this.chequesService.getChequeById(chequeid);
     }
-    @Get('Number/:Number')
-    getChequeByNumber(@Param('Number') chequenumber: string){
+    @Get('number/:number')
+    getChequeByNumber(@Param('number') chequenumber: string){
         return this.chequesService.getChequeByNumber(chequenumber);
     }
-    @Get('Amount/:Amount')
-    getChequeByAmount(@Param('Amount') chequeamount:string,){
-        return this.chequesService. getChequeByAmount(chequeamount);
+    @Get('amount/:amount')
+    getChequeByAmount(@Param('amount') chequeamount:string,){
+        return this.chequesService.getChequeByAmount(chequeamount);
     }
-    @Get('DueDate/:DueDate')
-    getChequeByDueDate(@Param(':Due Date') chequedueDate:string,){
-        return this.chequesService. getChequeByDueDate(chequedueDate);
+    @Get('dueDate/:dueDate')
+    getChequeByDueDate(@Param(':dueDate') chequedueDate:string,){
+        return this.chequesService.getChequeByDueDate(chequedueDate);
     }
-    @Get('CreationDate/:CreationDate')
-    getChequeByCreationDate(@Param('Amount') chequecreationDate:string,){
-        return this.chequesService. getChequeByCreationDate(chequecreationDate);
+    @Get('creationDate/:creationDate')
+    getChequeByCreationDate(@Param('creationDate') chequecreationDate:string,){
+        return this.chequesService.getChequeByCreationDate(chequecreationDate);
     }
  
     @Get('bank/:bank')
-    getChequeBybank(@Param('bank') photo:string,){
-        return this.chequesService. getChequeBybank(photo);
+    getChequeBybank(@Param('bank') bank:string,){
+        return this.chequesService.getChequeBybank(bank);
         
     }
     @Get('company/:company')
-    getChequeBycompany(@Param('company') photo:string,){
-        return this.chequesService. getChequeBycompany(photo);
+    getChequeBycompany(@Param('company') company:string,){
+        return this.chequesService.getChequeBycompany(company);
         
     }
-    @Get('Receiver/:Receiver')
-    getChequeByReceiver(@Param('Place Of Creation') photo:string,){
-        return this.chequesService. getChequeByReceiver(photo);
+    @Get('receiver/:receiver')
+    getChequeByReceiver(@Param('receiver') receiver:string,){
+        return this.chequesService.getChequeByReceiver(receiver);
         
     }
     @Get('chequeBook/:chequeBook')
-    getChequeBychequeBook(@Param('Place Of Creation') photo:string,){
-        return this.chequesService. getChequeBychequeBook(photo);
-        
+    getChequeBychequeBook(@Param('chequeBook') chequeBook:string,){
+        return this.chequesService.getChequeBychequeBook(chequeBook);
     }
  
-    @Get('Commment/:Commment')
-    getChequeByComment(@Param('Commment')  chequecomment:string,){
-        return this. chequesService. getChequeByComment( chequecomment);
+    @Get('commment/:commment')
+    getChequeByComment(@Param('commment')  chequecomment:string,){
+        return this.chequesService.getChequeByComment( chequecomment);
     }
     @Post('bill/:chequeid')
     addBill(@Param('chequeid') chequeid: string,
@@ -112,7 +111,6 @@ export class ChequeController {
      @Body('company') chequecompany: string,
      @Body('delivredTo') chequedelivredTo: string,
      @Body('chequeBook') chequechequeBook: string,
-     @Body('bankaccount') chequebankaccount: string,
      @Body('comment') chequecomment: string,)
      
      {
@@ -127,7 +125,6 @@ export class ChequeController {
         chequecompany,
         chequedelivredTo,
         chequechequeBook,
-        chequebankaccount,
         chequecomment,
         );
      }

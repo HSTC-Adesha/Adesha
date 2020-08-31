@@ -482,7 +482,7 @@ $(document).ready(function () {
 
               }
 
-              if (cheq.status != "done") {
+              if (cheq.status == "issue") {
                 notRecNum += 1;
                 notRecAmmount += parseInt(cheq.amount);
               }
@@ -528,7 +528,7 @@ $(document).ready(function () {
                 tomorrowAmmount += parseInt(cheq.amount);
 
               }
-              if (cheq.status != "done") {
+              if (cheq.status == "issue") {
                 notNum += 1;
                 notAmmount += parseInt(cheq.amount);
               }
@@ -563,7 +563,7 @@ $(document).ready(function () {
 
           $('.cheques-total-ammount').html(amm + "$");
           $('.cheques-total-received').html(received);
-          $('.cheques-total-emmitted').html(emmitted);
+          $('.cheques-total-outcome').html(emmitted);
 
 
 

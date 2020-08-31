@@ -118,7 +118,7 @@ $(document).ready(function () {
     var theDataIn = [];
 
     for (var i = 0; i < data.length; i++) {
-        var obj = [data[i]._id, data[i].number, data[i].company.name, data[i].ammount]
+     var obj = [data[i]._id, data[i].number, data[i].company.name, data[i].ammount]
         theDataIn.push(obj);
       data[i].companyname = data[i].company.name;
       data[i].companyid = data[i].company._id;
@@ -148,10 +148,10 @@ $(document).ready(function () {
     var comp = $('#company').find(":selected").attr('id');
     var chequeObj = {};
     if (numb) chequeObj.number = numb;
-    if (ban) chequeObj.ammount = ammount;
+    if (ammount) chequeObj.ammount = ammount;
     if (comp) chequeObj.company = comp;
     $.ajax({
-      url: "/bill/delete/" + theId,
+      url: "/bill/" + theId,
       type: 'PATCH',
       data: chequeObj,
       beforeSend: function beforeSend(xhr) {
@@ -166,8 +166,10 @@ $(document).ready(function () {
       success: function success(result) {
         if (result) {
           console.log(result);
-          $('#notificationdiv').html('<div class="alert alert-info alert-dismissible fade show" role="alert"> <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span></button>  bill has been created succesfully</div> ');
+          $('#notificationdiv').html('<div class="alert alert-info alert-dismissible fade show" role="alert"> <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span></button>  bill has been updated succesfully</div> ');
           $('#chequenumber').val('');
+          $('#ammount').val('');
+          
           setTimeout(() => {
             $('#notificationdiv').html('');
           }, 4000);
@@ -177,11 +179,9 @@ $(document).ready(function () {
     });
 
   });
-  $('#deletechequebtn').on('click', function (e) {
-    var theId = $(this).attr('attr-id');
-
+  var deleteBill =function(theId){
     $.ajax({
-      url: "/bill/" + theId,
+      url: "/bill/delete/" + theId,
       type: 'PATCH',
       beforeSend: function beforeSend(xhr) {
         xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
@@ -204,6 +204,11 @@ $(document).ready(function () {
         }
       }
     });
+  }
+  $('#deletechequebtn').on('click', function (e) {
+    var theId = $(this).attr('attr-id');
+deleteBill(theId);
+  
 
   });
 });

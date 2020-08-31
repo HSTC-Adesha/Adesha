@@ -18,7 +18,8 @@
     <link href="./assets/css/fixedHeader.dataTables.min.css" rel="stylesheet">
     <link href="./assets/scripts/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.3/css/selectize.default.min.css"
+    rel="stylesheet">
     <link href="assets/css/cheques.css" rel="stylesheet">
 </head>
 
@@ -348,6 +349,11 @@
                                             <div class="position-relative row form-group"><label for="bank" class="col-sm-2 col-form-label">Bank</label>
                                                 <div class="col-sm-10"><select name="select" id="bank" class="form-control"></select></div>
                                             </div>
+                                            <!-- <div class="position-relative row form-group"><label for="bill"
+                                                class="col-sm-2 col-form-label">Bill</label>
+                                            <div class="col-sm-10"><select name="select" id="bill" class=""></select>
+                                            </div>
+                                            </div> -->
                                             <div class="position-relative row form-group"><label for="company" class="col-sm-2 col-form-label">Company</label>
                                                 <div class="col-sm-10"><select name="select" id="company" class="form-control"></select></div>
                                             </div>
@@ -357,11 +363,14 @@
                                             <div class="position-relative row form-group"><label for="comment" class="col-sm-2 col-form-label">Comment</label>
                                                 <div class="col-sm-10"><textarea name="text" id="comment" class="form-control"></textarea></div>
                                             </div>
-                                            <!-- <div class="position-relative row form-group"><label for="photo" class="col-sm-2 col-form-label">Photo</label>
-                                                <div class="col-sm-10"><input name="file" onchange="readFile(this)" id="photo" type="file" class="form-control-file">
+                                            <div class="position-relative row form-group"><label for="photo" class="col-sm-2 col-form-label">Photo</label>
+                                                <div class="col-sm-10"><input name="file"  id="photo" type="file" class="form-control-file">
                                                     <small class="form-text text-muted">Upload cheque's photo</small>
                                                 </div>
-                                            </div> -->
+                                            </div> 
+                                            <div class="position-relative col-sm-12 col-md-12 form-group">
+                                                <img id="imageCheque" src="" style="WIDTH: 100%;PADDING: 40px;" alt='' />
+                                            </div>
                                             <div class="position-relative row form-check">
                                                 <div class="col-sm-10 offset-sm-2">
                                                     <button id="updatechequebtn" attr-id="" class="actionsbtn btn btn-success">Update</button>
@@ -389,8 +398,19 @@
     <script src="assets/scripts/bootstrap-datetimepicker.min.js"></script>
 
     <script src="assets/scripts/jquery.dataTables.min.js"></script>
+    
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>   
+    
+    
     <script src="assets/scripts/dataTables.fixedHeader.min.js"></script>
     <script type="text/javascript" src="./assets/scripts/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.3/js/standalone/selectize.js"></script>
 
     <script type="text/javascript" src="./assets/scripts/main.js"></script>
     <script type="text/javascript" src="./controllers/mychequesController.js"></script>

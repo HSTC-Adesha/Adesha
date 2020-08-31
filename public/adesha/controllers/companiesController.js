@@ -159,7 +159,7 @@ $(document).ready(function () {
     tab.destroy();
     var theDataIn = [];
     for (var i = 0; i < data.length; i++) {
-        var obj = [data[i]._id, data[i].firstName, data[i].lastName, data[i].role];
+        var obj = [data[i]._id, data[i].firstName+' '+ data[i].lastName, data[i].role];
         theDataIn.push(obj);
     }
     var table = $('#tableEmp').DataTable({

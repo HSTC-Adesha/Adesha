@@ -154,11 +154,78 @@ $(document).ready(function () {
         if (result) {
           $('#chequenumber').val(result.number);
           $('#ammount').val(result.amount);
+          if (result.photo) {
+            $('#imageCheque').attr("src", result.photo);
+          }
+          if (result.bill) {
+            $("#bill option[id=" + result.bill + "]").attr("selected", "selected");
+          }
 
-          // $('#duedate').data(result.dueDate);
           $('#creationdate').data("DateTimePicker").date(moment(result.creationDate, 'DD/MM/YYYY').format('DD/MM/YYYY'));
           $('#duedate').data("DateTimePicker").date(moment(result.dueDate, 'DD/MM/YYYY').format('DD/MM/YYYY'));
-          // $('#creationdate').datetimepicker({"date":result.creationDate});
+          $("#bank option[id=" + result.bank + "]").attr("selected", "selected");
+          $("#company option[id=" + result.company + "]").attr("selected", "selected");
+          $('#employee').html('');
+          $('.actionsbtn').attr('attr-id', chequeId);
+          $.ajax({
+            url: "/employee/company/" + result.company,
+            type: 'GET',
+            beforeSend: function beforeSend(xhr) {
+              xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
+              xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+            },
+            complete: function complete(params) {},
+            error: function error(xhr, ajaxOptions, thrownError) {
+              console.log(xhr.status);
+              console.log(thrownError);
+            },
+            success: function success(result) {
+              console.log(result);
+              if (result.length) {
+                $('#employee').append('<option id="" value=""></option>');
+
+                for (var i = 0; i < result.length; i++) {
+
+                  $('#employee').append('<option id="' + result[i]._id + '" value="' + result[i]._id + '">' + result[i].firstName + ' ' + result[i].lastName + '</option>');
+                }
+                if (result.employee) {
+                  $("#employee option[id=" + result.employee + "]").attr("selected", "selected");
+                }
+              }
+            }
+          });
+          $('#comment').val(result.comment);
+
+        }
+      }
+    });
+  }
+  var getTheCheque = function (chequeId) {
+    $.ajax({
+      url: "/cheque/id/" + chequeId,
+      type: 'GET',
+      beforeSend: function beforeSend(xhr) {
+        xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+      },
+      complete: function complete(params) {},
+      error: function error(xhr, ajaxOptions, thrownError) {
+        console.log(xhr.status);
+        console.log(thrownError);
+      },
+      success: function success(result) {
+        console.log(result);
+        if (result) {
+          $('#chequenumber').val(result.number);
+          $('#ammount').val(result.amount);
+          if (result.photo) {
+            $('#imageCheque').attr("src", result.photo);
+          }
+          if (result.bill) {
+            $("#bill option[id=" + result.bill + "]").attr("selected", "selected");
+          }
+          $('#creationdate').data("DateTimePicker").date(moment(result.creationDate, 'DD/MM/YYYY').format('DD/MM/YYYY'));
+          $('#duedate').data("DateTimePicker").date(moment(result.dueDate, 'DD/MM/YYYY').format('DD/MM/YYYY'));
           $("#bank option[id=" + result.bank + "]").attr("selected", "selected");
           $("#company option[id=" + result.company + "]").attr("selected", "selected");
           $('#employee').html('');
@@ -192,7 +259,7 @@ $(document).ready(function () {
         }
       }
     });
-  }
+  };
   getCompanies();
   getBanks();
   var getStats = function (params) {
@@ -236,6 +303,10 @@ $(document).ready(function () {
     }
     var table = $('#tableIn').DataTable({
       data: theDataIn,
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+      ],
       "columnDefs": [{
         "targets": [0],
         "visible": false,

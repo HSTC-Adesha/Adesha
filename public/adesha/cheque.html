@@ -13,10 +13,16 @@
     <meta name="msapplication-tap-highlight" content="no">
 
     <link href="assets/css/all.min.css" rel="stylesheet">
+    <link href="./assets/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <link href="./assets/css/fixedHeader.dataTables.min.css" rel="stylesheet">
+    <link href="./assets/scripts/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css" rel="stylesheet">
 
     <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.3/css/selectize.default.min.css" rel="stylesheet">
-    <link href="./main.css" rel="stylesheet">   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.3/css/selectize.default.min.css"
+        rel="stylesheet">
+    <link href="./main.css" rel="stylesheet">
 </head>
 
 <body>
@@ -64,7 +70,7 @@
                         </div>
                         <button class="close"></button>
                     </div>
-                  
+
                 </div>
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
@@ -144,7 +150,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="today.html" >
+                                <a href="today.html">
                                     Today's view
                                 </a>
                             </li>
@@ -154,17 +160,17 @@
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">Income</li>
-                                    <li>
-                                        <a href="cheque.html" class="mm-active">
-                                            Create
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="cheques.html">
-                                            Manage
-                                        </a>
-                                    </li>
-                                  
+                            <li>
+                                <a href="cheque.html" class="mm-active">
+                                    Create
+                                </a>
+                            </li>
+                            <li>
+                                <a href="cheques.html">
+                                    Manage
+                                </a>
+                            </li>
+
                             </li>
                             <li class="app-sidebar__heading">My company</li>
                             <li>
@@ -175,74 +181,74 @@
                                 <ul>
                                     <li>
                                         <a href="book.html">
-                                           Create
+                                            Create
                                         </a>
                                     </li>
                                     <li>
                                         <a href="books.html">
-                                           Manage
+                                            Manage
                                         </a>
                                     </li>
-                                   
+
                                 </ul>
                             </li>
                             <li>
                                 <a href="#">
-                                   Outcome
+                                    Outcome
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li>
                                         <a href="mycheque.html">
-                                           Create
+                                            Create
                                         </a>
                                     </li>
                                     <li>
                                         <a href="mycheques.html">
-                                           Manage
+                                            Manage
                                         </a>
                                     </li>
                                 </ul>
-                            </li>  
+                            </li>
                             <li>
                                 <a href="#">
-                                   Bills
+                                    Bills
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li>
                                         <a href="bill.html">
-                                           Create
+                                            Create
                                         </a>
                                     </li>
                                     <li>
                                         <a href="bills.html">
-                                           Manage
+                                            Manage
                                         </a>
                                     </li>
                                 </ul>
-                            </li>    
+                            </li>
                             </li>
                             <li class="app-sidebar__heading">Companies</li>
-                            
-                                <ul>
-                                    <li>
-                                        <a href="company.html">
-                                           Create
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="companies.html">
-                                           Manage
-                                        </a>
-                                    </li>
-                                    
-                                    
-                                </ul>
-                            
-                            
+
+                            <ul>
+                                <li>
+                                    <a href="company.html">
+                                        Create
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="companies.html">
+                                        Manage
+                                    </a>
+                                </li>
+
+
+                            </ul>
+
+
                             </li>
-                
+
                         </ul>
                     </div>
                 </div>
@@ -272,14 +278,21 @@
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
                                         <h5 class="card-title">Create new cheque</h5>
-                                            <div class="position-relative row form-group"><label for="chequenumber" class="col-sm-2 col-form-label">Number</label>
-                                                <div class="col-sm-10"><input name="chequenumber" id="chequenumber" placeholder="Cheque's number" type="text" class="form-control"></div>
+                                        <div class="position-relative row form-group"><label for="chequenumber"
+                                                class="col-sm-2 col-form-label">Number</label>
+                                            <div class="col-sm-10"><input name="chequenumber" id="chequenumber"
+                                                    placeholder="Cheque's number" type="text" class="form-control">
                                             </div>
-                                            <div class="position-relative row form-group"><label for="ammount" class="col-sm-2 col-form-label">Ammount</label>
-                                                <div class="col-sm-10"><input name="ammount" id="ammount" placeholder="Cheque ammount" type="text" class="form-control"></div>
-                                            </div>
-                                            <div class="position-relative row form-group"><label for="status" class="col-sm-2 col-form-label">Status</label>
-                                                <div class="col-sm-10"><select name="select" id="status" class="form-control">
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="ammount"
+                                                class="col-sm-2 col-form-label">Ammount</label>
+                                            <div class="col-sm-10"><input name="ammount" id="ammount"
+                                                    placeholder="Cheque ammount" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="status"
+                                                class="col-sm-2 col-form-label">Status</label>
+                                            <div class="col-sm-10"><select name="select" id="status"
+                                                    class="form-control">
                                                     <option id="pending">Pending</option>
                                                     <option id="cashedin">Cashed In</option>
                                                     <option id="returned">Returned</option>
@@ -290,75 +303,192 @@
                                                     <option id="other">Other</option>
 
                                                 </select></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="bill"
+                                                class="col-sm-2 col-form-label">Bill</label>
+                                            <div class="col-sm-10"><select name="select" id="bill" class=""></select>
                                             </div>
-                                            <div class="position-relative row form-group"><label for="bill" class="col-sm-2 col-form-label">Bill</label>
-                                                <div class="col-sm-10"><select name="select" id="bill" class=""></select></div>
-                                            </div>
-                                            
-                                            <div class="row">
+                                        </div>
+
+                                        <div class="row">
                                             <div class="position-relative form-group col-sm-12 col-md-6">
-                                                <label for="duedate" class="col-sm-4 col-md-4 col-form-label">Due date</label>
+                                                <label for="duedate" class="col-sm-4 col-md-4 col-form-label">Due
+                                                    date</label>
                                                 <div class="col-sm-8 col-md-8">
-                                                        <div class="input-group date" id="duedate"><input class="form-control" placeholder="MM/DD/YYYY" /><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
-                                                    </div>                                                
+                                                    <div class="input-group date" id="duedate"><input
+                                                            class="form-control" placeholder="MM/DD/YYYY" /><span
+                                                            class="input-group-append input-group-addon"><span
+                                                                class="input-group-text"><i
+                                                                    class="fa fa-calendar"></i></span></span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="position-relative  form-group col-sm-12 col-md-6">
-                                                <label for="creationdate" class="col-sm-4 col-md-4 col-form-label">Creation date</label>
+                                                <label for="creationdate"
+                                                    class="col-sm-4 col-md-4 col-form-label">Creation date</label>
                                                 <div class="col-sm-8 col-md-8">
-                                                        <div class="input-group date" id="creationdate"><input class="form-control" placeholder="MM/DD/YYYY" /><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
-                                                    </div>                                                
+                                                    <div class="input-group date" id="creationdate"><input
+                                                            class="form-control" placeholder="MM/DD/YYYY" /><span
+                                                            class="input-group-append input-group-addon"><span
+                                                                class="input-group-text"><i
+                                                                    class="fa fa-calendar"></i></span></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                      
-                                            <div class="row">
+
+                                        <div class="row">
 
                                             <div class="position-relative col-sm-12 col-md-6 form-group">
-                                                <label for="company" class="col-sm-4 col-md-4  col-form-label">Company</label>
-                                                <div class="col-sm-8 col-md-8"><select name="select" id="company" class="form-control"></select></div>
+                                                <label for="company"
+                                                    class="col-sm-4 col-md-4  col-form-label">Company</label>
+                                                <div class="col-sm-8 col-md-8"><select name="select" id="company"
+                                                        class="form-control"></select></div>
                                             </div>
                                             <div class="position-relative col-sm-12 col-md-6 form-group">
-                                                <label for="employee" class="col-sm-4 col-md-4  col-form-label">Delivred by</label>
-                                                <div class="col-sm-8 col-md-8"><select name="select" id="employee" class="form-control"></select></div>
+                                                <label for="employee" class="col-sm-4 col-md-4  col-form-label">Delivred
+                                                    by</label>
+                                                <div class="col-sm-8 col-md-8"><select name="select" id="employee"
+                                                        class="form-control"></select></div>
                                             </div>
 
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="bank"
+                                                class="col-sm-2 col-form-label">Bank</label>
+                                            <div class="col-sm-7"><select name="select" id="bank"
+                                                    class="form-control"></select></div>
+                                            <div class="col-sm-3" style="padding: 5px;display: flex;">
+                                                <button type="button" class="btn btn-primary col-sm-6"
+                                                    style="margin-right: 5px;" data-toggle="modal"
+                                                    data-target="#addbankModal">
+                                                    New
+                                                </button>
+                                                <button type="button" class="btn btn-primary col-sm-6"
+                                                    data-toggle="modal" data-target="#managebankModal">
+                                                    Manage
+                                                </button>
                                             </div>
-                                            <div class="position-relative row form-group"><label for="bank" class="col-sm-2 col-form-label">Bank</label>
-                                                <div class="col-sm-10"><select name="select" id="bank" class="form-control"></select></div>
-                                            </div>
-                                           
-                                            <div class="position-relative row form-group"><label for="comment" class="col-sm-2 col-form-label">Comment</label>
-                                                <div class="col-sm-10"><textarea name="text" id="comment" class="form-control"></textarea></div>
-                                            </div>
-                                             <div class="position-relative row form-group"><label for="photo" class="col-sm-2 col-form-label">Photo</label>
-                                                <div class="col-sm-10"><input name="file"  id="photo" type="file" class="form-control-file">
-                                                    <small class="form-text text-muted">Upload cheque's photo</small>
-                                                </div>
-                                            </div> 
-                                            <div class="position-relative col-sm-12 col-md-12 form-group">
-                                                <img id="imageCheque" src="" style="WIDTH: 100%;PADDING: 40px;" alt='' />
-                                            </div>
+                                        </div>
 
-                                            <div class="position-relative row form-check">
-                                                <div class="col-sm-10 offset-sm-2">
-                                                    <button id="createchequebtn" class="btn btn-success">Create</button>
-                                                </div>
+                                        <div class="position-relative row form-group"><label for="comment"
+                                                class="col-sm-2 col-form-label">Comment</label>
+                                            <div class="col-sm-10"><textarea name="text" id="comment"
+                                                    class="form-control"></textarea></div>
+                                        </div>
+                                        <div class="position-relative row form-group"><label for="photo"
+                                                class="col-sm-2 col-form-label">Photo</label>
+                                            <div class="col-sm-10"><input name="file" id="photo" type="file"
+                                                    class="form-control-file">
+                                                <small class="form-text text-muted">Upload cheque's photo</small>
                                             </div>
-                                            <div id="notificationdiv">
-                                              
+                                        </div>
+                                        <div class="position-relative col-sm-12 col-md-12 form-group">
+                                            <img id="imageCheque" src="" style="WIDTH: 100%;PADDING: 40px;" alt='' />
+                                        </div>
+
+                                        <div class="position-relative row form-check">
+                                            <div class="col-sm-10 offset-sm-2">
+                                                <button id="createchequebtn" class="btn btn-success">Create</button>
                                             </div>
-                                            
+                                        </div>
+                                        <div id="notificationdiv">
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-               
+
             </div>
             <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addbankModal" tabindex="-1" role="dialog" aria-labelledby="addbankModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addbankModalLabel">New Bank</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="position-relative row form-group"><label for="banknamemodal"
+                            class="col-sm-2 col-form-label">Bank name</label>
+                        <div class="col-sm-10"><input name="banknamemodal" id="banknamemodal" placeholder="Bank's name"
+                                type="text" class="form-control"></div>
+                    </div>
+                    <div class="position-relative row form-group"><label for="bankcomment"
+                            class="col-sm-2 col-form-label">Comment</label>
+                        <div class="col-sm-10"><textarea name="text" id="bankcomment" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary createbank ">Add bank</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal lg fade" id="managebankModal" tabindex="-1" role="dialog" aria-labelledby="managebankModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="managebankModalLabel">Manage Banks</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <div class=" col-md-12" style=" DISPLAY: inline-flex; ">
+
+                        <div class="col-md-6">
+                            <h4>  Bank's List</h4>
+                            <div class="table-responsive " style="padding:10px">
+                                <table id="tableBank" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> </tbody>
+                                    <tfoot>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4> Bank's details </h4>
+                            <div class="position-relative row form-group"><label for="banknamemodal2"
+                                    class="col-sm-4 col-form-label">Bank name</label>
+                                <div class="col-sm-8"><input name="banknamemodal2" id="banknamemodal2"
+                                        placeholder="Bank's name" type="text" class="form-control"></div>
+                            </div>
+                            <div class="position-relative row form-group"><label for="bankcomment2"
+                                    class="col-sm-4 col-form-label">Comment</label>
+                                <div class="col-sm-8"><textarea name="text" id="bankcomment2"
+                                        class="form-control"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary bankactions deletebank">Delete bank</button>
+                    <button type="button" class="btn btn-primary bankactions updatebank">Update bank</button>
+                </div>
+            </div>
         </div>
     </div>
     <script src="assets/scripts/jquery.min.js"></script>
@@ -366,8 +496,23 @@
     <script src="assets/scripts/moment.js"></script>
     <script src="assets/scripts/bootstrap4.min.js"></script>
     <script src="assets/scripts/bootstrap-datetimepicker.min.js"></script>
+
+    <script src="assets/scripts/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+
+
+
+
+    <script src="assets/scripts/dataTables.fixedHeader.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.3/js/standalone/selectize.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.3/js/standalone/selectize.js"></script>
     <script type="text/javascript" src="./assets/scripts/main.js"></script>
     <script type="text/javascript" src="./controllers/createchequeController.js"></script>
 </body>

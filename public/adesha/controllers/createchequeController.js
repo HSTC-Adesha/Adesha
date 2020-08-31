@@ -58,6 +58,53 @@ $(document).ready(function () {
             }
         });
     }
+    var setBankTables = function (data) {
+        var tab = $('#tableBank').DataTable();
+        tab.destroy();   
+        var theDataIn = [];
+    
+        for (var i = 0; i < data.length; i++) {
+            var obj = [data[i].id, data[i].name]
+            theDataIn.push(obj);
+        }
+        var table = $('#tableBank').DataTable({
+          data: theDataIn,
+          "columnDefs": [{
+            "targets": [0],
+            "visible": false,
+            "searchable": false
+          }]
+        })
+        $('#tableBank tbody').on('click', 'tr', function () {
+         var table = $('#tableBank').DataTable();
+          var data = table.row(this).data();
+          getTheBankDetails(data[0]);
+        });
+    
+      }
+      var getTheBankDetails = function (bankId) {
+        $.ajax({
+          url: "/bank/id/" + bankId,
+          type: 'GET',
+          beforeSend: function beforeSend(xhr) {
+            xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+          },
+          complete: function complete(params) {},
+          error: function error(xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+          },
+          success: function success(result) {
+            console.log(result);
+            if (result) {
+              $('#banknamemodal2').val(result.name);
+              $('#bankcomment2').val(result.comment);
+              $('.bankactions').attr('attr-id', bankId);
+            }
+          }
+        });
+      }
     var getBanks = function (params) {
         $('#bank').html('');
 
@@ -76,6 +123,8 @@ $(document).ready(function () {
             success: function success(result) {
                 console.log(result);
                 if (result.length) {
+                    setBankTables(result)
+
                     $('#bank').append('<option id="" value=""></option>');
 
                     for (var i = 0; i < result.length; i++) {
@@ -213,7 +262,7 @@ $(document).ready(function () {
             chequeObj.creationDate = moment(new Date()).format('DD/MM/YYYY');
         }
         if(ban) chequeObj.bank = ban;
-        if(bill.length) chequeObj.bill = bill;
+        if(bill && bill.length) chequeObj.bill = bill;
         if(comp) chequeObj.company = comp;
         if(empl) chequeObj.employee = empl;
         if(comm) chequeObj.comment = comm;
@@ -221,7 +270,8 @@ $(document).ready(function () {
         if(status) chequeObj.status = status;
         chequeObj.received = true;
         if(numb && ammou && dued && ban && comp && status)
-        {$.ajax({
+        {
+          $.ajax({
             url: "/cheque",
             type: 'POST',
             data:chequeObj,
@@ -266,4 +316,90 @@ $(document).ready(function () {
             reader.readAsDataURL(input.files[0]);
         }
     }
+    $('.createbank').on('click', function (e) {
+        var name = $('#banknamemodal').val();
+        var comment = $('#bankcomment').val();
+        
+        var chequeObj = {};
+        chequeObj.name = name;
+        chequeObj.comment = comment;
+        $.ajax({
+          url: "/bank/",
+          type: 'POST',
+          data: chequeObj,
+          beforeSend: function beforeSend(xhr) {
+            xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+          },
+          complete: function complete(params) {},
+          error: function error(xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+          },
+          success: function success(result) {
+            if (result) {
+              console.log(result);
+              $('#banknamemodal').val('');
+              $('#bankcomment').val('');
+              getBanks();
+            }
+          }
+        });
+    
+      });
+    $('.updatebank').on('click', function (e) {
+        var theId = $(this).attr('attr-id');
+        var name = $('#banknamemodal2').val();
+        var comment = $('#bankcomment2').val();
+        
+        var chequeObj = {};
+        chequeObj.name = name;
+        chequeObj.comment = comment;
+        $.ajax({
+          url: "/bank/" + theId,
+          type: 'PATCH',
+          data: chequeObj,
+          beforeSend: function beforeSend(xhr) {
+            xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+          },
+          complete: function complete(params) {},
+          error: function error(xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+          },
+          success: function success(result) {
+            if (result) {
+              console.log(result);
+              $('#banknamemodal2').val('');
+              $('#bankcomment2').val('');
+              getBanks();
+            }
+          }
+        });
+    
+      });
+      $('.deletebank').on('click', function (e) {
+        var theId = $(this).attr('attr-id');
+    
+        $.ajax({
+          url: "/bank/delete/" + theId,
+          type: 'PATCH',
+          beforeSend: function beforeSend(xhr) {
+            xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+          },
+          complete: function complete(params) {},
+          error: function error(xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+          },
+          success: function success(result) {
+            getBanks();
+              $('#banknamemodal2').val('');
+              $('#bankcomment2').val('');
+          }
+        });
+    
+      });
 });

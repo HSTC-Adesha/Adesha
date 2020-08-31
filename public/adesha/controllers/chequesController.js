@@ -262,22 +262,21 @@ $(document).ready(function () {
   var setChequeTables = function (data) {
     var tab = $('#tableIn').DataTable();
     tab.destroy();
-    var tabO = $('#tableOut').DataTable();
-    tabO.destroy();
-
     var theDataIn = [];
-
     for (var i = 0; i < data.length; i++) {
       if (data[i].received == true) {
         var obj = [data[i]._id, data[i].number, data[i].company.name, data[i].bank.name, data[i].dueDate, data[i].status, data[i].amount]
         theDataIn.push(obj);
-
       }
       data[i].companyname = data[i].company.name;
       data[i].companyid = data[i].company._id;
     }
     var table = $('#tableIn').DataTable({
       data: theDataIn,
+      dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
       "columnDefs": [{
         "targets": [0],
         "visible": false,

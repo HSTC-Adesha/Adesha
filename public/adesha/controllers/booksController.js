@@ -128,15 +128,37 @@ $(document).ready(function () {
       success: function success(result) {
         console.log(result);
         if (result.length) {
-          setChequeTables(result);
+          setChequeBookTables(result);
         } else {
 
         }
       }
     });
   };
+  var getTheChequesListByBook = function (id) {
+    $.ajax({
+      url: "/cheque/chequeBook/"+id,
+      type: 'GET',
+      beforeSend: function beforeSend(xhr) {
+        xhr.setRequestHeader("Accept", "application/json, text/javascript,  */*");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+      },
+      complete: function complete(params) {},
+      error: function error(xhr, ajaxOptions, thrownError) {
+        console.log(xhr.status);
+        console.log(thrownError);
+      },
+      success: function success(result) {
+        console.log(result);
+        if (result.length) {
+          setChequeTable(result);
+        } else {
 
-  var setChequeTables = function (data) {
+        }
+      }
+    });
+  };
+  var setChequeBookTables = function (data) {
     var tab = $('#tableIn').DataTable();
     tab.destroy();
 
@@ -148,6 +170,8 @@ $(document).ready(function () {
         theDataIn.push(obj);
       data[i].companyname = data[i].company.name;
       data[i].companyid = data[i].company._id;
+      
+      
     }
     var table = $('#tableIn').DataTable({
       data: theDataIn,
@@ -161,10 +185,31 @@ $(document).ready(function () {
      var table = $('#tableIn').DataTable();
       var data = table.row(this).data();
       getTheChequeBook(data[0]);
+      getTheChequesListByBook(data[0]);
     });
 
   }
+  var setChequeTable = function (data) {
+    var tab = $('#tableCheque').DataTable();
+    tab.destroy();
 
+
+    var theDataIn = [];
+
+    for (var i = 0; i < data.length; i++) {
+      if(!data[i].received)
+    {    var obj = [data[i]._id, data[i].number, data[i].company.name, data[i].status, data[i].amount]
+        theDataIn.push(obj); }    
+    }
+    var table = $('#tableCheque').DataTable({
+      data: theDataIn,
+      "columnDefs": [{
+        "targets": [0],
+        "visible": false,
+        "searchable": false
+      }]
+    })
+  }
   getStats();
   $('#updatechequebtn').on('click', function (e) {
     var theId = $(this).attr('attr-id');
@@ -202,9 +247,7 @@ $(document).ready(function () {
     });
 
   });
-  $('#deletechequebtn').on('click', function (e) {
-    var theId = $(this).attr('attr-id');
-
+  var deleteBook = function (theId) {
     $.ajax({
       url: "/chequeBook/delete/" + theId,
       type: 'PATCH',
@@ -229,6 +272,9 @@ $(document).ready(function () {
         }
       }
     });
-
+  }
+  $('#deletechequebtn').on('click', function (e) {
+    var theId = $(this).attr('attr-id');
+    deleteBook(theId);
   });
 });
