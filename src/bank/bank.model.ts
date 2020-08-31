@@ -5,7 +5,6 @@ export const bankSchema = new mongoose.Schema ({
     city: {type: String},
     address: {type: String},
     company:{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
-    bankAccounts:[{ type: mongoose.Schema.Types.ObjectId, ref: 'bankaccount' }],
     comment: {type: String },
 })
 
@@ -15,7 +14,6 @@ export class Bank extends mongoose.Document {
     city: string;
     address: string;
     company: string;
-    bankAccounts: [string];
     comment: string
 }
 
