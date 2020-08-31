@@ -9,6 +9,6 @@ export class Bank extends mongoose.Document {
     id: string;
     name: string;
     comment: string
-    
+
 }
 
